@@ -3,6 +3,8 @@
   sbir        SBIR.gov bulk award CSV: re-downloaded only when its Last-Modified is newer than the copy in data/raw,
               then tools/sbir_stats.py rebuilds reference/awards/sbir_stats.csv.
   nih         NIH RePORTER v2: new awards (type 1) by activity code (R43, R44, R41, R42) and fiscal year.
+  nih-foa     NIH RePORTER: every award made under the NOFO numbers in signals.yaml `reporter`, grouped by program id;
+              amount is that budget year's total costs.
   nsf         NSF Awards API: awards titled "SBIR Phase I:", "SBIR Phase II:", "STTR Phase I:", "STTR Phase II:" by
               NSF fiscal year of the award date. Amount = estimatedTotalAmt.
   arpa-e      USAspending: ARPA-E assistance awards (assistance listing 81.135, award ids DEAR*). The FOA named in the
@@ -23,7 +25,7 @@ from email.utils import parsedate_to_datetime
 
 import pandas as pd
 
-from ingest.common import REF, RAW, session, write_snapshot
+from ingest.common import REF, RAW, session, signals, write_snapshot
 
 OUT = REF / "awards" / "recent.csv"
 SBIR_CSV = "https://data.www.sbir.gov/awarddatapublic/award_data.csv"
@@ -88,6 +90,27 @@ def nih(s, years: list[int]) -> list[dict]:
                             "id": p["appl_id"]})
             offset += 500
             if offset >= d["meta"]["total"] or offset >= 15000:
+                break
+    return out
+
+
+def nih_foa(s) -> list[dict]:
+    out = []
+    for pid, numbers in (signals().get("reporter") or {}).items():
+        offset = 0
+        while True:
+            body = {"criteria": {"opportunity_numbers": numbers},
+                    "include_fields": ["ApplId", "FiscalYear", "AwardAmount", "Organization"],
+                    "limit": 500, "offset": offset}
+            r = s.post(REPORTER, json=body, timeout=120)
+            r.raise_for_status()
+            d = r.json()
+            for p in d["results"]:
+                out.append({"dataset": "nih-foa", "group": pid, "fiscal_year": p["fiscal_year"],
+                            "amount": p.get("award_amount"), "state": (p.get("organization") or {}).get("org_state"),
+                            "id": p["appl_id"]})
+            offset += 500
+            if offset >= d["meta"]["total"]:
                 break
     return out
 
@@ -162,7 +185,7 @@ def run(skip_sbir: bool = False, today: date | None = None) -> dict:
     s = session()
     years = fiscal_years(today)
     result = {"sbir": "skipped" if skip_sbir else sbir_refresh(s)}
-    records = nih(s, years) + nsf(s, years) + arpa_e(s, years[0] - 5, years[-1])
+    records = nih(s, years) + nih_foa(s) + nsf(s, years) + arpa_e(s, years[0] - 5, years[-1])
     write_snapshot("award_stats", records, today)
     out = aggregate(records, today)
     OUT.parent.mkdir(parents=True, exist_ok=True)

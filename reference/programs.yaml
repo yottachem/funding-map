@@ -14,6 +14,8 @@
 #   domains       life-science-tools | diagnostics | materials | energy-climate | hardware   (CDR is not a domain: 2026-11-20)
 #   trl           [low, high] when the funder states it; omitted otherwise
 #   award.max     current per-award ceiling in USD from the funder; null + verify when not confirmed
+#   award.not_stated  true only after the funder's own solicitation document was read and states no size (source =
+#                 that document, tier 1). Otherwise a size comes from a cap or from actual awards (award_data/recent)
 #   success       rate (0-1) with year and basis; `published: false` when the funder publishes none (never estimated)
 #   timing        days from submission to award when the funder states it; SBIR programs also get computed timing
 #   status        open | between-rounds | upcoming | paused | closed | unknown, as of `verified`
@@ -92,6 +94,10 @@ sources:
             note: "PAR-27-098 full announcement (Grants.gov attachment), posted 2026-05-28, expires 2029-04-06. CRP budget by institute: $2M (7 components), $500K (6), SBA guideline (8). Up to 3 years. Eligibility: NIH Phase II or IIB within the last 36 months"}
   nhlbi-catalyze: {url: "https://grants.nih.gov/grants/guide/rfa-files/RFA-HL-26-019.html", tier: 1,
                    note: "NHLBI Catalyze Product Definition (RFA-HL-26-017 to -020; this program tracks -018, -019, -020). -019: R61/R33 up to $300K direct per year per phase, 3 years combined, 0.25:1 non-federal match in R33. Up to 8 new awards per year across the four NOFOs ($4.466M total costs per year, FY2026-28). Due Feb, Jun, Oct through 2027-10-21"}
+  nih-reporter: {url: "https://reporter.nih.gov/", tier: 1,
+                 note: "NIH RePORTER v2 API (api.reporter.nih.gov). Computed in ingest/award_stats.py"}
+  arpa-h-iso-docs: {url: "https://sam.gov/opp/2d1209273c284cb48ea9898939f7c3f8/view", tier: 1,
+                    note: "Office-wide ISOs on SAM.gov, read 2026-11-20: ARPA-H-SOL-24-103 (RSO), -104 (HSF), -105 (SSO) Amendment 03 and -106 (PHO) Amendment 04. Each: open until 2029-03-05; instrument Other Transactions only; eligible academia, non-profits, for-profits; no award size, ceiling or funding amount stated anywhere (budget proposed by the performer, scored under Criterion 4 and negotiated)"}
   reauth-crowell: {url: "https://www.crowell.com/en/insights/client-alerts/sbirsttr-programs-reauthorized-after-six-month-lapse", tier: 2,
                    note: "SBIR/STTR lapsed 2025-10-01; reauthorized 2026-04-13 through 2031-09-30 (S. 3971)"}
   reauth-ssti: {url: "https://ssti.org/blog/sbir-slowly-relaunching-following-presidents-signature", tier: 2,
@@ -308,13 +314,12 @@ programs:
     stage: scale
     entity: either
     domains: [diagnostics, life-science-tools, hardware]
-    award: {max: null, source: null, note: "No size stated; proposals outside existing programs only"}
+    award: {max: null, not_stated: true, source: arpa-h-iso-docs, note: "No size in any of the four ISO documents; the proposer sets the budget, negotiated at award. ARPA-H says programs carry more funding than ISO projects"}
     success: {published: false, source: arpa-h-funding}
     prerequisites: Solution Summary and written ARPA-H feedback before a full proposal
-    deadlines: {cadence: Rolling, source: arpa-h-funding}
+    deadlines: {cadence: "Rolling until 2029-03-05", source: arpa-h-iso-docs}
     status: open
-    verify: [vehicle]
-    sources: [arpa-h-funding]
+    sources: [arpa-h-funding, arpa-h-iso-docs]
 
   - id: nci-sbir-bridge
     name: NCI SBIR Phase IIB Bridge
@@ -380,15 +385,15 @@ programs:
     stage: entry
     entity: either
     domains: [diagnostics, life-science-tools, hardware]
-    award: {max: null, source: null, note: "Stated as direct costs: up to $300K per year per phase (devices, diagnostics, research tools); $400K per year for therapeutics and combination products. NHLBI plans up to 8 new awards per year across four companion NOFOs"}
+    award: {max: null, source: null, note: "NOFO states direct costs only: up to $300K per year per phase (devices, diagnostics, research tools), $400K per year for therapeutics. Typical award from RePORTER awards under these NOFOs (total costs per budget year)"}
+    award_recent: {dataset: nih-foa, group: nhlbi-catalyze}
     success: {published: false, source: nhlbi-catalyze}
     timing: {award_days: [270, 310], basis: "Earliest start 9-10 months after the due date", source: nhlbi-catalyze}
     prerequisites: Heart, lung, blood or sleep (HLBS) disease target. Device/diagnostic track is phased R61 to R33 with milestones
     cost_share: 0.25:1 non-federal match of federal direct costs (R33 phase of the device/diagnostic track)
     deadlines: {cadence: "Three per year (Feb, Jun, Oct) until the NOFOs expire 2027-12-24", next: [2027-02-11, 2027-06-17, 2027-10-21], source: nhlbi-catalyze}
     status: open
-    verify: [award.max]
-    sources: [nhlbi-catalyze]
+    sources: [nhlbi-catalyze, nih-reporter]
 
 # ---------------------------------------------------------------- DOE
   - id: doe-sbir-1

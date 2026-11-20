@@ -38,6 +38,11 @@ def test_every_program_has_a_feed_or_manual_check():
     assert {p["id"] for p in registry.programs()} == covered
 
 
+def test_reporter_groups_are_programs():
+    ids = {p["id"] for p in registry.programs()}
+    assert set(common.signals().get("reporter") or {}) <= ids
+
+
 def test_pattern_rules_name_a_search_keyword():
     for pid, rules in common.signals()["grants_gov"].items():
         if rules.get("patterns"):

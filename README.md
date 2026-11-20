@@ -38,4 +38,4 @@ Nothing a collector finds edits `programs.yaml` directly. Opportunities from the
 
 ## Status
 
-Phase 2 (ingest and review queue) done 2026-11-20; first queue review 2026-11-20 added 4 NIH programs (31 total). Picker logic and site follow. Launch gate: 11 items on 8 programs (DOE caps, NOAA, EPA cap, NHLBI Catalyze size, ARPA-E 2027 timing, ARPA-H ISO size, vehicle checks).
+Phase 2 (ingest and review queue) done 2026-11-20; first queue review 2026-11-20 added 4 NIH programs (31 total). Picker logic and site follow. Launch gate: 7 items on 6 programs (DOE caps, NOAA, EPA cap, ARPA-E 2027 timing, BARDA vehicle).

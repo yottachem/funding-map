@@ -118,6 +118,11 @@ def problems(progs: list[dict] | None = None, srcs: dict | None = None, stats: d
             out.append(f"{pid}: award.max needs a source")
         if award.get("max") is None and "award.max" not in p.get("verify", []) and not award.get("note"):
             out.append(f"{pid}: no award.max; add a note or a verify flag")
+        if award.get("not_stated"):
+            if award.get("max") is not None:
+                out.append(f"{pid}: award.not_stated with a max")
+            if srcs.get(award.get("source"), {}).get("tier") != 1:
+                out.append(f"{pid}: award.not_stated needs the funder's own document (tier-1 source)")
         succ = p.get("success", {})
         if "rate" in succ:
             if not 0 < succ["rate"] < 1:
@@ -153,7 +158,8 @@ def launch_problems(progs: list[dict] | None = None, srcs: dict | None = None) -
         pid = p["id"]
         if p.get("verify"):
             out.append(f"{pid}: open verify flags {p['verify']}")
-        if p["award"].get("max") is None and not (p.get("award_data") or p.get("award_recent")):
+        if p["award"].get("max") is None and not (p.get("award_data") or p.get("award_recent")
+                                                   or p["award"].get("not_stated")):
             out.append(f"{pid}: no sourced award size (cap or award data)")
         if not _get(p, "deadlines.source"):
             out.append(f"{pid}: deadlines need a source")

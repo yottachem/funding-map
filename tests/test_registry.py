@@ -56,12 +56,25 @@ def test_launch_gate_flags_verify_and_tier2_rates():
         assert msg in found, msg
 
 
+def test_not_stated_needs_the_funders_document():
+    srcs = {"t1": {"url": "https://example.gov", "tier": 1}, "t2": {"url": "https://example.com", "tier": 2}}
+    base = {"id": "x", "name": "X", "funder": "F", "jurisdiction": "federal", "vehicle": "grant", "stage": "entry",
+            "entity": "either", "domains": ["materials"], "success": {"published": False},
+            "deadlines": {"cadence": "Rolling", "source": "t1"}, "status": "open", "sources": ["t1"]}
+    ok = dict(base, award={"max": None, "not_stated": True, "source": "t1", "note": "n"})
+    assert registry.launch_problems([ok], srcs) == []
+    secondary = dict(base, award={"max": None, "not_stated": True, "source": "t2", "note": "n"})
+    assert "tier-1 source" in "\n".join(registry.problems([secondary], srcs, {}))
+    with_max = dict(base, award={"max": 5, "not_stated": True, "source": "t1"})
+    assert "not_stated with a max" in "\n".join(registry.problems([with_max], srcs, {}))
+
+
 @pytest.mark.skipif(not os.environ.get("LAUNCH_GATE"), reason="launch gate runs with LAUNCH_GATE=1")
 def test_launch_gate():
     assert registry.launch_problems() == []
 
 
-NESTED = {"award": {"max", "duration_months", "source", "note"},
+NESTED = {"award": {"max", "duration_months", "source", "note", "not_stated"},
           "success": {"rate", "year", "basis", "source", "also", "published", "note"},
           "timing": {"notify_days", "award_days", "basis", "source"},
           "deadlines": {"cadence", "next", "source"},

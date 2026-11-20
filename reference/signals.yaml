@@ -25,6 +25,11 @@ grants_gov:
   nhlbi-catalyze: {numbers: ["RFA-HL-26-018", "RFA-HL-26-019", "RFA-HL-26-020"]}
   arpa-e-open: {patterns: ["^DE-FOA-\\d+ .*\\bOPEN 20\\d\\d\\b"], search: ["ARPA-E OPEN"]}
 
+# reporter    NIH programs whose award size is taken from RePORTER awards made under their own NOFO numbers
+#             (quarterly, ingest/award_stats.py; dataset nih-foa, group = program id; amounts are per budget year).
+reporter:
+  nhlbi-catalyze: ["RFA-HL-26-018", "RFA-HL-26-019", "RFA-HL-26-020"]
+
 dsip:
   dod-sbir-1: {phases: ["1"]}
   dod-sbir-2: {phases: ["2", "D2", "2S"]}
