@@ -19,6 +19,10 @@ grants_gov:
   nih-sbir-1: {numbers: ["PA-27-100", "PA-27-102"]}
   nih-sbir-2: {numbers: ["PA-27-100", "PA-27-102", "PA-27-101"]}
   usda-sbir-1: {patterns: ["^USDA-NIFA-SBIR-\\d+ .*\\bPhase (I|1)\\b"], search: ["USDA-NIFA-SBIR"]}
+  nci-sbir-bridge: {numbers: ["FOR-CA-25-086"], patterns: ["^RFA-CA-\\d\\d-\\d+ .*Phase IIB Bridge"], search: ["Phase IIB Bridge"]}
+  nih-sb-transition: {numbers: ["PAR-27-039", "PAR-27-040", "FOR-CA-25-087"]}
+  nih-crp: {numbers: ["PAR-27-098"]}
+  nhlbi-catalyze: {numbers: ["RFA-HL-26-018", "RFA-HL-26-019", "RFA-HL-26-020"]}
   arpa-e-open: {patterns: ["^DE-FOA-\\d+ .*\\bOPEN 20\\d\\d\\b"], search: ["ARPA-E OPEN"]}
 
 dsip:
