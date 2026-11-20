@@ -1,0 +1,579 @@
+# Non-Dilutive Funding Map: program registry (hand-curated; every figure carries a source key from `sources:` below).
+#
+# The program is the unit. Open solicitations hang off a program (reference/opportunities.csv, Phase 2).
+# Award history for SBIR/STTR programs is computed, not typed: `award_data` links a row of reference/awards/sbir_stats.csv
+# (SBIR.gov bulk award data, award years 2022-2024). Hand-typed figures here are the current rules (caps, durations,
+# deadlines) and published success rates.
+#
+# Field guide
+#   jurisdiction  federal | massachusetts
+#   vehicle       grant | contract | cooperative-agreement | other-transaction | grant-or-contract
+#   stage         entry (first non-dilutive money) | follow-on (needs a prior award) | scale | training | cost-share
+#   entity        small-business | academic | either
+#   domains       life-science-tools | diagnostics | materials | energy-climate | hardware   (CDR is not a domain: 2026-11-20)
+#   trl           [low, high] when the funder states it; omitted otherwise
+#   award.max     current per-award ceiling in USD from the funder; null + verify when not confirmed
+#   success       rate (0-1) with year and basis; `published: false` when the funder publishes none (never estimated)
+#   timing        days from submission to award when the funder states it; SBIR programs also get computed timing
+#   status        open | between-rounds | upcoming | paused | closed | unknown, as of `verified`
+#   verify        fields still to confirm on a primary source before launch
+#   feeds         program ids this one leads into (stacking)
+
+verified_default: 2026-11-20
+
+sources:
+  sba-fy22: {url: "https://www.sbir.gov/sites/default/files/SBA_FY22_SBIR_STTR_Annual_Report.pdf", tier: 1,
+             note: "SBA FY2022 SBIR/STTR Annual Report. Tables 2, 6, 8, 10 (pp. 10, 16, 21, 25) and Charts 15-18 (pp. 47-48). Selection rate = new awards / new proposals received; SBA marks some as estimates because FY22 awards include FY21 proposals"}
+  sbir-awards: {url: "https://data.www.sbir.gov/awarddatapublic/award_data.csv", tier: 1,
+                note: "SBIR.gov bulk award data (file dated 2026-01-01). Computed in tools/sbir_stats.py"}
+  nih-databook-202: {url: "https://report.nih.gov/nihdatabook/report/202", tier: 1,
+                     note: "NIH Data Book, Success Rates by Mechanism and Selected Activity Codes (JSON: report.nih.gov/reportweb/api/databook/GetJsonData?reportId=202). FY2025 rates are not comparable with earlier years because of NIH's multi-year funding policy"}
+  nih-not-od-26-090: {url: "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-26-090.html", tier: 1,
+                      note: "HHS annual limit: 9 new and resubmission Phase I, Fast-Track and Direct to Phase II applications per company per fiscal year (released 2026-07-10)"}
+  nih-reauth: {url: "https://www.grants.nih.gov/news-events/nih-extramural-nexus-news/2026/04/its-official-nihs-small-business-program-is-back", tier: 1}
+  nih-nofos-2026: {url: "https://grants.nih.gov/news-events/nih-extramural-nexus-news/2026/06/nih-small-business-program-funding-opportunities-now-available-applicant-support-webinar-on-june-9", tier: 1}
+  nsf-26-510: {url: "https://www.nsf.gov/funding/opportunities/small-business-innovation-research-small-business-technology/nsf26-510/solicitation", tier: 1,
+               note: "NSF SBIR/STTR consolidated solicitation, posted 2026-05-22, updated 2026-11-12"}
+  nsf-26-511: {url: "https://www.nsf.gov/funding/opportunities/small-business-innovation-research-small-business-technology-0/nsf26-511/solicitation", tier: 1,
+               note: "NSF SBIR/STTR Pilot Emphasis on Scientific Instrumentation, posted 2026-05-22"}
+  nsf-review: {url: "https://seedfund.nsf.gov/apply/review-decision/", tier: 1}
+  nsf-pitch: {url: "https://seedfund.nsf.gov/apply/project-pitch-information/", tier: 1}
+  nsf-25-540: {url: "https://www.nsf.gov/funding/opportunities/nsf-ttp-national-science-foundation-translation-practice/nsf25-540/solicitation", tier: 1}
+  nsf-pfi-closed: {url: "https://www.nsf.gov/funding/opportunities/pfi-partnerships-innovation/504790/updates/120073", tier: 1}
+  nsf-25-549: {url: "https://www.nsf.gov/funding/opportunities/nsf-national-innovation-corps-teams-nsf-national-i-corps-tm/nsf25-549/solicitation", tier: 1}
+  doe-sbir: {url: "https://www.energy.gov/technologycommercialization/doe-small-business-innovation-research-sbir-and-small-business", tier: 1,
+             note: "Updated 2026-10-30. Single application enters the program; advancement by Go/No-Go"}
+  doe-fall-2026: {url: "https://www.energy.gov/technologycommercialization/articles/energy-department-announces-fall-2026-sbirsttr-phase-i-topics", tier: 1,
+                  note: "2026-10-30: more than $200M across phases, 25 topics, pitches due 2026-12-16"}
+  doe-applicant: {url: "https://www.energy.gov/technologycommercialization/sbirsttr-applicant-resources-0", tier: 1,
+                  note: "Up to three pitches per company; full application by invitation only"}
+  nasa-p1: {url: "https://www.nasa.gov/sbir_sttr/phase-i/", tier: 1}
+  nasa-p2: {url: "https://www.nasa.gov/sbir_sttr/phase-ii/", tier: 1}
+  nasa-hub: {url: "https://www.nasa.gov/sbir_sttr/nasa-sbir-sttr-program-program-year-2026-information-hub/", tier: 1,
+             note: "2026: BAA with Phase I appendices released through the year; schedules announced as set"}
+  epa-sbir: {url: "https://www.epa.gov/sbir/sbir-funding-opportunities", tier: 1}
+  epa-p2-2026: {url: "https://www.epa.gov/sbir/2025-2026-small-business-innovation-research-sbir-phase-ii-awardees", tier: 1}
+  arpa-e-budget-fy26: {url: "https://www.energy.gov/sites/default/files/2025-06/doe-fy-2026-vol-2-arpa-e.pdf", tier: 1,
+                       note: "OPEN solicitations released every three years: 2009, 2012, 2015, 2018, 2021, 2024"}
+  arpa-e-budget-fy27: {url: "https://www.energy.gov/documents/doe-fy-2027-volume-2-arpa-e", tier: 1,
+                       note: "Plans another OPEN in 2027 (read via search excerpt; confirm in text)"}
+  arpa-h-funding: {url: "https://arpa-h.gov/explore-funding", tier: 1,
+                   note: "Mission Office ISOs accepted on a rolling basis; Solution Summary and written feedback before a full proposal"}
+  arpa-h-sbir: {url: "https://arpa-h.gov/explore-funding/sbir", tier: 1,
+                note: "Contracts up to $600K Phase 1 and $3.5M Phase 2; explore-funding page says no small business opportunities open"}
+  barda-drive: {url: "https://drive.hhs.gov/", tier: 1}
+  barda-dx: {url: "https://drive.hhs.gov/diagnostics.html", tier: 1}
+  masscec-catalyst: {url: "https://www.masscec.com/program/catalyst", tier: 1}
+  masscec-catalyst-rfp: {url: "https://www.masscec.com/sites/default/files/documents/FY27_Fall_-_Catalyst_-_RFP_-_Final_081426.pdf", tier: 1,
+                         note: "FY27 Fall RFP: up to twelve Catalyst climatetech awards of $75,000"}
+  masscec-innovatemass: {url: "https://www.masscec.com/program/innovatemass", tier: 1}
+  masscec-amplifymass: {url: "https://www.masscec.com/program/amplifymass", tier: 1}
+  massventures-start: {url: "https://www.mass-ventures.com/start-program-info", tier: 1}
+  mlsc-access: {url: "https://www.masslifesciences.com/programs/access-and-accelerate-grant/", tier: 1}
+  mlsc-impact: {url: "https://www.masslifesciences.com/programs/impact-catalyst/", tier: 1}
+  reauth-crowell: {url: "https://www.crowell.com/en/insights/client-alerts/sbirsttr-programs-reauthorized-after-six-month-lapse", tier: 2,
+                   note: "SBIR/STTR lapsed 2025-10-01; reauthorized 2026-04-13 through 2031-09-30 (S. 3971)"}
+  reauth-ssti: {url: "https://ssti.org/blog/sbir-slowly-relaunching-following-presidents-signature", tier: 2,
+                note: "Agencies restarted unevenly; DoD first"}
+
+programs:
+
+# ---------------------------------------------------------------- NSF
+  - id: nsf-sbir-1
+    name: NSF SBIR/STTR Phase I
+    funder: National Science Foundation
+    office: America's Seed Fund (TIP Directorate)
+    jurisdiction: federal
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 305000, duration_months: [6, 18], source: nsf-26-510}
+    award_data: {agency: NSF, phase: I}
+    success:
+      rate: 0.11
+      year: FY2022
+      basis: SBIR Phase I proposals selected (STTR Phase I 25%). NSF states historical Phase I funding rates of 10-20%
+      source: sba-fy22
+      also: nsf-review
+    timing: {notify_days: [150, 210], basis: "Notification 5-7 months after the deadline", source: nsf-review}
+    prerequisites: Project Pitch invitation first (response in about 1-2 months; valid for the next two deadlines). Two pitches per company per 12 months
+    deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-510}
+    status: between-rounds
+    feeds: [nsf-sbir-2, massventures-start, masscec-amplifymass]
+    sources: [nsf-26-510, nsf-review, nsf-pitch, sba-fy22, sbir-awards]
+
+  - id: nsf-sbir-instr
+    name: NSF SBIR/STTR Scientific Instrumentation Pilot
+    funder: National Science Foundation
+    office: America's Seed Fund (TIP Directorate)
+    jurisdiction: federal
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, hardware, materials]
+    award: {max: 305000, duration_months: [6, 18], source: nsf-26-511,
+            note: "Phase II up to $1.25M; Fast-Track up to $400K + $1.155M; up to $2.0M R&D per company; $40M pilot budget"}
+    success:
+      published: false
+      note: About 57-59 SBIR and 11-12 STTR Phase I awards per year planned; NSF-wide Phase I rate applies as a guide (11% SBIR, FY2022)
+      source: nsf-26-511
+    timing: {notify_days: [150, 210], basis: "Same review as NSF Phase I", source: nsf-review}
+    prerequisites: Project Pitch invitation, as for NSF Phase I. For next-generation instruments, experimental platforms and scientific equipment
+    deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-511}
+    status: between-rounds
+    feeds: [nsf-sbir-2]
+    sources: [nsf-26-511, nsf-review]
+
+  - id: nsf-sbir-2
+    name: NSF SBIR/STTR Phase II
+    funder: National Science Foundation
+    office: America's Seed Fund (TIP Directorate)
+    jurisdiction: federal
+    vehicle: cooperative-agreement
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 1250000, duration_months: [24, 24], source: nsf-26-510}
+    award_data: {agency: NSF, phase: II}
+    success: {rate: 0.49, year: FY2022, basis: SBIR Phase II proposals selected (STTR 29%), source: sba-fy22}
+    prerequisites: NSF Phase I award; submit 6-24 months after the Phase I start date
+    deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-510}
+    status: between-rounds
+    feeds: [nsf-breakthrough, massventures-start, masscec-amplifymass]
+    sources: [nsf-26-510, sba-fy22, sbir-awards]
+
+  - id: nsf-breakthrough
+    name: NSF SBIR/STTR Strategic Breakthrough
+    funder: National Science Foundation
+    office: America's Seed Fund (TIP Directorate)
+    jurisdiction: federal
+    vehicle: grant
+    stage: scale
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 30000000, source: nsf-26-510, note: "New under the 2026 reauthorization; duration not stated"}
+    success: {published: false, source: nsf-26-510}
+    prerequisites: NSF Phase II awardees, by Program Officer invitation or recommendation
+    deadlines: {cadence: By invitation, source: nsf-26-510}
+    status: open
+    verify: [award.duration_months]
+    sources: [nsf-26-510, nsf-26-511]
+
+  - id: nsf-ttp
+    name: NSF Translation to Practice (TTP)
+    funder: National Science Foundation
+    office: TIP Directorate (replaced Partnerships for Innovation)
+    jurisdiction: federal
+    vehicle: grant
+    stage: entry
+    entity: academic
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 2000000, duration_months: [24, 48], source: nsf-25-540,
+            note: "TTP-T up to $1.2M over 36 months; TTP-P up to $2.0M over 48 months (needs an NSF-catalyzed partnership); TTP-E about $600K over 24 months as an extension of an active NSF award"}
+    success: {published: false, note: "29 awards and $30M planned across tracks", source: nsf-25-540}
+    prerequisites: University-led. TTP-T and TTP-P teams complete I-Corps Teams training; TTP-E needs PO approval of a 3-5 page plan
+    deadlines: {cadence: "Annual, third Tuesday in May (TTP-E anytime)", next: [2027-05-18], source: nsf-25-540}
+    status: between-rounds
+    feeds: [nsf-sbir-1]
+    sources: [nsf-25-540, nsf-pfi-closed]
+
+  - id: nsf-icorps
+    name: NSF I-Corps Teams
+    funder: National Science Foundation
+    office: TIP Directorate
+    jurisdiction: federal
+    vehicle: grant
+    stage: training
+    entity: academic
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 50000, duration_months: [12, 12], source: nsf-25-549, note: "Customer discovery: at least 100 interviews; registration fee paid from the award"}
+    success: {published: false, note: "About 240 awards and $12M planned", source: nsf-25-549}
+    prerequisites: Two-page Executive Summary, then invitation. University applicant; team needs a related NSF award (active or ended within 5 years) or Regional I-Corps training
+    deadlines: {cadence: Anytime, source: nsf-25-549}
+    status: open
+    feeds: [nsf-ttp, nsf-sbir-1]
+    sources: [nsf-25-549]
+
+# ---------------------------------------------------------------- NIH / HHS
+  - id: nih-sbir-1
+    name: NIH SBIR/STTR Phase I
+    funder: National Institutes of Health
+    office: Institutes and centers (omnibus and targeted NOFOs)
+    jurisdiction: federal
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics]
+    award: {max: null, source: null, note: "Typical award from award data; cap per NOFO (parent NOFO page not yet read)"}
+    award_data: {agency: HHS, branch: NIH, phase: I}
+    success:
+      rate: 0.08
+      year: FY2025
+      basis: SBIR Phase I competing applications funded (STTR Phase I 13%; Fast-Track 8%). FY2021-2024 SBIR Phase I 12%, 15%, 16%, 10%
+      source: nih-databook-202
+    prerequisites: HHS accepts at most 9 new and resubmission Phase I, Fast-Track and Direct to Phase II applications per company per fiscal year
+    deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: null}
+    status: open
+    verify: [award.max, deadlines.source]
+    feeds: [nih-sbir-2, massventures-start, mlsc-access]
+    sources: [nih-databook-202, nih-not-od-26-090, nih-reauth, nih-nofos-2026, sbir-awards]
+
+  - id: nih-sbir-2
+    name: NIH SBIR/STTR Phase II
+    funder: National Institutes of Health
+    office: Institutes and centers
+    jurisdiction: federal
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics]
+    award: {max: null, source: null}
+    award_data: {agency: HHS, branch: NIH, phase: II}
+    success:
+      rate: 0.22
+      year: FY2025
+      basis: SBIR Regular Phase II competing applications funded (Direct Phase II 12%; STTR Regular Phase II 27%). FY2021-2024 SBIR Regular Phase II 31%, 35%, 35%, 27%
+      source: nih-databook-202
+    prerequisites: NIH Phase I award, or Direct to Phase II with equivalent results
+    deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: null}
+    status: open
+    verify: [award.max, deadlines.source]
+    feeds: [massventures-start]
+    sources: [nih-databook-202, sbir-awards]
+
+  - id: barda-accelerator
+    name: BARDA DRIVe Accelerator Network proof-of-concept awards
+    funder: HHS ASPR, BARDA
+    office: DRIVe
+    jurisdiction: federal
+    vehicle: other-transaction
+    stage: entry
+    entity: small-business
+    domains: [diagnostics, life-science-tools]
+    award: {max: 200000, duration_months: [6, 6], source: barda-drive, note: "$50K-$200K through accelerator partners (MedTech Innovator Vantage diagnostics hub, BioTools Innovator VANGUARD)"}
+    success: {published: false, source: barda-drive}
+    prerequisites: Apply through the named accelerator; reviewed against BARDA priorities and available funds
+    deadlines: {cadence: Rolling or per accelerator cohort, next: [2026-12-01], source: barda-drive}
+    status: open
+    verify: [vehicle]
+    sources: [barda-drive, barda-dx]
+
+  - id: arpa-h-sbir
+    name: ARPA-H SBIR/STTR
+    funder: Advanced Research Projects Agency for Health
+    office: Small business topics
+    jurisdiction: federal
+    vehicle: contract
+    stage: entry
+    entity: small-business
+    domains: [diagnostics, life-science-tools, hardware]
+    award: {max: 600000, source: arpa-h-sbir, note: "Phase 2 up to $3.5M"}
+    success: {published: false, source: arpa-h-sbir}
+    prerequisites: Solution Summary, then technical deck and cost proposal on the ARPA-H Solutions site
+    deadlines: {cadence: "Topic releases, irregular", source: arpa-h-sbir}
+    status: between-rounds
+    sources: [arpa-h-sbir, arpa-h-funding]
+
+  - id: arpa-h-iso
+    name: ARPA-H Mission Office Innovative Solutions Openings
+    funder: Advanced Research Projects Agency for Health
+    office: Health Science Futures, Proactive Health, Resilient Systems, Scalable Solutions
+    jurisdiction: federal
+    vehicle: other-transaction
+    stage: scale
+    entity: either
+    domains: [diagnostics, life-science-tools, hardware]
+    award: {max: null, source: null, note: "No size stated; proposals outside existing programs only"}
+    success: {published: false, source: arpa-h-funding}
+    prerequisites: Solution Summary and written ARPA-H feedback before a full proposal
+    deadlines: {cadence: Rolling, source: arpa-h-funding}
+    status: open
+    verify: [vehicle]
+    sources: [arpa-h-funding]
+
+# ---------------------------------------------------------------- DOE
+  - id: doe-sbir-1
+    name: DOE SBIR/STTR Phase I
+    funder: Department of Energy
+    office: Office of Technology Commercialization
+    jurisdiction: federal
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [energy-climate, materials, hardware]
+    award: {max: null, source: null, note: "Fall 2026: more than $200M across phases and 25 topics; per-award cap in the topic documents on the Application Hub"}
+    award_data: {agency: DOE, phase: I}
+    success: {rate: 0.19, year: FY2022, basis: SBIR Phase I proposals selected (STTR 16%); 2026 pitch-first process adds an earlier filter, source: sba-fy22}
+    prerequisites: Pitch first (up to three per company); full application by invitation; SAM and SBA Company Registry before the full application
+    deadlines: {cadence: Topic releases (Fall 2026 pitches), next: [2026-12-16], source: doe-fall-2026}
+    status: open
+    verify: [award.max]
+    feeds: [doe-sbir-2, masscec-amplifymass, massventures-start]
+    sources: [doe-sbir, doe-fall-2026, doe-applicant, sba-fy22, sbir-awards]
+
+  - id: doe-sbir-2
+    name: DOE SBIR/STTR Phase II
+    funder: Department of Energy
+    office: Office of Technology Commercialization
+    jurisdiction: federal
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [energy-climate, materials, hardware]
+    award: {max: null, source: null}
+    award_data: {agency: DOE, phase: II}
+    success: {rate: 0.36, year: FY2022, basis: SBIR Phase II proposals selected (STTR 21%), source: sba-fy22}
+    prerequisites: DOE Phase I; since 2026 advancement is by Go/No-Go without a new application
+    deadlines: {cadence: Go/No-Go at the end of Phase I, source: doe-sbir}
+    status: open
+    verify: [award.max]
+    feeds: [massventures-start, masscec-amplifymass]
+    sources: [doe-sbir, sba-fy22, sbir-awards]
+
+  - id: arpa-e-open
+    name: ARPA-E OPEN
+    funder: Department of Energy
+    office: ARPA-E
+    jurisdiction: federal
+    vehicle: cooperative-agreement
+    stage: entry
+    entity: either
+    domains: [energy-climate, materials, hardware]
+    award: {max: null, source: null, note: "Size set in each OPEN announcement"}
+    success: {published: false, source: arpa-e-budget-fy26}
+    deadlines: {cadence: Every three years (2009-2024); next planned 2027, source: arpa-e-budget-fy26}
+    status: upcoming
+    verify: [award.max, deadlines.next]
+    feeds: [masscec-amplifymass]
+    sources: [arpa-e-budget-fy26, arpa-e-budget-fy27]
+
+# ---------------------------------------------------------------- DoD
+  - id: dod-sbir-1
+    name: DoD SBIR/STTR Phase I
+    funder: Department of Defense
+    office: Army, Navy, Air Force (AFWERX), DARPA, Defense Health Agency and others via DSIP
+    jurisdiction: federal
+    vehicle: contract
+    stage: entry
+    entity: small-business
+    domains: [hardware, materials, energy-climate, diagnostics]
+    award: {max: null, source: null, note: "Set per component and topic; see branch rows in award data (Air Force median $75K, DHA $250K)"}
+    award_data: {agency: DOD, phase: I}
+    success: {rate: 0.18, year: FY2022, basis: "SBIR Phase I proposals selected, 6,444 to 1,172 (STTR 25%)", source: sba-fy22}
+    prerequisites: Topic-specific; respond to a published component topic
+    deadlines: {cadence: Rolling topic releases on DSIP, source: null}
+    status: open
+    verify: [deadlines.source, status]
+    feeds: [dod-sbir-2, massventures-start]
+    sources: [sba-fy22, sbir-awards, reauth-ssti]
+
+  - id: dod-sbir-2
+    name: DoD SBIR/STTR Phase II
+    funder: Department of Defense
+    office: Components via DSIP
+    jurisdiction: federal
+    vehicle: contract
+    stage: follow-on
+    entity: small-business
+    domains: [hardware, materials, energy-climate, diagnostics]
+    award: {max: null, source: null, note: "Set per component and topic; FY2022-24 median $1.24M (Army $1.46M, DARPA $1.50M)"}
+    award_data: {agency: DOD, phase: II}
+    success: {rate: 0.28, year: FY2022, basis: "SBIR Phase II proposals selected, 4,751 to 1,334", source: sba-fy22}
+    prerequisites: DoD Phase I (or Direct to Phase II where the topic allows)
+    deadlines: {cadence: By component, source: null}
+    status: open
+    verify: [deadlines.source]
+    feeds: [massventures-start]
+    sources: [sba-fy22, sbir-awards]
+
+# ---------------------------------------------------------------- NASA, USDA, NOAA, EPA
+  - id: nasa-sbir-1
+    name: NASA SBIR/STTR Phase I
+    funder: NASA
+    office: Space Technology Mission Directorate
+    jurisdiction: federal
+    vehicle: contract
+    stage: entry
+    entity: small-business
+    domains: [hardware, materials, energy-climate]
+    award: {max: 225000, duration_months: [6, 13], source: nasa-p1, note: "SBIR 6 months, STTR 13 months"}
+    award_data: {agency: NASA, phase: I}
+    success: {rate: 0.19, year: FY2022, basis: SBIR Phase I proposals selected (STTR 39%), source: sba-fy22}
+    prerequisites: Respond to a subtopic in a BAA appendix
+    deadlines: {cadence: Appendices released through the year (2026 Phase I closed May 21), source: nasa-hub}
+    status: between-rounds
+    feeds: [nasa-sbir-2, massventures-start]
+    sources: [nasa-p1, nasa-hub, sba-fy22, sbir-awards]
+
+  - id: nasa-sbir-2
+    name: NASA SBIR/STTR Phase II
+    funder: NASA
+    office: Space Technology Mission Directorate
+    jurisdiction: federal
+    vehicle: contract
+    stage: follow-on
+    entity: small-business
+    domains: [hardware, materials, energy-climate]
+    award: {max: 1275000, duration_months: [24, 24], source: nasa-p2}
+    award_data: {agency: NASA, phase: II}
+    success: {rate: 0.45, year: FY2022, basis: SBIR Phase II proposals selected (STTR 36%), source: sba-fy22}
+    prerequisites: NASA Phase I
+    deadlines: {cadence: Annual Phase II solicitation, source: nasa-p2}
+    status: between-rounds
+    feeds: [massventures-start]
+    sources: [nasa-p2, sba-fy22, sbir-awards]
+
+  - id: usda-sbir-1
+    name: USDA SBIR/STTR Phase I
+    funder: Department of Agriculture
+    office: NIFA
+    jurisdiction: federal
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [energy-climate, materials]
+    award: {max: null, source: null}
+    award_data: {agency: USDA, phase: I}
+    success: {rate: 0.15, year: FY2022, basis: SBIR Phase I proposals selected (Phase II 50%), source: sba-fy22}
+    deadlines: {cadence: Annual, source: null}
+    status: unknown
+    verify: [award.max, deadlines, status]
+    feeds: [massventures-start]
+    sources: [sba-fy22, sbir-awards]
+
+  - id: noaa-sbir-1
+    name: NOAA SBIR Phase I
+    funder: Department of Commerce
+    office: NOAA Technology Partnerships Office
+    jurisdiction: federal
+    vehicle: contract
+    stage: entry
+    entity: small-business
+    domains: [energy-climate, hardware]
+    award: {max: null, source: null}
+    award_data: {agency: DOC, branch: NOAA, phase: I}
+    success: {rate: 0.11, year: FY2022, basis: "Department of Commerce SBIR Phase I proposals selected, NOAA and NIST combined (Phase II 76%)", source: sba-fy22}
+    deadlines: {cadence: Annual, source: null}
+    status: unknown
+    verify: [award.max, deadlines, status]
+    feeds: [massventures-start]
+    sources: [sba-fy22, sbir-awards]
+
+  - id: epa-sbir-1
+    name: EPA SBIR Phase I
+    funder: Environmental Protection Agency
+    office: Office of Research and Development
+    jurisdiction: federal
+    vehicle: contract
+    stage: entry
+    entity: small-business
+    domains: [energy-climate, materials]
+    award: {max: null, source: null, note: "Phase II $400K over 24 months (2026 awards)"}
+    award_data: {agency: EPA, phase: I}
+    success: {rate: 0.16, year: FY2022, basis: SBIR Phase I proposals selected (Phase II 36%), source: sba-fy22}
+    deadlines: {cadence: Annual (2026 Phase I open Sep 24 - Nov 8), source: epa-sbir}
+    status: between-rounds
+    verify: [award.max]
+    feeds: [massventures-start]
+    sources: [epa-sbir, epa-p2-2026, sba-fy22, sbir-awards]
+
+# ---------------------------------------------------------------- Massachusetts
+  - id: masscec-catalyst
+    name: MassCEC Catalyst
+    funder: Massachusetts Clean Energy Center
+    office: Run with MassVentures
+    jurisdiction: massachusetts
+    vehicle: grant
+    stage: entry
+    entity: either
+    domains: [energy-climate, materials, hardware]
+    trl: [2, 4]
+    award: {max: 75000, source: masscec-catalyst, note: "No cost share"}
+    success: {published: false, note: "Up to 12 company awards per round; 215 awardees since inception", source: masscec-catalyst-rfp}
+    timing: {award_days: [120, 120], basis: "Fall 2026: applications due Sep 30, award notice late January", source: masscec-catalyst}
+    prerequisites: Massachusetts-based climatetech company with 4 or fewer FTEs and under $2.5M raised (all sources) in 5 years; or a Massachusetts research PI (Academic Activator)
+    deadlines: {cadence: Twice a year; Spring 2027 round opens winter 2027, source: masscec-catalyst}
+    status: between-rounds
+    feeds: [masscec-innovatemass, nsf-sbir-1, doe-sbir-1]
+    sources: [masscec-catalyst, masscec-catalyst-rfp]
+
+  - id: masscec-innovatemass
+    name: MassCEC InnovateMass
+    funder: Massachusetts Clean Energy Center
+    jurisdiction: massachusetts
+    vehicle: grant
+    stage: scale
+    entity: small-business
+    domains: [energy-climate, materials, hardware]
+    trl: [5, 8]
+    award: {max: 350000, duration_months: [24, 24], source: masscec-innovatemass, note: "Grant plus technical support; demonstration with a named partner"}
+    success: {published: false, source: masscec-innovatemass}
+    timing: {award_days: [105, 105], basis: "Oct 20, 2026 deadline to final awards late Jan / early Feb", source: masscec-innovatemass}
+    cost_share: Required; at least 20% of the cost share in cash
+    prerequisites: Massachusetts climatetech lead applicant plus a Demonstration Partner letter; best fit $1M-$10M raised and 5-30 FTEs
+    deadlines: {cadence: Next round early 2027, source: masscec-innovatemass}
+    status: between-rounds
+    sources: [masscec-innovatemass]
+
+  - id: masscec-amplifymass
+    name: MassCEC AmplifyMass
+    funder: Massachusetts Clean Energy Center
+    jurisdiction: massachusetts
+    vehicle: grant
+    stage: cost-share
+    entity: either
+    domains: [energy-climate, materials, hardware]
+    award: {max: 300000, source: masscec-amplifymass, note: "Cost share or adder on a federal or private prime award (ARPA-E, NSF, DOE); up to $100K for academic projects without a prime"}
+    success: {published: false, source: masscec-amplifymass}
+    timing: {notify_days: [90, 180], basis: "Notification 3-6 months after submission", source: masscec-amplifymass}
+    prerequisites: Apply before the prime award is contracted; significant Massachusetts presence
+    deadlines: {cadence: "Rolling, subject to funds; closed for FY2027", source: masscec-amplifymass}
+    status: closed
+    sources: [masscec-amplifymass]
+
+  - id: massventures-start
+    name: MassVentures START
+    funder: MassVentures
+    jurisdiction: massachusetts
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: massventures-start, note: "Round 1: 16 grants of $100K; Round 2: 7 of $200K the following year; Round 3: 3 of up to $500K for a commercial spinout"}
+    success: {published: false, note: "Applicant counts not published; $46.2M to 157 companies since 2012", source: massventures-start}
+    prerequisites: Massachusetts company holding a federal SBIR or STTR Phase II award
+    deadlines: {cadence: Annual window opening Feb 1, next: [2027-02-01], source: massventures-start}
+    status: upcoming
+    sources: [massventures-start]
+
+  - id: mlsc-access
+    name: MLSC Access and Accelerate
+    funder: Massachusetts Life Sciences Center
+    jurisdiction: massachusetts
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics]
+    award: {max: 150000, duration_months: [6, 12], source: mlsc-access, note: "Typically $75K-$100K; 80% on signing, 20% on reimbursement"}
+    success: {published: false, source: mlsc-access}
+    timing: {award_days: [60, 90], basis: "Q4 2026: applications Oct 5-30, awards January", source: mlsc-access}
+    prerequisites: Massachusetts early-stage life science company with a defined commercialization milestone; priority to SBIR/STTR awardees and first-time founders. Each quarter has a focus area
+    deadlines: {cadence: Quarterly; Q1 2027 applications in January, source: mlsc-access}
+    status: upcoming
+    sources: [mlsc-access]
+
+  - id: mlsc-impact
+    name: MLSC Impact Catalyst
+    funder: Massachusetts Life Sciences Center
+    jurisdiction: massachusetts
+    vehicle: grant
+    stage: scale
+    entity: small-business
+    domains: [life-science-tools, diagnostics]
+    award: {max: 250000, source: mlsc-impact, note: "Milestone-based, paid alongside a seed round: 25% at seed close, 25% and 50% on milestone reports"}
+    success: {published: false, source: mlsc-impact}
+    prerequisites: Massachusetts life science startup raising a seed round with committed investors (letters of intent); more than half of employees in Massachusetts
+    deadlines: {cadence: Two cycles a year (Cycle 1 2026 closed Jun 12), source: mlsc-impact}
+    status: between-rounds
+    sources: [mlsc-impact]

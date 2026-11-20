@@ -1,0 +1,17 @@
+[project]
+name = "funding-map"
+version = "0.1.0"
+description = "Non-Dilutive Funding Map: grant and contract programs for deep tech companies, graded on sourced award size, success rate, and time to award"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pyyaml>=6",
+    "requests>=2.32",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+data = ["pandas>=2.2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
