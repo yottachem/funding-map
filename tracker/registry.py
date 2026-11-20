@@ -27,7 +27,9 @@ DOMAINS = ("life-science-tools", "diagnostics", "materials", "energy-climate", "
 STATUSES = ("open", "between-rounds", "upcoming", "paused", "closed", "unknown")
 REQUIRED = ("id", "name", "funder", "jurisdiction", "vehicle", "stage", "entity", "domains", "award", "success",
             "deadlines", "status", "sources")
-KEYS = set(REQUIRED) | {"office", "award_data", "award_recent", "timing", "prerequisites", "cost_share", "trl", "verify", "feeds"}
+KEYS = set(REQUIRED) | {"office", "award_data", "award_recent", "timing", "prerequisites", "cost_share", "trl", "verify", "feeds",
+                        "requires"}
+GATED_STAGES = ("follow-on", "cost-share")
 
 
 def data() -> dict:
@@ -143,6 +145,12 @@ def problems(progs: list[dict] | None = None, srcs: dict | None = None, stats: d
         trl = p.get("trl")
         if trl is not None and not (len(trl) == 2 and 1 <= trl[0] <= trl[1] <= 9):
             out.append(f"{pid}: trl must be [low, high] within 1-9")
+        req = p.get("requires")
+        if p.get("stage") in GATED_STAGES and not req:
+            out.append(f"{pid}: stage {p['stage']} needs requires")
+        for r in (req or {}).get("any", []):
+            if r not in ids or r == pid:
+                out.append(f"{pid}: requires unknown program {r}")
         for f in p.get("feeds", []):
             if f not in ids:
                 out.append(f"{pid}: feeds unknown program {f}")

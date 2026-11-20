@@ -1,0 +1,40 @@
+# FICTIONAL example company profiles for the picker. None describes a real company; they exist to show how the
+# roadmap reads and to test the picker. The site uses these same three (one canonical dataset everywhere).
+#
+# Fields: entity small-business | academic; domains from programs.yaml; state two-letter code; trl 1-9;
+# held = program ids already won; cash_need USD wanted within 18 months; runway_months; prep_days before the first
+# application (default 30).
+
+profiles:
+  - id: dx-startup
+    label: "Fictional A: point-of-care diagnostics startup"
+    fictional: true
+    entity: small-business
+    state: MA
+    domains: [diagnostics, life-science-tools]
+    trl: 4
+    held: []
+    cash_need: 750000
+    runway_months: 12
+
+  - id: battery-materials
+    label: "Fictional B: battery materials company outside Massachusetts"
+    fictional: true
+    entity: small-business
+    state: OH
+    domains: [materials, energy-climate]
+    trl: 3
+    held: []
+    cash_need: 1500000
+    runway_months: 18
+
+  - id: instrument-co
+    label: "Fictional C: lab instrument company holding an NSF Phase I"
+    fictional: true
+    entity: small-business
+    state: MA
+    domains: [hardware, life-science-tools]
+    trl: 5
+    held: [nsf-sbir-1]
+    cash_need: 2000000
+    runway_months: 9

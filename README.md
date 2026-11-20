@@ -19,6 +19,8 @@ Every figure links its source. Success rates come only from the funder or the SB
 | `ingest/` | Collectors (`grants_gov`, `dsip`, `award_stats`), status derivation, and the `run` entry point |
 | `tools/review.py` | List, accept and reject queue items (accepting a status-change edits `programs.yaml`) |
 | `tracker/registry.py` | Registry rules (`problems()`) and the launch gate (`launch_problems()`) |
+| `tracker/picker.py` | Picker: profile in; eligible programs ranked by expected value (typical size x published odds), stacking chains along `requires`, an 18-month calendar, and the reason each other program is out |
+| `reference/example_profiles.yaml` | Three fictional company profiles used by the tests and the site |
 
 ## Run
 
@@ -32,10 +34,11 @@ uv run python -m ingest.run --weekly                    # Grants.gov + DSIP + st
 uv run --group data python -m ingest.run --quarterly    # award history; re-downloads the SBIR file only when newer
 uv run python -m tools.review                           # open queue items
 uv run python -m tools.review accept|reject <qid> [note]
+uv run python -m tracker.picker [--profile id] [--start YYYY-MM-DD] [--json]   # roadmaps for the example profiles
 ```
 
 Nothing a collector finds edits `programs.yaml` directly. Opportunities from the funders' own systems are recorded as found; anything that would change the registry (a new program, a higher cap, a status change, a possible lapse) waits in the review queue. A rejected item never returns.
 
 ## Status
 
-Phase 2 (ingest and review queue) done 2026-11-20; first queue review 2026-11-20 added 4 NIH programs (31 total). Picker logic and site follow. Launch gate clear 2026-11-20 (`LAUNCH_GATE=1 pytest`): every program has a sourced size, sourced deadlines and no verify flags.
+Phase 3 (picker) done 2026-11-20: eligibility, expected value from published odds only, stacking, calendar; dates never guessed. Phase 2 (ingest and review queue) done 2026-11-20; first queue review 2026-11-20 added 4 NIH programs (31 total). Site follows (Phase 4). Launch gate clear 2026-11-20 (`LAUNCH_GATE=1 pytest`): every program has a sourced size, sourced deadlines and no verify flags.

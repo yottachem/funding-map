@@ -23,6 +23,8 @@
 #   status        open | between-rounds | upcoming | paused | closed | unknown, as of `verified`
 #   verify        fields still to confirm on a primary source before launch
 #   feeds         program ids this one leads into (stacking)
+#   requires      awards needed first: `any` of these program ids (from the prerequisites text), and `after_months`
+#                 when the funder sets a gap after the earlier award starts. Used by the picker to gate follow-ons
 
 verified_default: 2026-11-20
 
@@ -187,6 +189,7 @@ programs:
     prerequisites: NSF Phase I award; submit 6-24 months after the Phase I start date
     deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-510}
     status: open
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr], after_months: 6}
     feeds: [nsf-breakthrough, massventures-start, masscec-amplifymass]
     sources: [nsf-26-510, sba-fy22, sbir-awards]
 
@@ -204,6 +207,7 @@ programs:
     prerequisites: NSF Phase II awardees, by Program Officer invitation or recommendation
     deadlines: {cadence: By invitation, source: nsf-26-510}
     status: open
+    requires: {any: [nsf-sbir-2]}
     sources: [nsf-26-510, nsf-26-511]
 
   - id: nsf-ttp
@@ -287,6 +291,7 @@ programs:
     timing: {award_days: [180, 210], basis: "Earliest start 6-7 months after the standard due date", source: nih-pa-27-100}
     deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: nih-pa-27-100}
     status: open
+    requires: {any: [nih-sbir-1, nih-sb-transition]}
     feeds: [nci-sbir-bridge, nih-crp, massventures-start]
     sources: [nih-databook-202, nih-pa-27-100, sbir-awards]
 
@@ -354,6 +359,7 @@ programs:
     cost_share: Third-party funds at least equal to NCI funds (expected, documented in the Commercialization Plan)
     deadlines: {cadence: "Annual RFA (posted Mar-Apr, due Aug, 2020-2024); FY2026 forecast never posted", source: nci-bridge-forecast}
     status: upcoming
+    requires: {any: [nsf-sbir-2, nih-sbir-2, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
     feeds: [massventures-start]
     sources: [nci-bridge-fy25, nci-bridge-forecast]
 
@@ -390,6 +396,7 @@ programs:
     prerequisites: NIH SBIR or STTR Phase II or IIB active within the last 36 months; one CRP per project. Funds late-stage R&D Phase II does not cover (IND/IDE-enabling studies, manufacturing scale-up, regulatory support)
     deadlines: {cadence: "Standard dates (Jan 5, Apr 5, Sep 5) through 2029-04-05", next: [2027-01-05, 2027-04-05], source: nih-crp}
     status: open
+    requires: {any: [nih-sbir-2, nci-sbir-bridge]}
     feeds: [massventures-start]
     sources: [nih-crp]
 
@@ -446,6 +453,7 @@ programs:
     prerequisites: DOE Phase I; since 2026 advancement is by Go/No-Go without a new application
     deadlines: {cadence: Go/No-Go at the end of Phase I, source: doe-sbir}
     status: open
+    requires: {any: [doe-sbir-1]}
     feeds: [massventures-start, masscec-amplifymass]
     sources: [doe-sbir, doe-fall-2026-hub, doe-fall-2026-webinar, sba-fy22, sbir-awards]
 
@@ -500,6 +508,7 @@ programs:
     prerequisites: DoD Phase I (or Direct to Phase II where the topic allows)
     deadlines: {cadence: By component, source: dsip-topics}
     status: open
+    requires: {any: [dod-sbir-1]}
     feeds: [massventures-start]
     sources: [sba-fy22, sbir-awards, dsip-topics]
 
@@ -537,6 +546,7 @@ programs:
     prerequisites: NASA Phase I
     deadlines: {cadence: Annual Phase II solicitation, source: nasa-p2}
     status: between-rounds
+    requires: {any: [nasa-sbir-1]}
     feeds: [massventures-start]
     sources: [nasa-p2, sba-fy22, sbir-awards]
 
@@ -643,6 +653,7 @@ programs:
     prerequisites: Apply before the prime award is contracted; significant Massachusetts presence
     deadlines: {cadence: "Rolling, subject to funds; closed for FY2027", source: masscec-amplifymass}
     status: closed
+    requires: {any: [nsf-sbir-1, nsf-sbir-2, doe-sbir-1, doe-sbir-2, arpa-e-open]}
     sources: [masscec-amplifymass]
 
   - id: massventures-start
@@ -658,6 +669,7 @@ programs:
     prerequisites: Massachusetts company holding a federal SBIR or STTR Phase II award
     deadlines: {cadence: Annual window opening Feb 1, next: [2027-02-01], source: massventures-start}
     status: upcoming
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
     sources: [massventures-start]
 
   - id: mlsc-access
