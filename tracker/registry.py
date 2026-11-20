@@ -19,7 +19,8 @@ STATS = REFERENCE / "awards" / "sbir_stats.csv"
 RECENT = REFERENCE / "awards" / "recent.csv"
 
 JURISDICTIONS = ("federal", "massachusetts")
-VEHICLES = ("grant", "contract", "cooperative-agreement", "other-transaction", "grant-or-contract")
+VEHICLES = ("grant", "contract", "cooperative-agreement", "other-transaction", "grant-or-contract", "milestone-award",
+            "via-intermediary")
 STAGES = ("entry", "follow-on", "scale", "training", "cost-share")
 ENTITIES = ("small-business", "academic", "either")
 DOMAINS = ("life-science-tools", "diagnostics", "materials", "energy-climate", "hardware")

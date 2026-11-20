@@ -61,6 +61,12 @@ def test_usda_pattern_takes_phase_i_only():
     assert grants_gov.tracked_programs(hit("USDA-NIFA-SBIR-012221", "SBIR and STTR Programs Phase II")) == []
 
 
+def test_noaa_pattern_takes_phase_i_only():
+    assert grants_gov.tracked_programs(hit("NOAA-OAR-TPO-2025-0001", "NOAA SBIR Program- FY25 Phase I")) == ["noaa-sbir-1"]
+    assert grants_gov.tracked_programs(hit("NOAA-OAR-OAR-TPO-2021-2006702", "NOAA SBIR FY 2021 Phase I")) == ["noaa-sbir-1"]
+    assert grants_gov.tracked_programs(hit("NOAA-OAR-TPO-2025-0002", "Small Business Innovation Research FY2025 Phase II")) == []
+
+
 def test_arpa_e_open_pattern():
     assert grants_gov.tracked_programs(hit("DE-FOA-0003500", "ARPA-E OPEN 2027")) == ["arpa-e-open"]
     assert grants_gov.tracked_programs(hit("DE-FOA-0001", "Open Access Data Platform")) == []

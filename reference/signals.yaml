@@ -24,6 +24,7 @@ grants_gov:
   nih-crp: {numbers: ["PAR-27-098"]}
   nhlbi-catalyze: {numbers: ["RFA-HL-26-018", "RFA-HL-26-019", "RFA-HL-26-020"]}
   arpa-e-open: {patterns: ["^DE-FOA-\\d+ .*\\bOPEN 20\\d\\d\\b"], search: ["ARPA-E OPEN"]}
+  noaa-sbir-1: {patterns: ["^NOAA-OAR-(OAR-)?TPO-\\d{4}-\\d+ .*\\bPhase (I|1)\\b"], search: ["NOAA SBIR"]}
 
 # reporter    NIH programs whose award size is taken from RePORTER awards made under their own NOFO numbers
 #             (quarterly, ingest/award_stats.py; dataset nih-foa, group = program id; amounts are per budget year).
@@ -39,7 +40,6 @@ manual:
   doe-sbir-2: https://sbir-sttr.connectwerx.org/
   nasa-sbir-1: https://www.nasa.gov/sbir_sttr/nasa-sbir-sttr-program-program-year-2026-information-hub/
   nasa-sbir-2: https://www.nasa.gov/sbir_sttr/phase-ii/
-  noaa-sbir-1: https://techpartnerships.noaa.gov/
   epa-sbir-1: https://www.epa.gov/sbir/sbir-funding-opportunities
   arpa-h-sbir: https://arpa-h.gov/explore-funding/sbir
   arpa-h-iso: https://arpa-h.gov/explore-funding

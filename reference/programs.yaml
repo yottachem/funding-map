@@ -9,6 +9,8 @@
 # Field guide
 #   jurisdiction  federal | massachusetts
 #   vehicle       grant | contract | cooperative-agreement | other-transaction | grant-or-contract
+#                 | milestone-award (fixed price, paid per negotiated milestone)
+#                 | via-intermediary (a nonfederal partner makes the award from federal funds)
 #   stage         entry (first non-dilutive money) | follow-on (needs a prior award) | scale | training | cost-share
 #   entity        small-business | academic | either
 #   domains       life-science-tools | diagnostics | materials | energy-climate | hardware   (CDR is not a domain: 2026-11-20)
@@ -48,6 +50,10 @@ sources:
              note: "Updated 2026-10-30. Single application enters the program; advancement by Go/No-Go"}
   doe-fall-2026: {url: "https://www.energy.gov/technologycommercialization/articles/energy-department-announces-fall-2026-sbirsttr-phase-i-topics", tier: 1,
                   note: "2026-10-30: more than $200M across phases, 25 topics, pitches due 2026-12-16"}
+  doe-fall-2026-hub: {url: "https://sbir-sttr.connectwerx.org/portfolio-items/fy26-fall-opportunity/", tier: 1,
+                      note: "DOE Application Hub (ConnectWerx, DOE Partnership Intermediary): about 160 awards, up to $300,000 each ($306,500 with TABA); fixed-price milestone fast-track award under 42 U.S.C. 7256(a), Phase II funding at go/no-go"}
+  doe-fall-2026-webinar: {url: "https://sbir-sttr.connectwerx.org/wp-content/uploads/2026/11/FY26-Fall-Opportunity-11.19-Webinar-Transcript.pdf", tier: 1,
+                          note: "DOE office hours 2026-11-19: Phase I is 6-12 months; awards no longer a grant mechanism; no cost share in Phase I or II"}
   doe-applicant: {url: "https://www.energy.gov/technologycommercialization/sbirsttr-applicant-resources-0", tier: 1,
                   note: "Up to three pitches per company; full application by invitation only"}
   nasa-p1: {url: "https://www.nasa.gov/sbir_sttr/phase-i/", tier: 1}
@@ -56,16 +62,28 @@ sources:
              note: "2026: BAA with Phase I appendices released through the year; schedules announced as set"}
   epa-sbir: {url: "https://www.epa.gov/sbir/sbir-funding-opportunities", tier: 1}
   epa-p2-2026: {url: "https://www.epa.gov/sbir/2025-2026-small-business-innovation-research-sbir-phase-ii-awardees", tier: 1}
+  epa-p1-fy26: {url: "https://www.epa.gov/system/files/documents/2026-10/fy26-sbir-phase-i-solicitation.pdf", tier: 1,
+                note: "FY26 Phase I solicitation: about 25 firm-fixed-price contracts up to $100,000 including profit, 6 months, start Feb-Mar 2027"}
+  noaa-p1-fy25: {url: "https://www.grants.gov/search-results-detail/357142", tier: 1,
+                 note: "NOAA-OAR-TPO-2025-0001 NOFO (attachment 344237): Phase I grants up to $190,000, 6 months, up to 35 a year; Phase II up to about $690,000 over 24 months, Phase I awardees only"}
+  noaa-sbir-history: {url: "https://www.grants.gov/search-grants?keywords=NOAA%20SBIR", tier: 1,
+                      note: "Phase I NOFOs FY2019-FY2025 posted Sep-Dec, closed Jan-Mar; none for FY2026 or FY2027 as of 2026-11-20"}
   arpa-e-budget-fy26: {url: "https://www.energy.gov/sites/default/files/2025-06/doe-fy-2026-vol-2-arpa-e.pdf", tier: 1,
                        note: "OPEN solicitations released every three years: 2009, 2012, 2015, 2018, 2021, 2024"}
   arpa-e-budget-fy27: {url: "https://www.energy.gov/documents/doe-fy-2027-volume-2-arpa-e", tier: 1,
-                       note: "Plans another OPEN in 2027 (read via search excerpt; confirm in text)"}
+                       note: "Read 2026-11-20: 'ARPA-E plans on releasing another OPEN solicitation in 2027' (no date given)"}
   arpa-h-funding: {url: "https://arpa-h.gov/explore-funding", tier: 1,
                    note: "Mission Office ISOs accepted on a rolling basis; Solution Summary and written feedback before a full proposal"}
   arpa-h-sbir: {url: "https://arpa-h.gov/explore-funding/sbir", tier: 1,
                 note: "Contracts up to $600K Phase 1 and $3.5M Phase 2; explore-funding page says no small business opportunities open"}
   barda-drive: {url: "https://drive.hhs.gov/", tier: 1}
   barda-dx: {url: "https://drive.hhs.gov/diagnostics.html", tier: 1}
+  barda-partner: {url: "https://drive.hhs.gov/partner.html", tier: 1,
+                  note: "BARDA Accelerator Network proof-of-concept funding: $50K-$200K per hub, rolling with priority deadlines"}
+  mti-vantage: {url: "https://medtechinnovator.org/vantage/devfunding", tier: 1,
+                note: "Hub operator (BARDA partner). Awards made by MTI Vantage; 2026 cycle Sep 1-Oct 22, awards Mar-Apr 2027; rolling off-cycle review"}
+  bti-vanguard: {url: "https://biotoolsinnovator.org/vanguard-faqs/", tier: 1,
+                 note: "Hub operator (BARDA partner). Proposal deadline Oct 1, 2026; awards Mar-Apr 2027; SAM.gov registration not required"}
   masscec-catalyst: {url: "https://www.masscec.com/program/catalyst", tier: 1}
   masscec-catalyst-rfp: {url: "https://www.masscec.com/sites/default/files/documents/FY27_Fall_-_Catalyst_-_RFP_-_Final_081426.pdf", tier: 1,
                          note: "FY27 Fall RFP: up to twelve Catalyst climatetech awards of $75,000"}
@@ -277,17 +295,16 @@ programs:
     funder: HHS ASPR, BARDA
     office: DRIVe
     jurisdiction: federal
-    vehicle: other-transaction
+    vehicle: via-intermediary
     stage: entry
     entity: small-business
     domains: [diagnostics, life-science-tools]
-    award: {max: 200000, duration_months: [6, 6], source: barda-drive, note: "$50K-$200K through accelerator partners (MedTech Innovator Vantage diagnostics hub, BioTools Innovator VANGUARD)"}
-    success: {published: false, source: barda-drive}
-    prerequisites: Apply through the named accelerator; reviewed against BARDA priorities and available funds
-    deadlines: {cadence: Rolling or per accelerator cohort, next: [2026-12-01], source: barda-drive}
+    award: {max: 200000, duration_months: [6, 6], source: barda-partner, note: "$50K-$200K, milestone-based. The hub operator makes the award (MedTech Innovator Vantage for diagnostics and devices, BioTools Innovator VANGUARD for enabling tools); instrument type not stated"}
+    success: {published: false, source: barda-partner}
+    prerequisites: Apply to the hub, not to BARDA; reviewed against BARDA priorities and available funds; SAM.gov registration not required (VANGUARD)
+    deadlines: {cadence: "Annual cycle (2026 proposals closed Oct 1 VANGUARD, Oct 22 Vantage; awards Mar-Apr 2027) plus rolling off-cycle review", source: mti-vantage}
     status: open
-    verify: [vehicle]
-    sources: [barda-drive, barda-dx]
+    sources: [barda-drive, barda-partner, barda-dx, mti-vantage, bti-vanguard]
 
   - id: arpa-h-sbir
     name: ARPA-H SBIR/STTR
@@ -401,38 +418,36 @@ programs:
     funder: Department of Energy
     office: Office of Technology Commercialization
     jurisdiction: federal
-    vehicle: grant
+    vehicle: milestone-award
     stage: entry
     entity: small-business
     domains: [energy-climate, materials, hardware]
-    award: {max: null, source: null, note: "Fall 2026: more than $200M across phases and 25 topics; per-award cap in the topic documents on the Application Hub"}
+    award: {max: 300000, duration_months: [6, 12], source: doe-fall-2026-hub, note: "$306,500 with TABA. Fall 2026: about 160 Phase I awards, up to $50M. Fast-track award: Phase II funding at a go/no-go, no new application"}
     award_data: {agency: DOE, phase: I}
     success: {rate: 0.19, year: FY2022, basis: SBIR Phase I proposals selected (STTR 16%); 2026 pitch-first process adds an earlier filter, source: sba-fy22}
     prerequisites: Pitch first (up to three per company); full application by invitation; SAM and SBA Company Registry before the full application
     deadlines: {cadence: Topic releases (Fall 2026 pitches), next: [2026-12-16], source: doe-fall-2026}
     status: open
-    verify: [award.max]
     feeds: [doe-sbir-2, masscec-amplifymass, massventures-start]
-    sources: [doe-sbir, doe-fall-2026, doe-applicant, sba-fy22, sbir-awards]
+    sources: [doe-sbir, doe-fall-2026, doe-fall-2026-hub, doe-fall-2026-webinar, doe-applicant, sba-fy22, sbir-awards]
 
   - id: doe-sbir-2
     name: DOE SBIR/STTR Phase II
     funder: Department of Energy
     office: Office of Technology Commercialization
     jurisdiction: federal
-    vehicle: grant
+    vehicle: milestone-award
     stage: follow-on
     entity: small-business
     domains: [energy-climate, materials, hardware]
-    award: {max: null, source: null}
+    award: {max: null, source: doe-fall-2026-hub, note: "Phase II size not in the Fall 2026 documents (Phase II and II.2 funded at go/no-go by availability); typical size from SBIR award data, made under the earlier grant mechanism"}
     award_data: {agency: DOE, phase: II}
     success: {rate: 0.36, year: FY2022, basis: SBIR Phase II proposals selected (STTR 21%), source: sba-fy22}
     prerequisites: DOE Phase I; since 2026 advancement is by Go/No-Go without a new application
     deadlines: {cadence: Go/No-Go at the end of Phase I, source: doe-sbir}
     status: open
-    verify: [award.max]
     feeds: [massventures-start, masscec-amplifymass]
-    sources: [doe-sbir, sba-fy22, sbir-awards]
+    sources: [doe-sbir, doe-fall-2026-hub, doe-fall-2026-webinar, sba-fy22, sbir-awards]
 
   - id: arpa-e-open
     name: ARPA-E OPEN
@@ -446,9 +461,8 @@ programs:
     award: {max: null, source: null, note: "No fixed cap; size set in each OPEN announcement. Typical award from OPEN 2024 awards"}
     award_recent: {dataset: arpa-e, group: OPEN 2024}
     success: {published: false, source: arpa-e-budget-fy26}
-    deadlines: {cadence: Every three years (2009-2024); next planned 2027, source: arpa-e-budget-fy26}
+    deadlines: {cadence: "Every three years (2009-2024); FY2027 budget plans the next OPEN in 2027, no date announced", source: arpa-e-budget-fy27}
     status: upcoming
-    verify: [deadlines.next]
     feeds: [masscec-amplifymass]
     sources: [arpa-e-budget-fy26, arpa-e-budget-fy27, usaspending-arpa-e]
 
@@ -548,18 +562,17 @@ programs:
     funder: Department of Commerce
     office: NOAA Technology Partnerships Office
     jurisdiction: federal
-    vehicle: contract
+    vehicle: grant
     stage: entry
     entity: small-business
     domains: [energy-climate, hardware]
-    award: {max: null, source: null}
+    award: {max: 190000, duration_months: [6, 6], source: noaa-p1-fy25, note: "FY2025 NOFO, the latest posted. Phase II up to about $690,000 over 24 months, Phase I awardees only"}
     award_data: {agency: DOC, branch: NOAA, phase: I}
     success: {rate: 0.11, year: FY2022, basis: "Department of Commerce SBIR Phase I proposals selected, NOAA and NIST combined (Phase II 76%)", source: sba-fy22}
-    deadlines: {cadence: Annual, source: null}
-    status: unknown
-    verify: [award.max, deadlines, status]
+    deadlines: {cadence: "Annual Grants.gov NOFO (FY2019-FY2025 opened Sep-Dec, closed Jan-Mar); no FY2026 or FY2027 round posted", source: noaa-sbir-history}
+    status: between-rounds
     feeds: [massventures-start]
-    sources: [sba-fy22, sbir-awards]
+    sources: [noaa-p1-fy25, noaa-sbir-history, sba-fy22, sbir-awards]
 
   - id: epa-sbir-1
     name: EPA SBIR Phase I
@@ -570,14 +583,13 @@ programs:
     stage: entry
     entity: small-business
     domains: [energy-climate, materials]
-    award: {max: null, source: null, note: "Phase II $400K over 24 months (2026 awards)"}
+    award: {max: 100000, duration_months: [6, 6], source: epa-p1-fy26, note: "Including profit (profit capped at $10,000). About 25 awards a year. Phase II $400K over 24 months (2026 awards)"}
     award_data: {agency: EPA, phase: I}
     success: {rate: 0.16, year: FY2022, basis: SBIR Phase I proposals selected (Phase II 36%), source: sba-fy22}
-    deadlines: {cadence: Annual (2026 Phase I open Sep 24 - Nov 8), source: epa-sbir}
+    deadlines: {cadence: Annual (2026 Phase I open Sep 24 - Nov 8; awards start Feb-Mar 2027), source: epa-sbir}
     status: between-rounds
-    verify: [award.max]
     feeds: [massventures-start]
-    sources: [epa-sbir, epa-p2-2026, sba-fy22, sbir-awards]
+    sources: [epa-sbir, epa-p1-fy26, epa-p2-2026, sba-fy22, sbir-awards]
 
 # ---------------------------------------------------------------- Massachusetts
   - id: masscec-catalyst
