@@ -182,7 +182,12 @@ class Picker:
         cad = str(p["deadlines"].get("cadence") or "")
         req = p.get("requires") or {}
         flags: list[str] = []
-        earliest: dt.date | None = self.start + dt.timedelta(days=self.prof.prep_days)
+        lead = p.get("lead") or {}
+        lead_days = (lead.get("days") or [0, 0])[1]
+        earliest: dt.date | None = self.start + dt.timedelta(days=self.prof.prep_days + lead_days)
+        prep = f"{self.prof.prep_days}-day prep time" + (f" plus {lead_days}-day {lead['basis']}" if lead_days else "")
+        if lead and not lead_days:
+            flags.append(f"first: {lead['basis']}")
         apply, basis = None, ""
         if prev is not None:
             if prev.apply is None:
@@ -190,7 +195,7 @@ class Picker:
             elif prev.cash is None:
                 earliest, basis = None, f"after the {prev.name} award; its time to award is not published"
             else:
-                earliest = prev.cash[1]
+                earliest = prev.cash[1] + dt.timedelta(days=lead_days)
                 if req.get("after_months"):
                     earliest = add_months(earliest, req["after_months"])
         if earliest and earliest > self.end:
@@ -209,13 +214,15 @@ class Picker:
         elif earliest and p["status"] == "open" and ROLLING.search(cad):
             apply, basis = earliest, "rolling"
         elif too_soon:
-            basis = (f"{too_soon[-1]:%b %d} is inside the {self.prof.prep_days}-day prep time; next date not announced"
+            basis = (f"{too_soon[-1]:%b %d} is inside the {prep}; next date not announced"
                      + (f" ({cad})" if cad else ""))
         elif earliest:
             basis = (f"no date announced after {earliest:%b %d, %Y}" if prev is not None else "date not announced") + (
                 f" ({cad})" if cad else "")
         if apply and apply > self.end:
             apply, basis = None, "after the 18-month window"
+        if apply and lead_days and basis in ("deadline", "rolling"):
+            basis += f", allowing {lead_days} days for the {lead['basis']}"
         days, cash_basis = cash_days(p, self.stats)
         cash = (apply + dt.timedelta(days=days[0]), apply + dt.timedelta(days=days[1])) if apply and days else None
         if cash and self.prof.runway_months:

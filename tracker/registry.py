@@ -28,7 +28,7 @@ STATUSES = ("open", "between-rounds", "upcoming", "paused", "closed", "unknown")
 REQUIRED = ("id", "name", "funder", "jurisdiction", "vehicle", "stage", "entity", "domains", "award", "success",
             "deadlines", "status", "sources")
 KEYS = set(REQUIRED) | {"office", "award_data", "award_recent", "timing", "prerequisites", "cost_share", "trl", "verify", "feeds",
-                        "requires"}
+                        "requires", "lead"}
 GATED_STAGES = ("follow-on", "cost-share")
 
 
@@ -151,6 +151,16 @@ def problems(progs: list[dict] | None = None, srcs: dict | None = None, stats: d
         for r in (req or {}).get("any", []):
             if r not in ids or r == pid:
                 out.append(f"{pid}: requires unknown program {r}")
+        lead = p.get("lead")
+        if lead is not None:
+            d = lead.get("days")
+            if d is not None and not (isinstance(d, list) and len(d) == 2 and all(isinstance(x, int) and x >= 0 for x in d)
+                                      and d[0] <= d[1]):
+                out.append(f"{pid}: lead.days must be [low, high] whole days or null")
+            if not (lead.get("basis") and lead.get("source")):
+                out.append(f"{pid}: lead needs basis and source")
+            elif lead["source"] not in srcs:
+                out.append(f"{pid}: source key {lead['source']!r} not in sources")
         for f in p.get("feeds", []):
             if f not in ids:
                 out.append(f"{pid}: feeds unknown program {f}")

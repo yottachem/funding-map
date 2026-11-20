@@ -190,3 +190,26 @@ def test_held_phase_i_puts_phase_ii_first():
     prof = next(p for p in picker.load_profiles() if p.id == "instrument-co")
     rm = picker.pick(prof, TODAY)
     assert rm.options[0].program == "nsf-sbir-2" and ("nsf-sbir-1", "already held") in rm.excluded
+
+
+# ---------------------------------------------------------------- lead time before the application
+
+def test_stated_lead_time_moves_the_first_date():
+    lead = {"days": [30, 60], "basis": "Pitch response", "source": "s"}
+    dl = {"next": [date(2027, 1, 5), date(2027, 3, 4)]}
+    a = run([prog("a", lead=lead, deadlines=dl)]).options[0]
+    assert a.apply == date(2027, 3, 4) and "allowing 60 days for the Pitch response" in a.apply_basis
+    b = run([prog("a", lead=lead, deadlines={"next": [date(2027, 1, 5)]})]).options[0]
+    assert b.apply is None and "30-day prep time plus 60-day Pitch response" in b.apply_basis
+
+
+def test_unstated_lead_time_adds_no_days_but_is_flagged():
+    a = run([prog("a", lead={"days": None, "basis": "Summary first; turnaround not stated", "source": "s"})]).options[0]
+    assert a.apply == date(2027, 1, 5) and "first: Summary first; turnaround not stated" in a.flags
+
+
+def test_registry_checks_lead():
+    srcs = {"s": {"url": "https://example.gov", "tier": 1}}
+    found = "\n".join(registry.problems([prog("a", lead={"days": 60, "basis": "b", "source": "s"}),
+                                         prog("b", lead={"days": [1, 2], "source": "zz"})], srcs, {}))
+    assert "a: lead.days must be" in found and "b: lead needs basis and source" in found

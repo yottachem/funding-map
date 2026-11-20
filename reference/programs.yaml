@@ -25,6 +25,8 @@
 #   feeds         program ids this one leads into (stacking)
 #   requires      awards needed first: `any` of these program ids (from the prerequisites text), and `after_months`
 #                 when the funder sets a gap after the earlier award starts. Used by the picker to gate follow-ons
+#   lead          a required step before the application (pitch, summary): `days` [low, high] only when the funder
+#                 states the turnaround, else null; the picker adds the high end to the profile's prep time
 
 verified_default: 2026-11-20
 
@@ -146,6 +148,7 @@ programs:
       also: nsf-review
     timing: {notify_days: [150, 210], basis: "Notification 5-7 months after the deadline", source: nsf-review}
     prerequisites: Project Pitch invitation first (response in about 1-2 months; valid for the next two deadlines). Two pitches per company per 12 months
+    lead: {days: [30, 60], basis: "Project Pitch response (NSF: about 1-2 months)", source: nsf-pitch}
     deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-510}
     status: open
     feeds: [nsf-sbir-2, massventures-start, masscec-amplifymass]
@@ -168,6 +171,7 @@ programs:
       source: nsf-26-511
     timing: {notify_days: [150, 210], basis: "Same review as NSF Phase I", source: nsf-review}
     prerequisites: Project Pitch invitation, as for NSF Phase I. For next-generation instruments, experimental platforms and scientific equipment
+    lead: {days: [30, 60], basis: "Project Pitch response (NSF: about 1-2 months)", source: nsf-pitch}
     deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-511}
     status: open
     feeds: [nsf-sbir-2]
@@ -240,6 +244,7 @@ programs:
     award: {max: 50000, duration_months: [12, 12], source: nsf-25-549, note: "Customer discovery: at least 100 interviews; registration fee paid from the award"}
     success: {published: false, note: "About 240 awards and $12M planned", source: nsf-25-549}
     prerequisites: Two-page Executive Summary, then invitation. University applicant; team needs a related NSF award (active or ended within 5 years) or Regional I-Corps training
+    lead: {days: null, basis: "Executive Summary, then invitation; turnaround not stated", source: nsf-25-549}
     deadlines: {cadence: Anytime, source: nsf-25-549}
     status: open
     feeds: [nsf-ttp, nsf-sbir-1]
@@ -323,6 +328,7 @@ programs:
     award: {max: 600000, source: arpa-h-sbir, note: "Phase 2 up to $3.5M"}
     success: {published: false, source: arpa-h-sbir}
     prerequisites: Solution Summary, then technical deck and cost proposal on the ARPA-H Solutions site
+    lead: {days: null, basis: "Solution Summary first; turnaround not stated", source: arpa-h-sbir}
     deadlines: {cadence: "Topic releases, irregular", source: arpa-h-sbir}
     status: between-rounds
     sources: [arpa-h-sbir, arpa-h-funding]
@@ -339,6 +345,7 @@ programs:
     award: {max: null, not_stated: true, source: arpa-h-iso-docs, note: "No size in any of the four ISO documents; the proposer sets the budget, negotiated at award. ARPA-H says programs carry more funding than ISO projects"}
     success: {published: false, source: arpa-h-funding}
     prerequisites: Solution Summary and written ARPA-H feedback before a full proposal
+    lead: {days: null, basis: "Solution Summary and written feedback first; turnaround not stated", source: arpa-h-iso-docs}
     deadlines: {cadence: "Rolling until 2029-03-05", source: arpa-h-iso-docs}
     status: open
     sources: [arpa-h-funding, arpa-h-iso-docs]
@@ -433,6 +440,7 @@ programs:
     award_data: {agency: DOE, phase: I}
     success: {rate: 0.19, year: FY2022, basis: SBIR Phase I proposals selected (STTR 16%); 2026 pitch-first process adds an earlier filter, source: sba-fy22}
     prerequisites: Pitch first (up to three per company); full application by invitation; SAM and SBA Company Registry before the full application
+    lead: {days: null, basis: "pitch due by the listed date; full application by invitation", source: doe-fall-2026}
     deadlines: {cadence: Topic releases (Fall 2026 pitches), next: [2026-12-16], source: doe-fall-2026}
     status: open
     feeds: [doe-sbir-2, masscec-amplifymass, massventures-start]
