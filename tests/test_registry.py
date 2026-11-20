@@ -65,7 +65,8 @@ NESTED = {"award": {"max", "duration_months", "source", "note"},
           "success": {"rate", "year", "basis", "source", "also", "published", "note"},
           "timing": {"notify_days", "award_days", "basis", "source"},
           "deadlines": {"cadence", "next", "source"},
-          "award_data": {"agency", "branch", "phase"}}
+          "award_data": {"agency", "branch", "phase"},
+          "award_recent": {"dataset", "group"}}
 
 
 def test_nested_keys_are_known():

@@ -1,0 +1,57 @@
+# Fetch settings, kept out of the hand-curated registry (reference/programs.yaml).
+#
+# grants_gov  numbers: exact opportunity numbers; patterns: regexes on "number title" (case-insensitive), found with
+#             the `search` keywords (search2 is full-text and relevance-ranked, so a pattern needs a keyword).
+#             A matched opportunity is written to reference/opportunities.csv (Grants.gov is tier 1, auto-accepted).
+# dsip        DoD SBIR/STTR topics; phase codes in each topic's phaseHierarchy route Phase I vs Phase II.
+# manual      programs with no machine-readable feed (DOE Application Hub, SAM.gov contracts, state pages): checked by
+#             hand each quarter; the Status page shows the verified date.
+# discovery   Grants.gov searches for programs the map does not track yet. A hit becomes a new-program candidate only
+#             when its title has a discovery term and it is not tracked, ignored, or already in the queue.
+
+grants_gov:
+  nsf-sbir-1: {numbers: ["26-510"]}
+  nsf-sbir-2: {numbers: ["26-510"]}
+  nsf-breakthrough: {numbers: ["26-510"]}
+  nsf-sbir-instr: {numbers: ["26-511"]}
+  nsf-ttp: {numbers: ["25-540"]}
+  nsf-icorps: {numbers: ["25-549"]}
+  nih-sbir-1: {numbers: ["PA-27-100", "PA-27-102"]}
+  nih-sbir-2: {numbers: ["PA-27-100", "PA-27-102", "PA-27-101"]}
+  usda-sbir-1: {patterns: ["^USDA-NIFA-SBIR-\\d+ .*\\bPhase (I|1)\\b"], search: ["USDA-NIFA-SBIR"]}
+  arpa-e-open: {patterns: ["^DE-FOA-\\d+ .*\\bOPEN 20\\d\\d\\b"], search: ["ARPA-E OPEN"]}
+
+dsip:
+  dod-sbir-1: {phases: ["1"]}
+  dod-sbir-2: {phases: ["2", "D2", "2S"]}
+
+manual:
+  doe-sbir-1: https://sbir-sttr.connectwerx.org/
+  doe-sbir-2: https://sbir-sttr.connectwerx.org/
+  nasa-sbir-1: https://www.nasa.gov/sbir_sttr/nasa-sbir-sttr-program-program-year-2026-information-hub/
+  nasa-sbir-2: https://www.nasa.gov/sbir_sttr/phase-ii/
+  noaa-sbir-1: https://techpartnerships.noaa.gov/
+  epa-sbir-1: https://www.epa.gov/sbir/sbir-funding-opportunities
+  arpa-h-sbir: https://arpa-h.gov/explore-funding/sbir
+  arpa-h-iso: https://arpa-h.gov/explore-funding
+  barda-accelerator: https://drive.hhs.gov/
+  masscec-catalyst: https://www.masscec.com/program/catalyst
+  masscec-innovatemass: https://www.masscec.com/program/innovatemass
+  masscec-amplifymass: https://www.masscec.com/program/amplifymass
+  massventures-start: https://www.mass-ventures.com/start-program-info
+  mlsc-access: https://www.masslifesciences.com/programs/access-and-accelerate-grant/
+  mlsc-impact: https://www.masslifesciences.com/programs/impact-catalyst/
+
+discovery:
+  keywords: ["SBIR", "STTR", "small business innovation", "commercialization", "technology transfer", "prototype",
+             "scale-up", "startup", "entrepreneur", "instrumentation", "diagnostic", "advanced manufacturing",
+             "advanced materials", "Build to Scale"]
+  # Title must contain one of these (case-insensitive) to be queued. Company-facing terms only: "translational",
+  # "diagnostic", "instrument" and "accelerator" pulled in academic mechanisms (CTSA, NRSA, S10) on the first run.
+  title_terms: ["sbir", "sttr", "small business", "commerciali", "startup", "start-up", "entrepreneur",
+                "build to scale", "scale-up", "scale up", "pre-pilot", "prototype"]
+  # ...and none of these (academic training, institutional and center mechanisms).
+  exclude_terms: ["nrsa", "kirschstein", "career development", "research education", "training", "fellowship",
+                  "institutional", "limited competition", "(s10", "(p50", "(u54", "(um1", "(t32", "(r25"]
+  # Opportunity numbers never queued (decided not to track; add the reason).
+  ignore: {}

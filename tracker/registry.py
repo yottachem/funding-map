@@ -1,7 +1,8 @@
 """Load and check reference/programs.yaml against its rules.
 
 `problems()` returns every rule violation as a string so one test shows them all. `launch_problems()` adds the
-launch gate: no open `verify` fields, every program has a sourced award size (cap or computed typical award) and a
+launch gate: no open `verify` fields, every program has a sourced award size (cap, or a typical award computed from
+sbir_stats.csv or recent.csv) and a
 sourced success rate or an explicit "not published", and deadlines carry a source.
 """
 from __future__ import annotations
@@ -15,6 +16,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCE = ROOT / "reference"
 STATS = REFERENCE / "awards" / "sbir_stats.csv"
+RECENT = REFERENCE / "awards" / "recent.csv"
 
 JURISDICTIONS = ("federal", "massachusetts")
 VEHICLES = ("grant", "contract", "cooperative-agreement", "other-transaction", "grant-or-contract")
@@ -24,7 +26,7 @@ DOMAINS = ("life-science-tools", "diagnostics", "materials", "energy-climate", "
 STATUSES = ("open", "between-rounds", "upcoming", "paused", "closed", "unknown")
 REQUIRED = ("id", "name", "funder", "jurisdiction", "vehicle", "stage", "entity", "domains", "award", "success",
             "deadlines", "status", "sources")
-KEYS = set(REQUIRED) | {"office", "award_data", "timing", "prerequisites", "cost_share", "trl", "verify", "feeds"}
+KEYS = set(REQUIRED) | {"office", "award_data", "award_recent", "timing", "prerequisites", "cost_share", "trl", "verify", "feeds"}
 
 
 def data() -> dict:
@@ -46,6 +48,17 @@ def sbir_stats() -> dict[tuple[str, str, str], dict]:
         return {(r["agency"], r["branch"], r["phase"]): r for r in csv.DictReader(f)}
 
 
+def recent_stats() -> dict[tuple[str, str], list[dict]]:
+    """reference/awards/recent.csv rows grouped by (dataset, group), one row per fiscal year."""
+    if not RECENT.exists():
+        return {}
+    out: dict[tuple[str, str], list[dict]] = {}
+    with RECENT.open() as f:
+        for r in csv.DictReader(f):
+            out.setdefault((r["dataset"], r["group"]), []).append(r)
+    return out
+
+
 def award_row(p: dict, stats: dict | None = None) -> dict | None:
     key = p.get("award_data")
     if not key:
@@ -63,10 +76,12 @@ def _get(entry: dict, path: str):
     return node
 
 
-def problems(progs: list[dict] | None = None, srcs: dict | None = None, stats: dict | None = None) -> list[str]:
+def problems(progs: list[dict] | None = None, srcs: dict | None = None, stats: dict | None = None,
+             recent: dict | None = None) -> list[str]:
     progs = programs() if progs is None else progs
     srcs = sources() if srcs is None else srcs
     stats = sbir_stats() if stats is None else stats
+    recent = recent_stats() if recent is None else recent
     out: list[str] = []
     ids = [p.get("id") for p in progs]
     for dup in {i for i in ids if ids.count(i) > 1}:
@@ -113,6 +128,9 @@ def problems(progs: list[dict] | None = None, srcs: dict | None = None, stats: d
             out.append(f"{pid}: success needs a sourced rate or published: false")
         if p.get("award_data") and award_row(p, stats) is None and stats:
             out.append(f"{pid}: award_data {p['award_data']} not in sbir_stats.csv")
+        rec = p.get("award_recent")
+        if rec and recent and (rec.get("dataset"), rec.get("group")) not in recent:
+            out.append(f"{pid}: award_recent {rec} not in recent.csv")
         for nxt in _get(p, "deadlines.next") or []:
             if not isinstance(nxt, dt.date):
                 out.append(f"{pid}: deadlines.next {nxt!r} is not a date")
@@ -135,7 +153,7 @@ def launch_problems(progs: list[dict] | None = None, srcs: dict | None = None) -
         pid = p["id"]
         if p.get("verify"):
             out.append(f"{pid}: open verify flags {p['verify']}")
-        if p["award"].get("max") is None and not p.get("award_data"):
+        if p["award"].get("max") is None and not (p.get("award_data") or p.get("award_recent")):
             out.append(f"{pid}: no sourced award size (cap or award data)")
         if not _get(p, "deadlines.source"):
             out.append(f"{pid}: deadlines need a source")

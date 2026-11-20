@@ -2,8 +2,9 @@
 #
 # The program is the unit. Open solicitations hang off a program (reference/opportunities.csv, Phase 2).
 # Award history for SBIR/STTR programs is computed, not typed: `award_data` links a row of reference/awards/sbir_stats.csv
-# (SBIR.gov bulk award data, award years 2022-2024). Hand-typed figures here are the current rules (caps, durations,
-# deadlines) and published success rates.
+# (SBIR.gov bulk award data, award years 2022-2024); `award_recent` links a group in reference/awards/recent.csv (NIH
+# RePORTER, NSF Awards API, USAspending; recent fiscal years). Hand-typed figures here are the current rules (caps,
+# durations, deadlines) and published success rates.
 #
 # Field guide
 #   jurisdiction  federal | massachusetts
@@ -71,6 +72,14 @@ sources:
   massventures-start: {url: "https://www.mass-ventures.com/start-program-info", tier: 1}
   mlsc-access: {url: "https://www.masslifesciences.com/programs/access-and-accelerate-grant/", tier: 1}
   mlsc-impact: {url: "https://www.masslifesciences.com/programs/impact-catalyst/", tier: 1}
+  nih-pa-27-100: {url: "https://files.simpler.grants.gov/opportunities/d1ba49e5-3684-4420-849a-ab2330ec493e/attachments/743ad4bd-fc28-450e-9249-1008f37490af/PA-27-100-Revised-Full-Announcement.html", tier: 1,
+                  note: "NIH/CDC/FDA parent SBIR NOFO (R43/R44), posted 2026-05-28. Award Budget: SBA guideline normally; per-institute limits up to $700K Phase I and $3M Phase II. Due-date table: earliest start 6-7 months after each standard date"}
+  dsip-topics: {url: "https://www.dodsbirsttr.mil/topics-app/", tier: 1,
+                note: "DoD SBIR/STTR Innovation Portal topic search; open and pre-release topics ingested weekly (ingest/dsip.py)"}
+  usda-p1-fy25: {url: "https://www.grants.gov/search-results-detail/355247", tier: 1,
+                 note: "USDA-NIFA-SBIR-010774, FY2025 Phase I RFA: posted 2024-07-02, closed 2024-09-17, ceiling $181,500, $15.5M total. No FY2026 Phase I RFA on Grants.gov (program lapsed 2025-10-01 to 2026-04-13)"}
+  usaspending-arpa-e: {url: "https://www.usaspending.gov/search/?hash=arpa-e-81.135", tier: 1,
+                       note: "USAspending assistance awards, listing 81.135, award ids DEAR*; OPEN cohort from the FOA named in each award description. Computed in ingest/award_stats.py"}
   reauth-crowell: {url: "https://www.crowell.com/en/insights/client-alerts/sbirsttr-programs-reauthorized-after-six-month-lapse", tier: 2,
                    note: "SBIR/STTR lapsed 2025-10-01; reauthorized 2026-04-13 through 2031-09-30 (S. 3971)"}
   reauth-ssti: {url: "https://ssti.org/blog/sbir-slowly-relaunching-following-presidents-signature", tier: 2,
@@ -90,6 +99,7 @@ programs:
     domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
     award: {max: 305000, duration_months: [6, 18], source: nsf-26-510}
     award_data: {agency: NSF, phase: I}
+    award_recent: {dataset: nsf-awards, group: SBIR Phase I}
     success:
       rate: 0.11
       year: FY2022
@@ -136,6 +146,7 @@ programs:
     domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
     award: {max: 1250000, duration_months: [24, 24], source: nsf-26-510}
     award_data: {agency: NSF, phase: II}
+    award_recent: {dataset: nsf-awards, group: SBIR Phase II}
     success: {rate: 0.49, year: FY2022, basis: SBIR Phase II proposals selected (STTR 29%), source: sba-fy22}
     prerequisites: NSF Phase I award; submit 6-24 months after the Phase I start date
     deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-510}
@@ -157,7 +168,6 @@ programs:
     prerequisites: NSF Phase II awardees, by Program Officer invitation or recommendation
     deadlines: {cadence: By invitation, source: nsf-26-510}
     status: open
-    verify: [award.duration_months]
     sources: [nsf-26-510, nsf-26-511]
 
   - id: nsf-ttp
@@ -205,19 +215,20 @@ programs:
     stage: entry
     entity: small-business
     domains: [life-science-tools, diagnostics]
-    award: {max: null, source: null, note: "Typical award from award data; cap per NOFO (parent NOFO page not yet read)"}
+    award: {max: 700000, source: nih-pa-27-100, note: "Highest institute limit (NCI, NIA, NIAID); default is the SBA guideline, several institutes $400K"}
     award_data: {agency: HHS, branch: NIH, phase: I}
+    award_recent: {dataset: nih-reporter, group: R43}
     success:
       rate: 0.08
       year: FY2025
       basis: SBIR Phase I competing applications funded (STTR Phase I 13%; Fast-Track 8%). FY2021-2024 SBIR Phase I 12%, 15%, 16%, 10%
       source: nih-databook-202
     prerequisites: HHS accepts at most 9 new and resubmission Phase I, Fast-Track and Direct to Phase II applications per company per fiscal year
-    deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: null}
+    timing: {award_days: [180, 210], basis: "Earliest start 6-7 months after the standard due date", source: nih-pa-27-100}
+    deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: nih-pa-27-100}
     status: open
-    verify: [award.max, deadlines.source]
     feeds: [nih-sbir-2, massventures-start, mlsc-access]
-    sources: [nih-databook-202, nih-not-od-26-090, nih-reauth, nih-nofos-2026, sbir-awards]
+    sources: [nih-databook-202, nih-not-od-26-090, nih-reauth, nih-nofos-2026, nih-pa-27-100, sbir-awards]
 
   - id: nih-sbir-2
     name: NIH SBIR/STTR Phase II
@@ -228,19 +239,20 @@ programs:
     stage: follow-on
     entity: small-business
     domains: [life-science-tools, diagnostics]
-    award: {max: null, source: null}
+    award: {max: 3000000, source: nih-pa-27-100, note: "Highest institute limit (NHLBI, NIA, NIAID); default is the SBA guideline"}
     award_data: {agency: HHS, branch: NIH, phase: II}
+    award_recent: {dataset: nih-reporter, group: R44}
     success:
       rate: 0.22
       year: FY2025
       basis: SBIR Regular Phase II competing applications funded (Direct Phase II 12%; STTR Regular Phase II 27%). FY2021-2024 SBIR Regular Phase II 31%, 35%, 35%, 27%
       source: nih-databook-202
     prerequisites: NIH Phase I award, or Direct to Phase II with equivalent results
-    deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: null}
+    timing: {award_days: [180, 210], basis: "Earliest start 6-7 months after the standard due date", source: nih-pa-27-100}
+    deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: nih-pa-27-100}
     status: open
-    verify: [award.max, deadlines.source]
     feeds: [massventures-start]
-    sources: [nih-databook-202, sbir-awards]
+    sources: [nih-databook-202, nih-pa-27-100, sbir-awards]
 
   - id: barda-accelerator
     name: BARDA DRIVe Accelerator Network proof-of-concept awards
@@ -340,13 +352,14 @@ programs:
     stage: entry
     entity: either
     domains: [energy-climate, materials, hardware]
-    award: {max: null, source: null, note: "Size set in each OPEN announcement"}
+    award: {max: null, source: null, note: "No fixed cap; size set in each OPEN announcement. Typical award from OPEN 2024 awards"}
+    award_recent: {dataset: arpa-e, group: OPEN 2024}
     success: {published: false, source: arpa-e-budget-fy26}
     deadlines: {cadence: Every three years (2009-2024); next planned 2027, source: arpa-e-budget-fy26}
     status: upcoming
-    verify: [award.max, deadlines.next]
+    verify: [deadlines.next]
     feeds: [masscec-amplifymass]
-    sources: [arpa-e-budget-fy26, arpa-e-budget-fy27]
+    sources: [arpa-e-budget-fy26, arpa-e-budget-fy27, usaspending-arpa-e]
 
 # ---------------------------------------------------------------- DoD
   - id: dod-sbir-1
@@ -362,11 +375,10 @@ programs:
     award_data: {agency: DOD, phase: I}
     success: {rate: 0.18, year: FY2022, basis: "SBIR Phase I proposals selected, 6,444 to 1,172 (STTR 25%)", source: sba-fy22}
     prerequisites: Topic-specific; respond to a published component topic
-    deadlines: {cadence: Rolling topic releases on DSIP, source: null}
+    deadlines: {cadence: Rolling topic releases on DSIP, source: dsip-topics}
     status: open
-    verify: [deadlines.source, status]
     feeds: [dod-sbir-2, massventures-start]
-    sources: [sba-fy22, sbir-awards, reauth-ssti]
+    sources: [sba-fy22, sbir-awards, reauth-ssti, dsip-topics]
 
   - id: dod-sbir-2
     name: DoD SBIR/STTR Phase II
@@ -381,11 +393,10 @@ programs:
     award_data: {agency: DOD, phase: II}
     success: {rate: 0.28, year: FY2022, basis: "SBIR Phase II proposals selected, 4,751 to 1,334", source: sba-fy22}
     prerequisites: DoD Phase I (or Direct to Phase II where the topic allows)
-    deadlines: {cadence: By component, source: null}
+    deadlines: {cadence: By component, source: dsip-topics}
     status: open
-    verify: [deadlines.source]
     feeds: [massventures-start]
-    sources: [sba-fy22, sbir-awards]
+    sources: [sba-fy22, sbir-awards, dsip-topics]
 
 # ---------------------------------------------------------------- NASA, USDA, NOAA, EPA
   - id: nasa-sbir-1
@@ -433,14 +444,13 @@ programs:
     stage: entry
     entity: small-business
     domains: [energy-climate, materials]
-    award: {max: null, source: null}
+    award: {max: 181500, source: usda-p1-fy25, note: "FY2025 RFA ceiling (latest posted)"}
     award_data: {agency: USDA, phase: I}
     success: {rate: 0.15, year: FY2022, basis: SBIR Phase I proposals selected (Phase II 50%), source: sba-fy22}
-    deadlines: {cadence: Annual, source: null}
-    status: unknown
-    verify: [award.max, deadlines, status]
+    deadlines: {cadence: "Annual; RFA posted July, closing mid-September (FY2024, FY2025)", source: usda-p1-fy25}
+    status: between-rounds
     feeds: [massventures-start]
-    sources: [sba-fy22, sbir-awards]
+    sources: [sba-fy22, sbir-awards, usda-p1-fy25]
 
   - id: noaa-sbir-1
     name: NOAA SBIR Phase I
