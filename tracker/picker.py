@@ -374,6 +374,33 @@ def to_json(rm: Roadmap) -> str:
     return json.dumps(asdict(rm), default=str, indent=1)
 
 
+def site_data(progs=None, stats=None, recent=None, opps=None) -> dict:
+    """Everything site/static/picker.js needs, with size, cash timing and odds text computed here so the two pickers
+    share one source of figures. Dates are every known registry and DSIP date; the browser applies the window."""
+    progs = registry.programs() if progs is None else progs
+    stats = registry.sbir_stats() if stats is None else stats
+    recent = registry.recent_stats() if recent is None else recent
+    opps = read_opps() if opps is None else opps
+    out = []
+    for p in progs:
+        size, size_basis = typical_size(p, stats, recent)
+        days, cash_basis = cash_days(p, stats)
+        rate = p["success"].get("rate")
+        out.append({
+            "id": p["id"], "name": p["name"], "funder": p["funder"], "state": STATE_OF.get(p["jurisdiction"], ""),
+            "entity": p["entity"], "domains": p["domains"], "trl": p.get("trl"), "status": p["status"],
+            "requires": p.get("requires") or {}, "cadence": str(p["deadlines"].get("cadence") or ""),
+            "dates": [d.isoformat() for d in deadlines(p, opps, dt.date.min, dt.date.max)],
+            "lead": p.get("lead") or {}, "cash_days": list(days) if days else None, "cash_basis": cash_basis,
+            "size": size, "size_basis": size_basis, "rate": rate,
+            "odds_basis": f"{rate:.0%} ({p['success']['year']})" if rate is not None else "not published",
+            "term_max": (p["award"].get("duration_months") or [None, None])[1],
+            "cost_share": p.get("cost_share") or "", "prerequisites": str(p.get("prerequisites") or "")})
+    return {"verified": str(registry.data().get("verified_default")), "window_months": WINDOW_MONTHS,
+            "max_depth": MAX_DEPTH, "programs": out,
+            "examples": [asdict(pr) for pr in load_profiles()]}
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--profile", help="profile id from reference/example_profiles.yaml (default: all)")

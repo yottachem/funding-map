@@ -1,0 +1,6 @@
+<div class="ex">
+{% for e in examples %}
+  <a href="{{ up }}roadmap.html?example={{ e.id }}"><span class="chip fict">Fictional</span> {% set l = e.label.split(": ", 1)[1] %}{{ l[0] | upper }}{{ l[1:] }}
+    <small>{{ ENTITY[e.entity] }}, {{ "Massachusetts" if e.state == "MA" else "outside Massachusetts" }}, TRL {{ e.trl }}; {% for d in e.domains %}{{ DOMAIN[d] | lower }}{{ ", " if not loop.last }}{% endfor %}{% if e.held %}; holds {{ e.held | length }} award{{ "s" if e.held | length > 1 }}{% endif %}; needs {{ e.cash_need | usd }}, {{ e.runway_months }} months of runway</small></a>
+{% endfor %}
+</div>

@@ -1,0 +1,39 @@
+{% extends "base.html.j2" %}
+{% block path %}status.html{% endblock %}
+{% block title %}Status{% endblock %}
+{% block description %}When each feed last produced data, the review queue, and each program's status.{% endblock %}
+{% block body %}
+<h1>Status</h1>
+<p class="lede">Built {{ built }}. Program records verified {{ verified }}. {{ open }} item{{ "" if open == 1 else "s" }} wait{{ "s" if open == 1 else "" }} in the review queue; {{ decided }} decided so far.</p>
+
+<h2>Feeds</h2>
+<p class="sub">Last new data from each feed. A feed that fails keeps its last data, and the date shows how old it is. Nothing a feed finds changes a program record until it is reviewed.</p>
+<div class="tw"><table>
+<thead><tr><th>Feed</th><th>Gives</th><th>Cadence</th><th class="n">Last data</th></tr></thead>
+<tbody>
+{% for s in feeds %}<tr><td>{{ s.name }}</td><td>{{ s.what }}</td><td>{{ s.cadence }}</td><td class="n">{{ s.last or "–" }}</td></tr>{% endfor %}
+</tbody></table></div>
+
+<h2>Program status</h2>
+<p class="sub">As recorded in the registry. The SBIR/STTR programs lapsed from Oct 1, 2025 to Apr 13, 2026 and are authorized through Sep 30, 2031 (<a href="https://www.grants.nih.gov/news-events/nih-extramural-nexus-news/2026/04/its-official-nihs-small-business-program-is-back">NIH</a>, <a href="https://www.crowell.com/en/insights/client-alerts/sbirsttr-programs-reauthorized-after-six-month-lapse">Crowell</a>); agencies restarted unevenly, so some are still between rounds.</p>
+<div class="tw"><table>
+<thead><tr><th>Status</th><th class="n">Programs</th><th>Which</th></tr></thead>
+<tbody>
+{% for k, label, rs in by_status %}<tr><td><span class="chip st-{{ k }}">{{ label }}</span></td><td class="n">{{ rs | length }}</td><td>{% for r in rs %}<a href="program/{{ r.id }}.html">{{ r.short }}</a>{{ ", " if not loop.last }}{% endfor %}</td></tr>{% endfor %}
+</tbody></table></div>
+{% if mismatch %}
+<h3>Feed and registry disagree</h3>
+<p class="sub">The feeds suggest a different status. These wait for review; the registry value is what the site shows.</p>
+<div class="tw"><table><thead><tr><th>Program</th><th>Registry</th><th>Feeds suggest</th><th class="n">Next close</th></tr></thead><tbody>
+{% for r, d in mismatch %}<tr><td class="prog"><a href="program/{{ r.id }}.html">{{ r.name }}</a></td><td>{{ STATUS[d.yaml_status] }}</td><td>{{ STATUS.get(d.derived, d.derived) }}</td><td class="d">{{ d.next_close or "–" }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endif %}
+
+<h2>Curated by hand</h2>
+<p class="sub">These files change only when someone edits them. Dates are the last change in the repository.</p>
+<div class="tw"><table>
+<thead><tr><th>File</th><th>Holds</th><th class="n">Last changed</th></tr></thead>
+<tbody>
+{% for c in curated %}<tr><td><a href="{{ repo }}/blob/main/{{ c.path }}">{{ c.path }}</a></td><td>{{ c.what }}</td><td class="n">{{ c.changed or "–" }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

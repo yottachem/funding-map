@@ -1,0 +1,22 @@
+{% extends "base.html.j2" %}
+{% block path %}roadmap.html{% endblock %}
+{% block title %}Roadmap{% endblock %}
+{% block description %}A funding roadmap for one company profile: eligible programs ranked by expected value, the stacking order, and an 18-month calendar. Runs in the browser; nothing is stored.{% endblock %}
+{% block body %}
+<h1>Funding roadmap</h1>
+<p class="lede" id="rm-lede">Describe the company, or open one of the fictional examples.</p>
+<noscript><p class="callout warn">The roadmap runs in your browser and needs JavaScript. The <a href="programs.html">programs table</a> and <a href="paths.html">stacking paths</a> read without it.</p></noscript>
+<details id="rm-edit" open><summary>Company profile</summary>
+{% include "_form.html.j2" %}
+</details>
+<div id="rm-ex">
+<h3>Examples</h3>
+{% include "_examples.html.j2" %}
+</div>
+<div id="rm-out" aria-live="polite"></div>
+{% endblock %}
+{% block script %}
+<script type="application/json" id="fm-data">{{ data_json }}</script>
+<script src="picker.js"></script>
+<script src="roadmap.js"></script>
+{% endblock %}

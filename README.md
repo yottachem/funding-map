@@ -21,6 +21,8 @@ Every figure links its source. Success rates come only from the funder or the SB
 | `tracker/registry.py` | Registry rules (`problems()`) and the launch gate (`launch_problems()`) |
 | `tracker/picker.py` | Picker: profile in; eligible programs ranked by expected value (typical size x published odds), stacking chains along `requires`, an 18-month calendar, and the reason each other program is out |
 | `reference/example_profiles.yaml` | Three fictional company profiles used by the tests and the site |
+| `site/build.py`, `site/templates/`, `site/charts.py` | Static site into `site/dist/`: home, roadmap, programs, a page per program, stacking paths, methods, status. Charts are server-rendered SVG |
+| `site/static/picker.js`, `site/static/roadmap.js` | The picker in the browser (same rules as `tracker/picker.py`; `tests/test_site.py` compares them field by field, needs node) and the roadmap page renderer. Nothing is stored; the URL holds the profile |
 
 ## Run
 
@@ -35,10 +37,11 @@ uv run --group data python -m ingest.run --quarterly    # award history; re-down
 uv run python -m tools.review                           # open queue items
 uv run python -m tools.review accept|reject <qid> [note]
 uv run python -m tracker.picker [--profile id] [--start YYYY-MM-DD] [--json]   # roadmaps for the example profiles
+uv run python site/build.py [--preview] [--today YYYY-MM-DD]                  # site into site/dist (open site/dist/index.html)
 ```
 
 Nothing a collector finds edits `programs.yaml` directly. Opportunities from the funders' own systems are recorded as found; anything that would change the registry (a new program, a higher cap, a status change, a possible lapse) waits in the review queue. A rejected item never returns.
 
 ## Status
 
-Phase 3 (picker) done 2026-11-20: eligibility, expected value from published odds only, stacking, calendar; dates never guessed. Phase 2 (ingest and review queue) done 2026-11-20; first queue review 2026-11-20 added 4 NIH programs (31 total). Site follows (Phase 4). Launch gate clear 2026-11-20 (`LAUNCH_GATE=1 pytest`): every program has a sourced size, sourced deadlines and no verify flags.
+Phase 4 (site) built 2026-11-21, local preview only: seven page types, roadmap in the browser held to the Python picker by a parity test, Methods explains why expected values are low. Phase 3 (picker) done 2026-11-20: eligibility, expected value from published odds only, stacking, calendar; dates never guessed. Phase 2 (ingest and review queue) done 2026-11-20; first queue review 2026-11-20 added 4 NIH programs (31 total). Site follows (Phase 4). Launch gate clear 2026-11-20 (`LAUNCH_GATE=1 pytest`): every program has a sourced size, sourced deadlines and no verify flags.

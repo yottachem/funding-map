@@ -1,0 +1,33 @@
+{# Picker form. A plain GET form: the roadmap page reads the same parameters, so every roadmap is a shareable URL and nothing is stored. #}
+<form class="pick" action="{{ up }}roadmap.html" method="get" id="pick">
+  <fieldset>
+    <legend>Applicant</legend>
+    {% for k in ("small-business", "academic") %}<label class="opt"><input type="radio" name="e" value="{{ k }}"{% if loop.first %} checked{% endif %}> {{ ENTITY[k] }}</label>{% endfor %}
+  </fieldset>
+  <fieldset>
+    <legend>Location</legend>
+    <label class="opt"><input type="radio" name="s" value="MA" checked> Massachusetts</label>
+    <label class="opt"><input type="radio" name="s" value="other"> Another US state</label>
+  </fieldset>
+  <fieldset>
+    <label class="h" for="f-t">Technology readiness (TRL)</label>
+    <select name="t" id="f-t"><option value="">Not set</option>{% for i in range(1, 10) %}<option value="{{ i }}">TRL {{ i }}</option>{% endfor %}</select>
+    <label class="h" for="f-p" style="margin-top:8px">Days until you can submit</label>
+    <input type="number" name="p" id="f-p" min="0" max="365" value="30">
+  </fieldset>
+  <fieldset>
+    <label class="h" for="f-n">Cash need within 18 months (USD)</label>
+    <input type="number" name="n" id="f-n" min="0" step="1000" placeholder="e.g. 750000">
+    <label class="h" for="f-r" style="margin-top:8px">Runway (months)</label>
+    <input type="number" name="r" id="f-r" min="1" max="60" placeholder="e.g. 12">
+  </fieldset>
+  <fieldset class="wide">
+    <legend>Technology (pick at least one)</legend>
+    <div class="cols">{% for k, v in DOMAIN.items() %}<label class="opt"><input type="checkbox" name="d" value="{{ k }}"> {{ v }}</label>{% endfor %}</div>
+  </fieldset>
+  <fieldset class="wide">
+    <legend>Awards already won (unlocks follow-ons)</legend>
+    <div class="cols">{% for r in held_choices %}<label class="opt"><input type="checkbox" name="h" value="{{ r.id }}"> {{ r.name }}</label>{% endfor %}</div>
+  </fieldset>
+  <div class="go"><button type="submit">Build the roadmap</button><span class="sub" style="margin:0">Runs in your browser. Nothing is sent or stored; the address bar holds the profile, so the link is the roadmap.</span></div>
+</form>

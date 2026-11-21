@@ -1,0 +1,91 @@
+{% extends "base.html.j2" %}
+{% block path %}methods.html{% endblock %}
+{% block title %}Methods{% endblock %}
+{% block description %}How the Non-Dilutive Funding Map grades programs, what its success rates mean, why expected values are low, and what it does not cover.{% endblock %}
+{% block body %}
+<h1>Methods</h1>
+<p class="lede">How each figure is chosen, what it means, and where the map stops.</p>
+
+<h2 id="unit">What a program is</h2>
+<div class="prose">
+<p>The unit is the program (NSF SBIR Phase I, ARPA-E OPEN, MassCEC Catalyst), not the single solicitation. Open solicitations hang off their program. {{ n_programs }} programs are tracked: federal SBIR/STTR at the agencies that fund instruments, diagnostics, materials, energy and climate, and hardware; non-SBIR federal programs (ARPA-E, ARPA-H, NSF, BARDA's accelerator network); and Massachusetts (MassCEC, Mass Life Sciences Center, MassVentures).</p>
+<p>Every program record lives in <a href="{{ repo }}/blob/main/reference/programs.yaml">programs.yaml</a>, and every figure in it carries a source key. Records change only by hand, after review.</p>
+</div>
+
+<h2 id="size">Typical award</h2>
+<div class="prose">
+<ol>
+<li><b>Actual recent awards</b> where the data exist: NIH RePORTER, the NSF Awards API and USAspending (ARPA-E by OPEN round). The median of the fiscal year with the most awards.</li>
+<li><b>SBIR.gov award data</b>, award years 2022-2024: the median per agency, branch and phase.</li>
+<li><b>The funder's cap</b>, labeled "cap".</li>
+<li><b>Not stated</b>, only after the funder's own solicitation was read and gives no size. No size is ever estimated.</li>
+</ol>
+</div>
+
+<h2 id="odds">Success rates</h2>
+<div class="prose">
+<p>Only rates the funder or the SBA publishes. Consultant figures are excluded. {{ rated | length }} of {{ n_programs }} programs have one; the rest show "Not published" and carry no expected value.</p>
+<p>The rates do not share one definition or one year:</p>
+<ul>
+<li><b>SBA annual report (FY2022)</b> for most SBIR agencies: new awards divided by new proposals received that year. SBA marks some as estimates because FY2022 awards include FY2021 proposals.</li>
+<li><b>NIH Data Book</b> for NIH: competing applications funded. NIH says FY2025 rates are not comparable with earlier years because of its multi-year funding policy; each NIH record quotes FY2021-2024 rates alongside.</li>
+</ul>
+</div>
+<div class="tw"><table>
+<thead><tr><th>Program</th><th class="n">Rate</th><th>Year</th><th>What is counted</th><th>Source</th></tr></thead>
+<tbody>
+{% for r in rated %}<tr><td class="prog"><a href="program/{{ r.id }}.html">{{ r.name }}</a></td><td class="n">{{ r.rate | pct }}</td><td class="d">{{ r.p.success.year }}</td><td>{{ r.p.success.basis }}</td><td>{% if r.src.success %}<a href="{{ r.src.success.url }}">{{ r.src.success.host }}</a>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+
+<h2 id="ev">Expected value, and why it is low</h2>
+<div class="prose">
+<p><b>Expected value = typical award x published success rate.</b> For {{ example.name }}: {{ example.size | usd }} x {{ example.rate | pct }} = {{ (example.size * example.rate) | round | int | usd }}.</p>
+<p>It reads low because most programs fund a small share of applicants. Entry-stage rates run from {{ entry_rated[0].rate | pct }} ({{ entry_rated[0].name }}, {{ entry_rated[0].p.success.year }}) to {{ entry_rated[-1].rate | pct }} ({{ entry_rated[-1].name }}, {{ entry_rated[-1].p.success.year }}), so {{ (1 - entry_rated[-1].rate) | pct }} to {{ (1 - entry_rated[0].rate) | pct }} of each award's face value is discounted away. At {{ example.rate | pct }}, about one application in {{ (1 / example.rate) | round | int }} is funded.</p>
+<p>No company receives the expected value. An application wins the whole award or nothing. Summed over a roadmap's first applications, the figure is what companies with that profile would receive on average, so it is useful for two things:</p>
+<ul>
+<li><b>Comparing programs.</b> A $2M program at an unknown rate and a $300K program at 19% cannot be ranked by size alone.</li>
+<li><b>Sizing the pipeline.</b> If the expected figure covers a fifth of the cash need, one round of applications will probably not close the gap; plan for several rounds or other money.</li>
+</ul>
+<p>Follow-on steps multiply: NSF Phase I then Phase II is 11% x 49%, about 5.4%, from where you stand today. Once Phase I is won, Phase II is a 49% bet, and the roadmap for a company holding Phase I shows exactly that. Programs with no published rate add nothing to the expected figure; the roadmap lists them separately rather than guessing.</p>
+</div>
+
+<h2 id="timing">Time to cash</h2>
+<div class="prose">
+<p>Days from the application date to the award: the funder's stated timing first; else the 25th to 75th percentile of days from proposal to award in SBIR.gov data, 2022-2024. Where a funder states only when it notifies applicants, the figure is labeled "notice only", because the cash comes later.</p>
+</div>
+
+<h2 id="dates">Dates</h2>
+<div class="prose">
+<p>A date appears only if the funder announced it: registry deadlines, and DoD topic close dates from the DoD SBIR/STTR Innovation Portal. Grants.gov close dates are when a notice expires, which is often not the application deadline, so they are shown on program pages but never scheduled. A program that is open and accepts applications on a rolling basis can start whenever the company is ready. Anything else shows "date not announced".</p>
+<p>Some programs need a step before the application. Where the funder states how long it takes (NSF's Project Pitch: about 1-2 months), the roadmap adds the long end to the preparation time. Where it does not (ARPA-H Solution Summaries, NSF I-Corps executive summaries, DOE pitches), the roadmap flags the step and adds no days.</p>
+</div>
+
+<h2 id="picker">How the roadmap is built</h2>
+<div class="prose">
+<ol>
+<li><b>Fit:</b> applicant type, Massachusetts residence for state programs, at least one shared technology area, the funder's TRL band where it states one, and status (closed and paused programs are out). Every program that does not fit is listed with the reason.</li>
+<li><b>Follow-ons:</b> a program that needs an earlier award appears only if the company holds one, or as a later step after an earlier option.</li>
+<li><b>Dates:</b> the first announced date after the preparation time; follow-ons after the earlier award's cash, plus any gap the funder sets.</li>
+<li><b>Ranking:</b> dated options first, by expected value, then by award size. Undated options follow.</li>
+<li><b>Window:</b> 18 months from today.</li>
+</ol>
+<p>The roadmap runs in the browser and is held to the Python version (<a href="{{ repo }}/blob/main/tracker/picker.py">tracker/picker.py</a>) by a test that compares every field. It is a planning aid, not an eligibility determination: each step lists the funder's conditions, which the picker does not check.</p>
+<p>The three example companies are fictional. None describes a real company.</p>
+</div>
+
+<h2 id="sources">Sources</h2>
+<div class="prose">
+<p><b>Tier 1:</b> the funder's own pages, solicitations and budget documents; SBA annual reports; federal award databases (SBIR.gov, NIH RePORTER, NSF Awards, USAspending). <b>Tier 2:</b> law-firm and policy summaries, used only for context such as the 2025-2026 SBIR lapse. Consultant blogs are excluded.</p>
+<p>Weekly: Grants.gov and DoD topics. Quarterly: award history. Anything a feed finds that would change a program record waits for review; see <a href="status.html">Status</a>.</p>
+</div>
+
+<h2 id="limits">What the map does not cover</h2>
+<div class="prose">
+<ul>
+<li>States other than Massachusetts, foundations, prizes and corporate programs (planned for a later version).</li>
+<li>Effort to apply (page limits, letters), intellectual property and data-rights terms.</li>
+<li>Who won: award records are used for sizes only.</li>
+<li>Whether a company qualifies. The map reads the funder's rules; the funder decides.</li>
+</ul>
+</div>
+{% endblock %}

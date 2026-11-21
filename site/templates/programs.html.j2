@@ -1,0 +1,33 @@
+{% extends "base.html.j2" %}
+{% block path %}programs.html{% endblock %}
+{% block title %}Programs{% endblock %}
+{% block description %}{{ n_programs }} non-dilutive programs for deep tech companies with typical award, published success rate, time to cash and status, each sourced.{% endblock %}
+{% block body %}
+<h1>Programs</h1>
+<p class="lede">{{ n_programs }} federal and Massachusetts programs, each with its typical award, published odds, time to cash and next date.</p>
+<p class="sub">Typical award is the median of actual recent awards where the data exist, else the funder's cap. Time to cash runs from the application date to the award (or to the notice, where that is all the funder states). Status as of {{ verified }}, checked weekly against Grants.gov and the DoD portal.</p>
+<div class="filters" role="group" aria-label="Filter programs">
+  <label>Technology <select name="domains"><option value="">All</option>{% for k, v in DOMAIN.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></label>
+  <label>Stage <select name="stage"><option value="">All</option>{% for k, v in STAGE.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></label>
+  <label>Funder level <select name="juris"><option value="">All</option>{% for k, v in JURIS.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></label>
+  <label>Applicant <select name="entity"><option value="">All</option><option value="small-business">Small business</option><option value="academic">University</option></select></label>
+  <label>Status <select name="status"><option value="">All</option>{% for k, v in STATUS.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></label>
+  <span class="count"></span>
+</div>
+<div class="tw"><table>
+<thead><tr><th>Program</th><th>Stage</th><th class="n">Typical award</th><th class="n">Published odds</th><th>Time to cash</th><th>Next date</th><th>Status</th></tr></thead>
+<tbody>
+{% for r in recs.values() %}{% set p = r.p %}
+<tr data-row data-domains="{{ p.domains | join(' ') }}" data-stage="{{ p.stage }}" data-juris="{{ p.jurisdiction }}" data-entity="{{ 'small-business academic' if p.entity == 'either' else p.entity }}" data-status="{{ p.status }}">
+  <td class="prog"><a href="program/{{ r.id }}.html">{{ r.name }}</a><small>{{ p.funder }}{% if p.trl %}; TRL {{ p.trl[0] }}-{{ p.trl[1] }}{% endif %}</small></td>
+  <td>{{ STAGE[p.stage] }}<small>{{ VEHICLE[p.vehicle] }}</small></td>
+  <td class="n">{{ r.size | usd if r.size is not none else "–" }}<small>{{ r.size_basis }}</small></td>
+  <td class="n">{% if r.rate is not none %}{{ r.rate | pct }}<small>{{ p.success.year }}</small>{% else %}<span class="chip np">Not published</span>{% endif %}</td>
+  <td>{{ r.cash_months or "" }}{% if r.cash_months %}<small>{{ r.cash_basis }}</small>{% else %}<span class="muted">{{ r.cash_basis }}</span>{% endif %}</td>
+  <td class="d">{% if r.next_date %}{{ r.next_date | day }}{% else %}<span class="muted">not announced</span>{% endif %}</td>
+  <td><span class="chip st-{{ p.status }}">{{ STATUS[p.status] }}</span></td>
+</tr>
+{% endfor %}
+</tbody></table></div>
+{% endblock %}
+{% block script %}{% include "_filter.html.j2" %}{% endblock %}

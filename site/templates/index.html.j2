@@ -1,0 +1,33 @@
+{% extends "base.html.j2" %}
+{% block path %}index.html{% endblock %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<h1>Non-Dilutive Funding Map</h1>
+<p class="lede">Which grant and contract programs fit a deep tech company now, how much each pays, how likely it is, how long until the money lands, and in what order to apply. {{ n_programs }} federal and Massachusetts programs for instruments, diagnostics, materials, energy and climate, and hardware.</p>
+<p class="sub">Every figure links its source. Success rates come only from the funder or the SBA; {{ n_programs - n_rated }} of {{ n_programs }} programs publish none, and the map says so instead of guessing.</p>
+
+<h2>Build a funding roadmap</h2>
+<p class="sub">Describe the company; get the programs that fit, ranked by expected value, with the stacking order and an 18-month calendar.</p>
+{% include "_form.html.j2" %}
+<h3>Or start from an example</h3>
+<p class="sub">Three fictional companies. None describes a real company.</p>
+{% include "_examples.html.j2" %}
+
+<h2>Closing in the next {{ soon_days }} days</h2>
+<p class="sub">Funder deadlines and DoD topic close dates from {{ built }}. Verify each on the funder's page.</p>
+{% if soon %}
+<div class="tw"><table>
+<thead><tr><th class="n">Date</th><th>Program</th><th>What closes</th><th>Source</th></tr></thead>
+<tbody>
+{% for d, r, x in soon %}<tr><td class="d">{{ d | day }}</td><td class="prog"><a href="program/{{ r.id }}.html">{{ r.name }}</a></td><td>{{ x.what }}</td><td>{% if x.src %}<a href="{{ x.src.url }}">{{ x.src.host }}</a>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}<p class="sub">Nothing closes in the next {{ soon_days }} days.</p>{% endif %}
+{% if later %}<p class="sub">After that: {% for d, r, x in later %}<a href="program/{{ r.id }}.html">{{ r.short }}</a> {{ d | day }}{{ "; " if not loop.last else "." }}{% endfor %}</p>{% endif %}
+
+<h2>Award size against the odds</h2>
+<p class="sub">The {{ n_rated }} programs with a published success rate. Typical award is the median of actual recent awards where the data exist, else the funder's cap. Rates run {{ rate_lo | pct }} to {{ rate_hi | pct }} and come from different years and definitions (<a href="methods.html#odds">Methods</a>), so read the vertical position as a band, not a ranking.</p>
+<div class="key"><span><i class="k-entry"></i>Entry: no earlier award needed</span><span><i class="k-follow-on"></i>Follow-on: needs an earlier award</span></div>
+<div class="cw">{{ chart }}</div>
+<details><summary>{{ missing | length }} programs without a published success rate</summary>
+<p class="sub">{% for r in missing | sort(attribute="name") %}<a href="program/{{ r.id }}.html">{{ r.name }}</a>{{ ", " if not loop.last }}{% endfor %}.</p></details>
+{% endblock %}

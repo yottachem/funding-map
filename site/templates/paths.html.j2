@@ -1,0 +1,19 @@
+{% extends "base.html.j2" %}
+{% block path %}paths.html{% endblock %}
+{% block title %}Stacking paths{% endblock %}
+{% block description %}Which award opens which: sequences of non-dilutive programs, each step gated by the funder's own eligibility rule.{% endblock %}
+{% macro node(n, depth) %}
+<li><span class="step"><span class="prog"><a href="program/{{ n.r.id }}.html">{{ n.r.name }}</a></span>
+  <span class="meta">{{ n.r.size | usd if n.r.size is not none else "size not stated" }} typical; {{ n.r.rate | pct if n.r.rate is not none else "odds not published" }}{% if depth > 1 %}; odds along the path {{ "%.1f%%" | format(n.odds * 100) if n.odds is not none else "not published" }}{% endif %}{% if depth > 1 and n.r.p.prerequisites %}<br>Rule: {{ n.r.p.prerequisites }}{% endif %}</span></span>
+{% if n.kids %}<ul class="tree">{% for k in n.kids %}{{ node(k, depth + 1) }}{% endfor %}</ul>{% endif %}
+</li>
+{% endmacro %}
+{% block body %}
+<h1>Stacking paths</h1>
+<p class="lede">Which award opens which. Each step after the first is gated by the funder's own rule, quoted from the program record; follow it to the program page for the source.</p>
+<p class="sub">Odds along a path multiply the published success rate of every step, so a three-step path is much less likely than any one step. Where a step publishes no rate, the path's odds are not published either. The picker uses the same links to build each roadmap's stacking section.</p>
+{% for t in trees %}
+<h2>From {{ t.r.name }}</h2>
+<ul class="tree">{{ node(t, 1) }}</ul>
+{% endfor %}
+{% endblock %}

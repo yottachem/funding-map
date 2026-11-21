@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Non-Dilutive Funding Map: grant and contract programs for deep tech companies, graded on sourced award size, success rate, and time to award"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "jinja2>=3.1.6",
     "pyyaml>=6",
     "requests>=2.32",
 ]

@@ -1,0 +1,68 @@
+{% extends "base.html.j2" %}
+{% set p = r.p %}
+{% block path %}program/{{ r.id }}.html{% endblock %}
+{% block title %}{{ r.name }}{% endblock %}
+{% block description %}{{ r.name }} ({{ p.funder }}): typical award, published success rate, time to cash, dates, eligibility and stacking, each sourced.{% endblock %}
+{% macro s(key) %}{% set x = r.src.get(key) %}{% if x %}<a class="src" href="{{ x.url }}">{{ x.host }}</a>{% endif %}{% endmacro %}
+{% block body %}
+<p class="sub"><a href="../programs.html">Programs</a> / {{ p.funder }}</p>
+<h1>{{ r.name }}</h1>
+<div class="chips"><span class="chip st-{{ p.status }}">{{ STATUS[p.status] }}</span><span class="chip">{{ STAGE[p.stage] }}</span><span class="chip">{{ VEHICLE[p.vehicle] }}</span><span class="chip">{{ JURIS[p.jurisdiction] }}</span></div>
+{% if p.office %}<p class="sub">{{ p.office }}</p>{% endif %}
+
+<div class="figs">
+  <div class="fig"><b>{{ r.size | usd if r.size is not none else "Not stated" }}</b><span>Typical award: {{ r.size_basis }}</span></div>
+  <div class="fig"><b>{{ r.cap | usd if r.cap is not none else "–" }}</b><span>Funder's cap{% if p.award.duration_months %}, {{ p.award.duration_months[0] }}{% if p.award.duration_months[1] != p.award.duration_months[0] %}-{{ p.award.duration_months[1] }}{% endif %} months{% endif %}</span><span>{{ s("award") }}</span></div>
+  <div class="fig"><b>{{ r.rate | pct if r.rate is not none else "Not published" }}</b><span>Published success rate{% if r.rate is not none %}, {{ p.success.year }}{% endif %}</span><span>{{ s("success") }}</span></div>
+  <div class="fig"><b>{{ r.cash_months or "Not published" }}</b><span>Application to {{ "notice" if "notice" in r.cash_basis else "award" }}{% if r.cash_days %} ({{ r.cash_days[0] }}-{{ r.cash_days[1] }} days){% endif %}</span><span>{% if r.src.get("timing") %}{{ s("timing") }}{% elif r.sbir and r.cash_days %}<a class="src" href="https://data.www.sbir.gov/awarddatapublic/award_data.csv">SBIR.gov awards</a>{% endif %}</span></div>
+</div>
+{% if r.odds_basis %}<p class="sub"><b>Odds:</b> {{ r.odds_basis }}.</p>{% endif %}
+{% if r.timing_basis %}<p class="sub"><b>Timing:</b> {{ r.timing_basis }}.</p>{% endif %}
+{% if p.award.note %}<p class="sub"><b>Award:</b> {{ p.award.note }}.</p>{% endif %}
+{% if p.cost_share %}<p class="callout warn"><b>Cost share:</b> {{ p.cost_share }}.</p>{% endif %}
+
+<h2>Dates</h2>
+<p class="sub">{{ p.deadlines.cadence }}. {{ s("deadlines") }} Verify on the funder's page before you plan around a date.</p>
+{% if r.dates %}
+<div class="tw"><table><thead><tr><th class="n">Date</th><th>What</th><th>Source</th></tr></thead><tbody>
+{% for d in r.dates %}<tr><td class="d">{{ d.date | day }}</td><td>{{ d.what }}</td><td>{% if d.src %}<a href="{{ d.src.url }}">{{ d.src.host }}</a>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}<p class="sub">No upcoming date announced.</p>{% endif %}
+{% if r.solicitations %}
+<h3>Open and forecast solicitations</h3>
+<div class="tw"><table><thead><tr><th>Solicitation</th><th>Status</th><th class="n">Opens</th><th class="n">Closes</th></tr></thead><tbody>
+{% for o in r.solicitations %}<tr><td>{% if o.url %}<a href="{{ o.url }}">{{ o.title }}</a>{% else %}{{ o.title }}{% endif %}<small>{{ o.number }}{% if o.source == "grants.gov" %}; Grants.gov close dates are when the notice expires, not always the application deadline{% endif %}</small></td><td>{{ o.status | capitalize }}</td><td class="d">{{ o.open_date }}</td><td class="d">{{ o.close_date }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endif %}
+
+<h2>Who can apply</h2>
+<dl class="facts">
+  <dt>Applicant</dt><dd>{{ ENTITY[p.entity] }}{% if p.jurisdiction == "massachusetts" %}, Massachusetts only{% endif %}</dd>
+  <dt>Technology</dt><dd>{% for d in p.domains %}{{ DOMAIN[d] }}{{ ", " if not loop.last }}{% endfor %}</dd>
+  {% if p.trl %}<dt>TRL</dt><dd>{{ p.trl[0] }} to {{ p.trl[1] }}</dd>{% endif %}
+  {% if r.requires %}<dt>Needs first</dt><dd>One of: {% for q in r.requires %}<a href="{{ q.id }}.html">{{ q.name }}</a>{{ ", " if not loop.last }}{% endfor %}{% if r.after_months %}; at least {{ r.after_months }} months after that award starts{% endif %}</dd>{% endif %}
+  {% if p.prerequisites %}<dt>Conditions</dt><dd>{{ p.prerequisites }}</dd>{% endif %}
+  {% if p.lead %}<dt>Before applying</dt><dd>{{ p.lead.basis }}{% if p.lead.days %} ({{ p.lead.days[0] }}-{{ p.lead.days[1] }} days){% endif %}. {{ s("lead") }}</dd>{% endif %}
+</dl>
+
+{% if r.leads_to or r.requires %}
+<h2>Stacking</h2>
+{% if r.leads_to %}<p>An award here opens: {% for q in r.leads_to %}<a href="{{ q.id }}.html">{{ q.name }}</a>{{ ", " if not loop.last }}{% endfor %}.</p>{% endif %}
+<p class="sub"><a href="../paths.html">All stacking paths</a></p>
+{% endif %}
+
+{% if r.history_svg or r.sbir %}
+<h2>Award history</h2>
+{% if r.history_svg %}
+<p class="sub">Median award per fiscal year (bar), 10th to 90th percentile (line), number of awards above. The typical award above is the {{ r.size_basis }}.</p>
+<div class="cw">{{ r.history_svg }}</div>
+{% endif %}
+{% if r.sbir %}<p class="sub">SBIR.gov awards 2022-2024 ({{ p.award_data.agency }}{% if p.award_data.branch %} {{ p.award_data.branch }}{% endif %} Phase {{ p.award_data.phase }}): {{ r.sbir.awards }} awards, median {{ r.sbir.amount_median | float | usd }} (10th to 90th percentile {{ r.sbir.amount_p10 | float | usd }} to {{ r.sbir.amount_p90 | float | usd }}){% if r.sbir.days_median %}; median {{ r.sbir.days_median }} days from proposal to award{% endif %}{% if r.sbir.ma_awards %}; {{ r.sbir.ma_awards }} to Massachusetts companies{% endif %}.</p>{% endif %}
+{% endif %}
+
+<h2>Sources</h2>
+<ul class="src">
+{% for x in r.sources %}<li><span class="k">Tier {{ x.tier }}</span><a href="{{ x.url }}">{{ x.host }}</a>{% if x.note %}: {{ x.note }}{% endif %}</li>{% endfor %}
+</ul>
+<p class="sub">Verified {{ p.verified or verified }}.</p>
+{% endblock %}
