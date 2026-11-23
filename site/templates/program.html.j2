@@ -7,7 +7,7 @@
 {% block body %}
 <p class="sub"><a href="../programs.html">Programs</a> / {{ p.funder }}</p>
 <h1>{{ r.name }}</h1>
-<div class="chips"><span class="chip st-{{ p.status }}">{{ STATUS[p.status] }}</span><span class="chip">{{ STAGE[p.stage] }}</span><span class="chip">{{ VEHICLE[p.vehicle] }}</span><span class="chip">{{ JURIS[p.jurisdiction] }}</span></div>
+<div class="chips"><span class="chip st-{{ p.status }}">{{ STATUS[p.status] }}</span><span class="chip">{{ STAGE[p.stage] }}</span><span class="chip">{{ VEHICLE[p.vehicle] }}</span><span class="chip">{{ r.where }}</span></div>
 {% if p.office %}<p class="sub">{{ p.office }}</p>{% endif %}
 
 <div class="figs">
@@ -37,11 +37,12 @@
 
 <h2>Who can apply</h2>
 <dl class="facts">
-  <dt>Applicant</dt><dd>{{ ENTITY[p.entity] }}{% if p.jurisdiction == "massachusetts" %}, Massachusetts only{% endif %}</dd>
+  <dt>Applicant</dt><dd>{{ ENTITY[p.entity] }}{% if p.state %}, {{ STATE_NAMES[p.state] }} companies only{% endif %}</dd>
   <dt>Technology</dt><dd>{% for d in p.domains %}{{ DOMAIN[d] }}{{ ", " if not loop.last }}{% endfor %}</dd>
   {% if p.trl %}<dt>TRL</dt><dd>{{ p.trl[0] }} to {{ p.trl[1] }}</dd>{% endif %}
   {% if r.requires %}<dt>Needs first</dt><dd>One of: {% for q in r.requires %}<a href="{{ q.id }}.html">{{ q.name }}</a>{{ ", " if not loop.last }}{% endfor %}{% if r.after_months %}; at least {{ r.after_months }} months after that award starts{% endif %}</dd>{% endif %}
   {% if p.prerequisites %}<dt>Conditions</dt><dd>{{ p.prerequisites }}</dd>{% endif %}
+  {% if p.effort %}<dt>To apply</dt><dd>{{ p.effort.steps }}. {% if p.effort.pages %}<b>{{ p.effort.pages }} pages.</b> {% endif %}{% if p.effort.note %}{{ p.effort.note }}.{% endif %} {{ s("effort") }}</dd>{% endif %}
   {% if p.lead %}<dt>Before applying</dt><dd>{{ p.lead.basis }}{% if p.lead.days %} ({{ p.lead.days[0] }}-{{ p.lead.days[1] }} days){% endif %}. {{ s("lead") }}</dd>{% endif %}
 </dl>
 

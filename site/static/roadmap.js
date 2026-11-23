@@ -21,6 +21,14 @@
   };
   const int = v => (v === null || v === "" || isNaN(parseInt(v, 10)) ? null : parseInt(v, 10));
   const prog = id => `<a href="program/${esc(id)}.html">${esc(byId[id].name)}</a>`;
+  const states = new Map([...form.s.options].filter(o => o.value).map(o => [o.value, o.textContent]));
+  const effort = id => {
+    const e = byId[id].effort;
+    return e ? `<small>To apply: ${esc(e.steps)}${e.pages ? ` (${e.pages} pages)` : ""}</small>` : "";
+  };
+  const oddsCell = o => o.odds === null
+    ? `<span class="chip np">Not published</span>${byId[o.program].odds_note ? `<small>${esc(byId[o.program].odds_note)}</small>` : ""}`
+    : esc(o.odds_basis);
 
   function profileFromUrl() {
     const ex = q.get("example");
@@ -28,14 +36,14 @@
     if (!q.has("d") && !q.has("e")) return null;
     return {
       id: "custom", label: "Your profile", fictional: false, entity: q.get("e") === "academic" ? "academic" : "small-business",
-      state: q.get("s") === "MA" ? "MA" : "", domains: q.getAll("d"), trl: int(q.get("t")), held: q.getAll("h"),
+      state: states.has(q.get("s")) ? q.get("s") : "", domains: q.getAll("d"), trl: int(q.get("t")), held: q.getAll("h"),
       cash_need: int(q.get("n")), runway_months: int(q.get("r")), prep_days: int(q.get("p")) ?? 30,
     };
   }
 
   function fill(p) {
     const set = (name, value) => form.querySelectorAll(`input[name="${name}"]`).forEach(i => { i.checked = i.value === value; });
-    set("e", p.entity); set("s", p.state === "MA" ? "MA" : "other");
+    set("e", p.entity); form.s.value = states.has(p.state) ? p.state : "";
     form.querySelectorAll('input[name="d"]').forEach(i => { i.checked = p.domains.includes(i.value); });
     form.querySelectorAll('input[name="h"]').forEach(i => { i.checked = (p.held || []).includes(i.value); });
     form.t.value = p.trl || ""; form.p.value = p.prep_days ?? 30;
@@ -58,21 +66,34 @@
       <a href="methods.html#ev">How it is computed</a>.</div>`;
   }
 
-  function table(rm) {
-    const rows = rm.options.map((o, i) => {
+  function table(opts) {
+    const rows = opts.map((o, i) => {
       const flags = o.flags.map(f => /^cash/.test(f) ? `<span class="chip flag">${esc(f)}</span>` : `<small>${esc(f)}</small>`).join(" ");
       const apply = o.apply
         ? `${dayText(o.apply)}<small>${esc(o.apply_basis)}${o.later_dates.length ? `; also ${o.later_dates.slice(0, 2).map(dayText).join(", ")}` : ""}</small>`
         : `<span class="muted">${esc(o.apply_basis)}</span>`;
       const cash = o.cash ? `${monText(o.cash[0])} to ${monText(o.cash[1])}<small>${esc(o.cash_basis)}</small>`
         : `<span class="muted">${/^award|^notice/.test(o.cash_basis) ? "needs an application date" : esc(o.cash_basis)}</span>`;
-      const odds = o.odds === null ? `<span class="chip np">Not published</span>` : esc(o.odds_basis);
-      return `<tr><td class="n">${i + 1}</td><td class="prog">${prog(o.program)}${flags ? `<div class="chips">${flags}</div>` : ""}</td>
+      return `<tr><td class="n">${i + 1}</td><td class="prog">${prog(o.program)}${effort(o.program)}${flags ? `<div class="chips">${flags}</div>` : ""}</td>
         <td>${apply}</td><td>${cash}</td><td class="n">${money(o.size)}<small>${esc(o.size_basis)}</small></td>
-        <td class="n">${odds}</td><td class="n">${money(o.ev)}</td></tr>`;
+        <td class="n">${oddsCell(o)}</td><td class="n">${money(o.ev)}</td></tr>`;
     }).join("");
     return `<div class="tw"><table class="wide"><thead><tr><th class="n">#</th><th>Program</th><th>Apply</th><th>Cash</th>
       <th class="n">Typical award</th><th class="n">Published odds</th><th class="n">Expected</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
+  function watch(opts, rm) {
+    const rows = opts.map(o => {
+      const p = byId[o.program];
+      const past = p.dates.filter(d => d < rm.start);
+      const last = past.length ? `<small>Last date on record: ${dayText(past[past.length - 1])}</small>` : "";
+      const link = p.watch_url ? `<a href="${esc(p.watch_url)}">Funder's page</a>` : "";
+      return `<tr><td class="prog">${prog(o.program)}${effort(o.program)}</td>
+        <td>${esc(o.apply_basis)}${last}</td>
+        <td class="n">${money(o.size)}<small>${esc(o.size_basis)}</small></td><td class="n">${oddsCell(o)}</td><td>${link}</td></tr>`;
+    }).join("");
+    return `<div class="tw"><table class="wide"><thead><tr><th>Program</th><th>Why there is no date yet</th>
+      <th class="n">Typical award</th><th class="n">Published odds</th><th>Watch</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }
 
   function timeline(rm) {
@@ -123,25 +144,33 @@
     const held = (p.held || []).map(h => byId[h] ? byId[h].name : h).join(", ") || "none";
     const chains = rm.options.filter(o => o.next.length);
     const before = rm.options.filter(o => o.apply && o.prerequisites);
+    const dated = rm.options.filter(o => o.apply), undated = rm.options.filter(o => !o.apply);
     document.getElementById("rm-lede").textContent = p.fictional
       ? "A fictional example company. Edit the profile to make it yours; the address bar keeps the result shareable."
       : "Your roadmap. The address bar holds the profile, so the link reproduces this page.";
     out.innerHTML = `
       <h2>${esc(p.label)} ${p.fictional ? '<span class="chip fict">Fictional profile</span>' : ""}</h2>
-      <p class="sub">${esc(label("e", p.entity))}, ${p.state === "MA" ? "Massachusetts" : "outside Massachusetts"}, TRL ${p.trl || "not set"};
+      <p class="sub">${esc(label("e", p.entity))}, ${p.state ? esc(states.get(p.state) || p.state) : "no state set"}, TRL ${p.trl || "not set"};
         ${esc(doms)}; awards held: ${esc(held)}; runway ${p.runway_months ? p.runway_months + " months" : "not set"};
         ${p.prep_days ?? 30} days until the first submission. Window ${dayText(rm.start)} to ${dayText(rm.end)}.</p>
       <div class="figs">
         <div class="fig"><b>${money(sm.expected_first_awards)}</b><span>Expected from first applications whose cash lands in the window</span></div>
         <div class="fig"><b>${sm.coverage === null ? "–" : pct(sm.coverage)}</b><span>${sm.cash_need ? `of the ${money(sm.cash_need)} need` : "Set a cash need to compare"}</span></div>
+        <div class="fig"><b>${sm.any_award === null ? "–" : pct(sm.any_award)}</b><span>${sm.any_award === null
+          ? "Chance of at least one award: no dated option publishes odds"
+          : `Chance of at least one award from the ${sm.any_award_counted.length} dated first application${sm.any_award_counted.length > 1 ? "s" : ""} with published odds, if outcomes are independent`}
+          <a href="methods.html#any">How</a></span></div>
         <div class="fig"><b>${sm.applications_dated}</b><span>Programs with a date in the window</span></div>
         <div class="fig"><b>${sm.applications_undated}</b><span>Programs that fit but have no announced date</span></div>
       </div>
       ${why(rm)}
       ${sm.without_odds.length ? `<p class="sub">Dated, but no published odds (not in the expected figure): ${sm.without_odds.map(prog).join(", ")}.</p>` : ""}
-      <h2>Programs that fit</h2>
-      <p class="sub">Dated options first, ranked by expected value, then by award size. Dates are funder deadlines and DoD topic close dates; nothing is guessed. Verify every date on the funder's page.</p>
-      ${rm.options.length ? table(rm) : `<p class="sub">No program fits this profile.</p>`}
+      <h2>Apply</h2>
+      <p class="sub">Programs that fit and have a date inside the window, ranked by expected value, then by award size. Dates are funder deadlines and DoD topic close dates; nothing is guessed. Verify every date on the funder's page.</p>
+      ${dated.length ? table(dated) : `<p class="sub">${rm.options.length ? "No program that fits has a date inside the window." : "No program fits this profile."}</p>`}
+      ${undated.length ? `<h2>Watch</h2>
+      <p class="sub">Programs that fit but have no usable date yet: the next round is not announced, the funder states no timing, or the step depends on an earlier award. Each links the page to watch for the next call.</p>
+      ${watch(undated, rm)}` : ""}
       <h2>Calendar</h2>
       <p class="sub">Each dated step, including follow-ons that can start inside the window. Cash timing comes from the funder or from SBIR.gov days to award (25th to 75th percentile).</p>
       ${timeline(rm)}

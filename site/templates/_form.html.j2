@@ -5,9 +5,9 @@
     {% for k in ("small-business", "academic") %}<label class="opt"><input type="radio" name="e" value="{{ k }}"{% if loop.first %} checked{% endif %}> {{ ENTITY[k] }}</label>{% endfor %}
   </fieldset>
   <fieldset>
-    <legend>Location</legend>
-    <label class="opt"><input type="radio" name="s" value="MA" checked> Massachusetts</label>
-    <label class="opt"><input type="radio" name="s" value="other"> Another US state</label>
+    <label class="h" for="f-s">State</label>
+    <select name="s" id="f-s"><option value="">Not set (federal programs only)</option>{% for k, v in STATE_NAMES | dictsort(false, "value") %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select>
+    <span class="sub" style="display:block;margin:6px 0 0">State programs fund companies based in that state.</span>
   </fieldset>
   <fieldset>
     <label class="h" for="f-t">Technology readiness (TRL)</label>

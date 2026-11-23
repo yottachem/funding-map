@@ -49,6 +49,12 @@
 <p>Follow-on steps multiply: NSF Phase I then Phase II is 11% x 49%, about 5.4%, from where you stand today. Once Phase I is won, Phase II is a 49% bet, and the roadmap for a company holding Phase I shows exactly that. Programs with no published rate add nothing to the expected figure; the roadmap lists them separately rather than guessing.</p>
 </div>
 
+<h2 id="any">Chance of at least one award</h2>
+<div class="prose">
+<p><b>Chance of at least one award = 1 - (1 - odds<sub>1</sub>) x (1 - odds<sub>2</sub>) x ...</b> over the roadmap's first applications whose cash lands inside the window and whose funder publishes a success rate. Two applications at 11% and 19% give 1 - 0.89 x 0.81, about 28%.</p>
+<p>It assumes the outcomes are independent. They are not quite: one company's applications share a team, a technology and often a proposal, so a weak idea tends to lose everywhere and a strong one to win more than once. Read the figure as an upper-end guide to how many applications a company needs, not as a forecast. Programs with no published rate are left out of it, as they are from the expected figure.</p>
+</div>
+
 <h2 id="timing">Time to cash</h2>
 <div class="prose">
 <p>Days from the application date to the award: the funder's stated timing first; else the 25th to 75th percentile of days from proposal to award in SBIR.gov data, 2022-2024. Where a funder states only when it notifies applicants, the figure is labeled "notice only", because the cash comes later.</p>
@@ -63,10 +69,10 @@
 <h2 id="picker">How the roadmap is built</h2>
 <div class="prose">
 <ol>
-<li><b>Fit:</b> applicant type, Massachusetts residence for state programs, at least one shared technology area, the funder's TRL band where it states one, and status (closed and paused programs are out). Every program that does not fit is listed with the reason.</li>
+<li><b>Fit:</b> applicant type, the company's state for state programs, at least one shared technology area, the funder's TRL band where it states one, and status (closed and paused programs are out). Every program that does not fit is listed with the reason.</li>
 <li><b>Follow-ons:</b> a program that needs an earlier award appears only if the company holds one, or as a later step after an earlier option.</li>
 <li><b>Dates:</b> the first announced date after the preparation time; follow-ons after the earlier award's cash, plus any gap the funder sets.</li>
-<li><b>Ranking:</b> dated options first, by expected value, then by award size. Undated options follow.</li>
+<li><b>Ranking:</b> dated options (Apply) by expected value, then by award size. Options with no usable date go to a Watch list with the reason, the last date on record and the funder's page.</li>
 <li><b>Window:</b> 18 months from today.</li>
 </ol>
 <p>The roadmap runs in the browser and is held to the Python version (<a href="{{ repo }}/blob/main/tracker/picker.py">tracker/picker.py</a>) by a test that compares every field. It is a planning aid, not an eligibility determination: each step lists the funder's conditions, which the picker does not check.</p>
@@ -82,8 +88,8 @@
 <h2 id="limits">What the map does not cover</h2>
 <div class="prose">
 <ul>
-<li>States other than Massachusetts, foundations, prizes and corporate programs (planned for a later version).</li>
-<li>Effort to apply (page limits, letters), intellectual property and data-rights terms.</li>
+<li>Foundations, prizes, corporate programs, and state programs that invest equity or lend (only grants and contracts are tracked).</li>
+<li>Intellectual property and data-rights terms. Effort to apply covers the steps and the main narrative's page limit from the funder's document, not budgets, letters or registrations.</li>
 <li>Who won: award records are used for sizes only.</li>
 <li>Whether a company qualifies. The map reads the funder's rules; the funder decides.</li>
 </ul>

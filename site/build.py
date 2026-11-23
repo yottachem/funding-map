@@ -54,6 +54,17 @@ STATUS = {"open": "Open", "between-rounds": "Between rounds", "upcoming": "Upcom
           "closed": "Closed", "unknown": "Unknown"}
 ENTITY = {"small-business": "Small business", "academic": "University", "either": "Small business or university"}
 JURIS = {"federal": "Federal", "state": "State"}
+STATE_NAMES = {"AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California", "CO": "Colorado",
+               "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida", "GA": "Georgia",
+               "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas",
+               "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts",
+               "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri", "MT": "Montana",
+               "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico",
+               "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma",
+               "OR": "Oregon", "PA": "Pennsylvania", "PR": "Puerto Rico", "RI": "Rhode Island", "SC": "South Carolina",
+               "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia",
+               "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming"}
+assert set(STATE_NAMES) == set(registry.US_STATES)
 NAV = [("index", "Home"), ("roadmap", "Roadmap"), ("programs", "Programs"), ("paths", "Stacking paths"),
        ("methods", "Methods"), ("status", "Status")]
 CURATED = [("reference/programs.yaml", "Program registry: rules, caps, published success rates, deadlines, stacking, sources"),
@@ -108,10 +119,10 @@ def program_records(today: dt.date) -> dict[str, dict]:
         keys = []
         for k in p.get("sources", []) + [p["award"].get("source"), p["success"].get("source"), p["success"].get("also"),
                                          (p.get("timing") or {}).get("source"), p["deadlines"].get("source"),
-                                         (p.get("lead") or {}).get("source")]:
+                                         (p.get("lead") or {}).get("source"), (p.get("effort") or {}).get("source")]:
             if k and k not in keys:
                 keys.append(k)
-        if p.get("award_data"):
+        if p.get("award_data") and "sbir-awards" not in keys:
             keys.append("sbir-awards")
         dates = []
         for d in p["deadlines"].get("next") or []:
@@ -150,7 +161,9 @@ def program_records(today: dt.date) -> dict[str, dict]:
             "src": {f: src(k) for f, k in (("award", p["award"].get("source")), ("success", p["success"].get("source")),
                                            ("timing", (p.get("timing") or {}).get("source")),
                                            ("deadlines", p["deadlines"].get("source")),
-                                           ("lead", (p.get("lead") or {}).get("source"))) if k},
+                                           ("lead", (p.get("lead") or {}).get("source")),
+                                           ("effort", (p.get("effort") or {}).get("source"))) if k},
+            "where": STATE_NAMES[p["state"]] if p.get("state") else "Federal",
         }
     return recs
 
@@ -246,8 +259,11 @@ def main(preview=False, today=None):
     common_ctx = {"repo": REPO, "preview": preview, "site_url": SITE_URL, "built": today.isoformat(), "nav": NAV,
                   "analytics_token": "" if preview else ANALYTICS_TOKEN, "DOMAIN": DOMAIN, "STAGE": STAGE,
                   "STAGE_NOTE": STAGE_NOTE, "VEHICLE": VEHICLE, "STATUS": STATUS, "ENTITY": ENTITY, "JURIS": JURIS,
+                  "STATE_NAMES": STATE_NAMES,
                   "paused": paused, "examples": examples, "verified": registry.data().get("verified_default"),
-                  "n_programs": len(recs), "held_choices": [r for r in recs.values() if r["leads_to"]]}
+                  "n_programs": len(recs), "n_federal": sum(not r["p"].get("state") for r in recs.values()),
+                  "n_state": sum(bool(r["p"].get("state")) for r in recs.values()),
+                  "n_states": len({r["p"]["state"] for r in recs.values() if r["p"].get("state")}), "held_choices": [r for r in recs.values() if r["leads_to"]]}
     if DIST.exists():
         shutil.rmtree(DIST)
     (DIST / "program").mkdir(parents=True)
@@ -263,7 +279,8 @@ def main(preview=False, today=None):
            n_rated=len(rated), rate_lo=min(r["rate"] for r in rated), rate_hi=max(r["rate"] for r in rated))
     render("roadmap.html.j2", "roadmap.html", "roadmap",
            data_json=Markup(json.dumps(data, separators=(",", ":")).replace("</", "<\\/")))
-    render("programs.html.j2", "programs.html", "programs", recs=recs)
+    render("programs.html.j2", "programs.html", "programs", recs=recs,
+           states=sorted({r["p"]["state"] for r in recs.values() if r["p"].get("state")}, key=STATE_NAMES.get))
     for r in recs.values():
         render("program.html.j2", f"program/{r['id']}.html", "program", r=r, up="../")
     render("paths.html.j2", "paths.html", "paths", trees=paths(recs))
