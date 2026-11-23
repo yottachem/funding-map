@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* 1200x630 social preview card, rendered by site/social.py. Light theme only. */
+:root { --bg:#f5f4ef; --surface:#fdfcf8; --fg:#1c1f26; --muted:#5d6370; --grid:#e4e5e8; --s1:#2f4ba0; color-scheme: light; }
+* { box-sizing: border-box; margin: 0; }
+body { width: 1200px; height: 630px; background: var(--bg); color: var(--fg); font-family: "IBM Plex Sans", sans-serif;
+  padding: 44px 56px; display: grid; grid-template-columns: 400px 1fr; gap: 28px; border-top: 10px solid var(--s1); }
+h1 { font: 400 48px/1.06 "Newsreader", Georgia, serif; letter-spacing: -.01em; margin-top: 18px; }
+p { font: 400 21px/1.4 "Newsreader", Georgia, serif; color: var(--muted); margin-top: 18px; }
+.brand { font: 500 14px "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .1em; color: var(--s1); }
+.url { position: absolute; bottom: 40px; left: 56px; font: 400 16px "IBM Plex Mono", monospace; color: var(--muted); }
+.key { position: absolute; bottom: 40px; right: 56px; font: 400 14px "IBM Plex Mono", monospace; color: var(--muted); display: flex; gap: 22px; }
+.key i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 7px; vertical-align: -1px; }
+.key .k-entry { background: var(--s1); } .key .k-follow-on { background: var(--surface); border: 2px solid var(--s1); }
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart .grid { stroke: var(--grid); } .chart .grid.zero { stroke: var(--muted); }
+.chart .tick, .chart .axis { font: 13px "IBM Plex Mono", monospace; fill: var(--muted); } .chart .axis { fill: var(--fg); }
+.scatter circle { stroke: var(--fg); stroke-width: 1.2; fill-opacity: .8; }
+.scatter .k-entry { fill: var(--s1); } .scatter .k-follow-on { fill: var(--surface); stroke: var(--s1); stroke-width: 2.2; }
+</style>
+</head>
+<body>
+<div>
+  <div class="brand">Non-Dilutive Funding Map</div>
+  <h1>Which grants fit a deep tech company, how likely, and in what order</h1>
+  <p>{{ n_programs }} programs ({{ n_federal }} federal, {{ n_state }} state) graded on sourced award size, published success rate and time to cash, with a roadmap picker.</p>
+  <div class="url">{{ site_url | replace("https://", "") }}</div>
+</div>
+<div>{{ chart | safe }}</div>
+<div class="key"><span><i class="k-entry"></i>Entry</span><span><i class="k-follow-on"></i>Follow-on</span><span>{{ n_rated }} with a published rate</span></div>
+</body>
+</html>

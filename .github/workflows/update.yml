@@ -1,0 +1,90 @@
+name: update
+# Weekly (Mondays): Grants.gov + DoD SBIR/STTR topics -> status derivation -> test -> commit data -> build -> deploy.
+# Quarterly (2nd of Jan, Apr, Jul, Oct): award history (SBIR.gov file, NIH RePORTER, NSF Awards, USAspending) as well.
+# A push to main skips ingest and rebuilds the site. Anything that would change programs.yaml goes to the review
+# queue (data/review/queue.csv); an issue opens when the queue has open items. Review locally: uv run python -m tools.review
+# Scheduled runs need repo variable SCHEDULE_ON=true; deploys need PAGES_LIVE=true. No secrets.
+on:
+  schedule:
+    - cron: "0 12 * * 1"         # Mondays 07:00 ET (EST)
+    - cron: "0 13 2 1,4,7,10 *"  # quarterly award history
+  workflow_dispatch:
+    inputs:
+      quarterly:
+        description: "Also refresh award history"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.event_name != 'schedule' || vars.SCHEDULE_ON == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # the status page dates each curated file from git history
+      - uses: astral-sh/setup-uv@v5
+      - name: Opportunities and status (weekly)
+        if: github.event_name != 'push' && github.event.schedule != '0 13 2 1,4,7,10 *'
+        run: uv run python -m ingest.run --weekly
+      - name: Award history (quarterly)
+        if: github.event.schedule == '0 13 2 1,4,7,10 *' || inputs.quarterly
+        run: uv run --group data python -m ingest.run --quarterly
+      - name: Test
+        id: test
+        run: LAUNCH_GATE=1 uv run pytest -q
+      - name: Commit data
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add reference/opportunities.csv reference/awards data/review data/program_status.csv
+          if git diff --cached --quiet; then echo "No data changes"; exit 0; fi
+          git commit -m "Data update $(date -u +%F)"
+          git pull --rebase   # main may have moved during the run (registry edits)
+          git push
+      - name: Build site
+        if: always() && steps.test.outcome == 'success'
+        run: uv run python site/build.py
+      - uses: actions/upload-pages-artifact@v3
+        if: always() && steps.test.outcome == 'success'
+        with:
+          path: site/dist
+      - name: Open an issue for the review queue
+        if: always() && github.event_name == 'schedule'
+        run: |
+          uv run python -m tools.review > review.md
+          open=$(gh issue list -R "$GITHUB_REPOSITORY" --state open --search "Review queue in:title" --json number --jq length)
+          if ! head -1 review.md | grep -q '^0 item' && [ "$open" = "0" ]; then
+            gh issue create -R "$GITHUB_REPOSITORY" --title "Review queue $(date -u +%F)" \
+              --body "$(printf 'Decide locally with \`uv run python -m tools.review\`.\n\n```\n%s\n```' "$(cat review.md)")"
+          fi
+      - name: Open an issue if the run fails
+        if: failure() && github.event_name == 'schedule'
+        run: gh issue create -R "$GITHUB_REPOSITORY" --title "Update failed $(date -u +%F)" --body "See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+  deploy:
+    needs: update
+    if: vars.PAGES_LIVE == 'true'
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
