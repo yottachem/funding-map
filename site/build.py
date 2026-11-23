@@ -53,7 +53,7 @@ VEHICLE = {"grant": "Grant", "contract": "Contract", "cooperative-agreement": "C
 STATUS = {"open": "Open", "between-rounds": "Between rounds", "upcoming": "Upcoming", "paused": "Paused",
           "closed": "Closed", "unknown": "Unknown"}
 ENTITY = {"small-business": "Small business", "academic": "University", "either": "Small business or university"}
-JURIS = {"federal": "Federal", "massachusetts": "Massachusetts"}
+JURIS = {"federal": "Federal", "state": "State"}
 NAV = [("index", "Home"), ("roadmap", "Roadmap"), ("programs", "Programs"), ("paths", "Stacking paths"),
        ("methods", "Methods"), ("status", "Status")]
 CURATED = [("reference/programs.yaml", "Program registry: rules, caps, published success rates, deadlines, stacking, sources"),

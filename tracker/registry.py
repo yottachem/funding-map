@@ -18,7 +18,10 @@ REFERENCE = ROOT / "reference"
 STATS = REFERENCE / "awards" / "sbir_stats.csv"
 RECENT = REFERENCE / "awards" / "recent.csv"
 
-JURISDICTIONS = ("federal", "massachusetts")
+JURISDICTIONS = ("federal", "state")
+US_STATES = ("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA",
+             "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR",
+             "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY")
 VEHICLES = ("grant", "contract", "cooperative-agreement", "other-transaction", "grant-or-contract", "milestone-award",
             "via-intermediary")
 STAGES = ("entry", "follow-on", "scale", "training", "cost-share")
@@ -28,7 +31,7 @@ STATUSES = ("open", "between-rounds", "upcoming", "paused", "closed", "unknown")
 REQUIRED = ("id", "name", "funder", "jurisdiction", "vehicle", "stage", "entity", "domains", "award", "success",
             "deadlines", "status", "sources")
 KEYS = set(REQUIRED) | {"office", "award_data", "award_recent", "timing", "prerequisites", "cost_share", "trl", "verify", "feeds",
-                        "requires", "lead"}
+                        "requires", "lead", "state", "effort"}
 GATED_STAGES = ("follow-on", "cost-share")
 
 
@@ -108,8 +111,18 @@ def problems(progs: list[dict] | None = None, srcs: dict | None = None, stats: d
         for d in p.get("domains", []):
             if d not in DOMAINS:
                 out.append(f"{pid}: domain {d!r} not in {DOMAINS}")
+        if p.get("jurisdiction") == "state" and p.get("state") not in US_STATES:
+            out.append(f"{pid}: state program needs a two-letter state code")
+        if p.get("jurisdiction") == "federal" and "state" in p:
+            out.append(f"{pid}: federal program with a state")
+        eff = p.get("effort")
+        if eff is not None:
+            if not (eff.get("steps") and eff.get("source")):
+                out.append(f"{pid}: effort needs steps and source")
+            if eff.get("pages") is not None and not (isinstance(eff["pages"], int) and eff["pages"] > 0):
+                out.append(f"{pid}: effort.pages must be a whole number of pages or null")
         refs = list(p.get("sources", []))
-        for path in ("award.source", "success.source", "success.also", "timing.source", "deadlines.source"):
+        for path in ("award.source", "success.source", "success.also", "timing.source", "deadlines.source", "effort.source"):
             v = _get(p, path)
             if v is not None:
                 refs.append(v)
@@ -182,6 +195,8 @@ def launch_problems(progs: list[dict] | None = None, srcs: dict | None = None) -
             out.append(f"{pid}: no sourced award size (cap or award data)")
         if not _get(p, "deadlines.source"):
             out.append(f"{pid}: deadlines need a source")
+        if not p.get("effort"):
+            out.append(f"{pid}: no effort to apply")
         rate_src = _get(p, "success.source")
         if "rate" in p["success"] and srcs.get(rate_src, {}).get("tier") != 1:
             out.append(f"{pid}: success rate must come from a tier-1 source")

@@ -60,7 +60,8 @@ def test_not_stated_needs_the_funders_document():
     srcs = {"t1": {"url": "https://example.gov", "tier": 1}, "t2": {"url": "https://example.com", "tier": 2}}
     base = {"id": "x", "name": "X", "funder": "F", "jurisdiction": "federal", "vehicle": "grant", "stage": "entry",
             "entity": "either", "domains": ["materials"], "success": {"published": False},
-            "deadlines": {"cadence": "Rolling", "source": "t1"}, "status": "open", "sources": ["t1"]}
+            "deadlines": {"cadence": "Rolling", "source": "t1"}, "status": "open", "sources": ["t1"],
+            "effort": {"steps": "s", "pages": None, "source": "t1"}}
     ok = dict(base, award={"max": None, "not_stated": True, "source": "t1", "note": "n"})
     assert registry.launch_problems([ok], srcs) == []
     secondary = dict(base, award={"max": None, "not_stated": True, "source": "t2", "note": "n"})
@@ -81,7 +82,8 @@ NESTED = {"award": {"max", "duration_months", "source", "note", "not_stated"},
           "award_data": {"agency", "branch", "phase"},
           "award_recent": {"dataset", "group"},
           "requires": {"any", "after_months"},
-          "lead": {"days", "basis", "source"}}
+          "lead": {"days", "basis", "source"},
+          "effort": {"steps", "pages", "note", "source"}}
 
 
 def test_nested_keys_are_known():

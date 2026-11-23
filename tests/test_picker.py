@@ -39,7 +39,7 @@ def option(rm, pid):
 # ---------------------------------------------------------------- eligibility
 
 @pytest.mark.parametrize("kw, reason", [
-    ({"jurisdiction": "massachusetts"}, "MA companies only"),
+    ({"jurisdiction": "state", "state": "MA"}, "MA companies only"),
     ({"entity": "academic"}, "university-led"),
     ({"domains": ["diagnostics"]}, "outside your domains"),
     ({"trl": [5, 8]}, "TRL 5-8 only"),
@@ -50,7 +50,7 @@ def test_exclusions_carry_a_reason(kw, reason):
 
 
 def test_either_entity_and_matching_state_pass():
-    rm = run([prog("a", entity="either", jurisdiction="massachusetts")], profile(state="MA", entity="academic"))
+    rm = run([prog("a", entity="either", jurisdiction="state", state="MA")], profile(state="MA", entity="academic"))
     assert [o.program for o in rm.options] == ["a"]
 
 
@@ -213,3 +213,12 @@ def test_registry_checks_lead():
     found = "\n".join(registry.problems([prog("a", lead={"days": 60, "basis": "b", "source": "s"}),
                                          prog("b", lead={"days": [1, 2], "source": "zz"})], srcs, {}))
     assert "a: lead.days must be" in found and "b: lead needs basis and source" in found
+
+
+def test_chance_of_any_award_counts_published_odds_only():
+    progs = [prog("a", timing={"award_days": [100, 100]}),
+             prog("b", timing={"award_days": [100, 100]}, success={"rate": 0.5, "year": "FY2022", "basis": "b", "source": "s"}),
+             prog("u", timing={"award_days": [100, 100]}, success={"published": False})]
+    sm = run(progs).summary
+    assert sm["any_award"] == pytest.approx(1 - 0.8 * 0.5) and sorted(sm["any_award_counted"]) == ["a", "b"]
+    assert run([prog("u", success={"published": False})]).summary["any_award"] is None

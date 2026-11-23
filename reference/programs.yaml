@@ -7,7 +7,7 @@
 # durations, deadlines) and published success rates.
 #
 # Field guide
-#   jurisdiction  federal | massachusetts
+#   jurisdiction  federal | state (with `state`, the two-letter code; the program funds companies in that state only)
 #   vehicle       grant | contract | cooperative-agreement | other-transaction | grant-or-contract
 #                 | milestone-award (fixed price, paid per negotiated milestone)
 #                 | via-intermediary (a nonfederal partner makes the award from federal funds)
@@ -25,6 +25,8 @@
 #   feeds         program ids this one leads into (stacking)
 #   requires      awards needed first: `any` of these program ids (from the prerequisites text), and `after_months`
 #                 when the funder sets a gap after the earlier award starts. Used by the picker to gate follow-ons
+#   effort        what applying takes, from the funder's document: `steps` (pre-steps and the application itself),
+#                 `pages` (page limit of the main technical narrative; null when none is stated), `note`, `source`
 #   lead          a required step before the application (pitch, summary): `days` [low, high] only when the funder
 #                 states the turnaround, else null; the picker adds the high end to the profile's prep time
 
@@ -124,6 +126,22 @@ sources:
                    note: "SBIR/STTR lapsed 2025-10-01; reauthorized 2026-04-13 through 2031-09-30 (S. 3971)"}
   reauth-ssti: {url: "https://ssti.org/blog/sbir-slowly-relaunching-following-presidents-signature", tier: 2,
                 note: "Agencies restarted unevenly; DoD first"}
+  nsf-proposal-prep: {url: "https://seedfund.nsf.gov/solicitation-proposal/", tier: 1,
+                      note: "NSF SBIR/STTR proposal preparation: Project Description at most 15 pages for Phase I and Phase II, 16 for Fast-Track"}
+  nih-page-limits: {url: "https://grants.nih.gov/grants-process/write-application/how-to-apply-application-guide/page-limits", tier: 1,
+                    note: "NIH Table of Page Limits: Research Strategy 6 pages for R43, 12 for R44, SB1, R61/R33; Commercialization Plan 12 pages for R44 and SB1; Specific Aims 1 page"}
+  nasa-baa: {url: "https://sam.gov/opp/1520abb90244427fbb2aa1c1964b841a/view", tier: 1,
+             note: "NASA SBIR/STTR FY2026-2027 BAA (80NSSC26R0003), Amendment 2 (2026-09-30): technical proposal maximum 15 pages Phase I, 46 pages Phase II"}
+  usda-p1-fy25-rfa: {url: "https://files.simpler.grants.gov/opportunities/f766644a-7c76-4ee7-9a8d-cedf76392be9/attachments/91797ef4-4092-454e-8fd1-66bf682aba34/FY25-SBIR-STTR-Phase-1-RFA-P.pdf", tier: 1,
+                     note: "USDA NIFA FY2025 SBIR/STTR Phase I RFA: Project Narrative at most 17 pages; no letter of intent"}
+  arpa-e-open-2024: {url: "https://apply07.grants.gov/grantsws/rest/opportunity/att/download/342801", tier: 1,
+                     note: "Vision OPEN 2024 (DE-FOA-0003387) Modification 01: mandatory Concept Paper at most 4 pages; Technical Volume sections 1-5 at most 20 pages plus a 1-page executive summary"}
+  masscec-innovatemass-rfp: {url: "https://www.masscec.com/sites/default/files/documents/FY27_Fall_-_InnovateMass_-_RFP_FINAL_1.pdf", tier: 1,
+                             note: "InnovateMass FY27 Fall RFP: application at most 10 pages, workplan and budget template, Demonstration Partner letter; finalists pitch to a judging panel"}
+  mlsc-access-sample: {url: "https://www.masslifesciences.com/wp-content/uploads/Access-and-Accelerate-Sample-Application.pdf", tier: 1,
+                       note: "MLSC Access and Accelerate sample application: online form, answers limited to 75-400 words"}
+  mlsc-impact-sample: {url: "https://www.masslifesciences.com/wp-content/uploads/Sample-Application-Impact-Catalyst.pdf", tier: 1,
+                       note: "MLSC Impact Catalyst sample application: online form, answers limited to 75-400 words"}
 
 programs:
 
@@ -151,6 +169,7 @@ programs:
     lead: {days: [30, 60], basis: "Project Pitch response (NSF: about 1-2 months)", source: nsf-pitch}
     deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-510}
     status: open
+    effort: {steps: "Project Pitch (four sections, 1,750-3,500 characters each), then by invitation a full proposal in Research.gov", pages: 15, note: "Project Description limit; Fast-Track is 16 pages", source: nsf-proposal-prep}
     feeds: [nsf-sbir-2, massventures-start, masscec-amplifymass]
     sources: [nsf-26-510, nsf-review, nsf-pitch, sba-fy22, sbir-awards]
 
@@ -174,6 +193,7 @@ programs:
     lead: {days: [30, 60], basis: "Project Pitch response (NSF: about 1-2 months)", source: nsf-pitch}
     deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-511}
     status: open
+    effort: {steps: "Project Pitch, then by invitation a full proposal in Research.gov, as for NSF Phase I", pages: 15, note: "Project Description limit for Phase I proposals", source: nsf-proposal-prep}
     feeds: [nsf-sbir-2]
     sources: [nsf-26-511, nsf-review]
 
@@ -193,6 +213,7 @@ programs:
     prerequisites: NSF Phase I award; submit 6-24 months after the Phase I start date
     deadlines: {cadence: Three per year, next: [2027-03-04, 2027-07-07], source: nsf-26-510}
     status: open
+    effort: {steps: "Full proposal in Research.gov, 6-24 months after the Phase I start; no pitch", pages: 15, note: "Project Description limit", source: nsf-proposal-prep}
     requires: {any: [nsf-sbir-1, nsf-sbir-instr], after_months: 6}
     feeds: [nsf-breakthrough, massventures-start, masscec-amplifymass]
     sources: [nsf-26-510, sba-fy22, sbir-awards]
@@ -211,6 +232,7 @@ programs:
     prerequisites: NSF Phase II awardees, by Program Officer invitation or recommendation
     deadlines: {cadence: By invitation, source: nsf-26-510}
     status: open
+    effort: {steps: "Program Officer invitation or recommendation, then a proposal in Research.gov", pages: null, note: "NSF's proposal guide gives page limits for Phase I, Phase II and Fast-Track only", source: nsf-proposal-prep}
     requires: {any: [nsf-sbir-2]}
     sources: [nsf-26-510, nsf-26-511]
 
@@ -229,6 +251,7 @@ programs:
     prerequisites: University-led. TTP-T and TTP-P teams complete I-Corps Teams training; TTP-E needs PO approval of a 3-5 page plan
     deadlines: {cadence: "Annual, third Tuesday in May (TTP-E anytime)", next: [2027-05-18], source: nsf-25-540}
     status: open
+    effort: {steps: "Full proposal in Research.gov; TTP-E first needs Program Officer approval of a 3-5 page plan", pages: 15, note: "Project Description limit for TTP-T and TTP-P", source: nsf-25-540}
     feeds: [nsf-sbir-1]
     sources: [nsf-25-540, nsf-pfi-closed]
 
@@ -247,6 +270,7 @@ programs:
     lead: {days: null, basis: "Executive Summary, then invitation; turnaround not stated", source: nsf-25-549}
     deadlines: {cadence: Anytime, source: nsf-25-549}
     status: open
+    effort: {steps: "Two-page Executive Summary, then by invitation a full proposal", pages: 5, note: "Project Description limit", source: nsf-25-549}
     feeds: [nsf-ttp, nsf-sbir-1]
     sources: [nsf-25-549]
 
@@ -272,6 +296,7 @@ programs:
     timing: {award_days: [180, 210], basis: "Earliest start 6-7 months after the standard due date", source: nih-pa-27-100}
     deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: nih-pa-27-100}
     status: open
+    effort: {steps: "Full application in Grants.gov / ASSIST; no pre-step", pages: 6, note: "Research Strategy limit, plus a 1-page Specific Aims", source: nih-page-limits}
     feeds: [nih-sbir-2, massventures-start, mlsc-access]
     sources: [nih-databook-202, nih-not-od-26-090, nih-reauth, nih-nofos-2026, nih-pa-27-100, sbir-awards]
 
@@ -296,6 +321,7 @@ programs:
     timing: {award_days: [180, 210], basis: "Earliest start 6-7 months after the standard due date", source: nih-pa-27-100}
     deadlines: {cadence: "Three standard dates (Jan 5, Apr 5, Sep 5)", next: [2027-01-05, 2027-04-05], source: nih-pa-27-100}
     status: open
+    effort: {steps: "Full application in Grants.gov / ASSIST, with a Commercialization Plan", pages: 12, note: "Research Strategy limit; the Commercialization Plan adds up to 12 pages", source: nih-page-limits}
     requires: {any: [nih-sbir-1, nih-sb-transition]}
     feeds: [nci-sbir-bridge, nih-crp, massventures-start]
     sources: [nih-databook-202, nih-pa-27-100, sbir-awards]
@@ -314,6 +340,7 @@ programs:
     prerequisites: Apply to the hub, not to BARDA; reviewed against BARDA priorities and available funds; SAM.gov registration not required (VANGUARD)
     deadlines: {cadence: "Annual cycle (2026 proposals closed Oct 1 VANGUARD, Oct 22 Vantage; awards Mar-Apr 2027) plus rolling off-cycle review", source: mti-vantage}
     status: open
+    effort: {steps: "Application to an Accelerator Network hub; the format is set by each hub", pages: null, note: "BTI Vanguard concept stage: a concept paper of at most 10 pages", source: bti-vanguard}
     sources: [barda-drive, barda-partner, barda-dx, mti-vantage, bti-vanguard]
 
   - id: arpa-h-sbir
@@ -331,6 +358,7 @@ programs:
     lead: {days: null, basis: "Solution Summary first; turnaround not stated", source: arpa-h-sbir}
     deadlines: {cadence: "Topic releases, irregular", source: arpa-h-sbir}
     status: between-rounds
+    effort: {steps: "Solution Summary, then if encouraged a technical presentation deck, cost proposal and task description, then a pitch", pages: null, note: "Deck format; no page limit on the program page", source: arpa-h-sbir}
     sources: [arpa-h-sbir, arpa-h-funding]
 
   - id: arpa-h-iso
@@ -348,6 +376,7 @@ programs:
     lead: {days: null, basis: "Solution Summary and written feedback first; turnaround not stated", source: arpa-h-iso-docs}
     deadlines: {cadence: "Rolling until 2029-03-05", source: arpa-h-iso-docs}
     status: open
+    effort: {steps: "Solution Summary and written ARPA-H feedback, then a proposal: technical and management volume, task description, cost proposal and workbook", pages: 20, note: "Technical and Management Proposal limit; the other volumes have no page limit", source: arpa-h-iso-docs}
     sources: [arpa-h-funding, arpa-h-iso-docs]
 
   - id: nci-sbir-bridge
@@ -366,6 +395,7 @@ programs:
     cost_share: Third-party funds at least equal to NCI funds (expected, documented in the Commercialization Plan)
     deadlines: {cadence: "Annual RFA (posted Mar-Apr, due Aug, 2020-2024); FY2026 forecast never posted", source: nci-bridge-forecast}
     status: upcoming
+    effort: {steps: "Full application (Phase II only) with a Commercialization Plan and evidence of third-party investment; letter of intent optional", pages: 12, note: "Research Strategy limit for R44; the Commercialization Plan adds up to 12 pages", source: nih-page-limits}
     requires: {any: [nsf-sbir-2, nih-sbir-2, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
     feeds: [massventures-start]
     sources: [nci-bridge-fy25, nci-bridge-forecast]
@@ -385,6 +415,7 @@ programs:
     prerequisites: PD/PI has never been an independent PD/PI on an NIH, CDC or equivalent peer-reviewed research grant; U.S. citizen or permanent resident. Includes entrepreneurial training and an industry mentor
     deadlines: {cadence: "Forecast: NOFO est. 2026-11-05, first due date est. 2027-01-05", source: nih-transition-forecast}
     status: upcoming
+    effort: {steps: "Full application (Phase I or Fast-Track) in Grants.gov / ASSIST; letter of intent optional", pages: 6, note: "Research Strategy limit for Phase I (R43); Fast-Track (R44) is 12 pages", source: nih-page-limits}
     feeds: [nih-sbir-2, massventures-start, mlsc-access]
     sources: [nih-transition-forecast, nih-transition-prior]
 
@@ -403,6 +434,7 @@ programs:
     prerequisites: NIH SBIR or STTR Phase II or IIB active within the last 36 months; one CRP per project. Funds late-stage R&D Phase II does not cover (IND/IDE-enabling studies, manufacturing scale-up, regulatory support)
     deadlines: {cadence: "Standard dates (Jan 5, Apr 5, Sep 5) through 2029-04-05", next: [2027-01-05, 2027-04-05], source: nih-crp}
     status: open
+    effort: {steps: "Full application (SB1) with a Commercialization Plan", pages: 12, note: "Research Strategy limit for SB1; the Commercialization Plan adds up to 12 pages", source: nih-page-limits}
     requires: {any: [nih-sbir-2, nci-sbir-bridge]}
     feeds: [massventures-start]
     sources: [nih-crp]
@@ -424,6 +456,7 @@ programs:
     cost_share: 0.25:1 non-federal match of federal direct costs (R33 phase of the device/diagnostic track)
     deadlines: {cadence: "Three per year (Feb, Jun, Oct) until the NOFOs expire 2027-12-24", next: [2027-02-11, 2027-06-17, 2027-10-21], source: nhlbi-catalyze}
     status: open
+    effort: {steps: "Full application; the device track is one phased R61/R33 application with milestones", pages: 12, note: "Research Strategy limit for R61/R33", source: nih-page-limits}
     sources: [nhlbi-catalyze, nih-reporter]
 
 # ---------------------------------------------------------------- DOE
@@ -443,6 +476,7 @@ programs:
     lead: {days: null, basis: "pitch due by the listed date; full application by invitation", source: doe-fall-2026}
     deadlines: {cadence: Topic releases (Fall 2026 pitches), next: [2026-12-16], source: doe-fall-2026}
     status: open
+    effort: {steps: "Two-part pitch (four narrative, three short-answer and seven selection questions, word-limited), then by invitation a full application", pages: null, note: "Full application requirements are released with the invitations", source: doe-fall-2026-hub}
     feeds: [doe-sbir-2, masscec-amplifymass, massventures-start]
     sources: [doe-sbir, doe-fall-2026, doe-fall-2026-hub, doe-fall-2026-webinar, doe-applicant, sba-fy22, sbir-awards]
 
@@ -461,6 +495,7 @@ programs:
     prerequisites: DOE Phase I; since 2026 advancement is by Go/No-Go without a new application
     deadlines: {cadence: Go/No-Go at the end of Phase I, source: doe-sbir}
     status: open
+    effort: {steps: "No new application: Go/No-Go review at the end of Phase I", pages: null, source: doe-sbir}
     requires: {any: [doe-sbir-1]}
     feeds: [massventures-start, masscec-amplifymass]
     sources: [doe-sbir, doe-fall-2026-hub, doe-fall-2026-webinar, sba-fy22, sbir-awards]
@@ -479,6 +514,7 @@ programs:
     success: {published: false, source: arpa-e-budget-fy26}
     deadlines: {cadence: "Every three years (2009-2024); FY2027 budget plans the next OPEN in 2027, no date announced", source: arpa-e-budget-fy27}
     status: upcoming
+    effort: {steps: "Concept Paper (mandatory), then a full application: technical volume, budget workbook, SF-424, summary slide", pages: 20, note: "OPEN 2024: Concept Paper at most 4 pages; technical volume sections at most 20 pages plus a 1-page executive summary", source: arpa-e-open-2024}
     feeds: [masscec-amplifymass]
     sources: [arpa-e-budget-fy26, arpa-e-budget-fy27, usaspending-arpa-e]
 
@@ -498,6 +534,7 @@ programs:
     prerequisites: Topic-specific; respond to a published component topic
     deadlines: {cadence: Rolling topic releases on DSIP, source: dsip-topics}
     status: open
+    effort: {steps: "Proposal to a component topic on DSIP: technical volume, cost volume and supporting documents", pages: null, note: "Page limits are set by each component and sometimes by topic", source: dsip-topics}
     feeds: [dod-sbir-2, massventures-start]
     sources: [sba-fy22, sbir-awards, reauth-ssti, dsip-topics]
 
@@ -516,6 +553,7 @@ programs:
     prerequisites: DoD Phase I (or Direct to Phase II where the topic allows)
     deadlines: {cadence: By component, source: dsip-topics}
     status: open
+    effort: {steps: "Phase II proposal on DSIP, under the component's instructions", pages: null, note: "Page limits are set by each component and sometimes by topic", source: dsip-topics}
     requires: {any: [dod-sbir-1]}
     feeds: [massventures-start]
     sources: [sba-fy22, sbir-awards, dsip-topics]
@@ -536,6 +574,7 @@ programs:
     prerequisites: Respond to a subtopic in a BAA appendix
     deadlines: {cadence: Appendices released through the year (2026 Phase I closed May 21), source: nasa-hub}
     status: between-rounds
+    effort: {steps: "Proposal to a subtopic in a BAA appendix", pages: 15, note: "Technical proposal limit, all parts and graphics included; forms do not count", source: nasa-baa}
     feeds: [nasa-sbir-2, massventures-start]
     sources: [nasa-p1, nasa-hub, sba-fy22, sbir-awards]
 
@@ -554,6 +593,7 @@ programs:
     prerequisites: NASA Phase I
     deadlines: {cadence: Annual Phase II solicitation, source: nasa-p2}
     status: between-rounds
+    effort: {steps: "Phase II proposal under the BAA", pages: 46, note: "Technical proposal limit, all parts and graphics included; forms do not count", source: nasa-baa}
     requires: {any: [nasa-sbir-1]}
     feeds: [massventures-start]
     sources: [nasa-p2, sba-fy22, sbir-awards]
@@ -572,6 +612,7 @@ programs:
     success: {rate: 0.15, year: FY2022, basis: SBIR Phase I proposals selected (Phase II 50%), source: sba-fy22}
     deadlines: {cadence: "Annual; RFA posted July, closing mid-September (FY2024, FY2025)", source: usda-p1-fy25}
     status: between-rounds
+    effort: {steps: "Full application in Grants.gov; no letter of intent", pages: 17, note: "Project Narrative limit in the FY2025 RFA (1.5 spacing, 12-point)", source: usda-p1-fy25-rfa}
     feeds: [massventures-start]
     sources: [sba-fy22, sbir-awards, usda-p1-fy25]
 
@@ -589,6 +630,7 @@ programs:
     success: {rate: 0.11, year: FY2022, basis: "Department of Commerce SBIR Phase I proposals selected, NOAA and NIST combined (Phase II 76%)", source: sba-fy22}
     deadlines: {cadence: "Annual Grants.gov NOFO (FY2019-FY2025 opened Sep-Dec, closed Jan-Mar); no FY2026 or FY2027 round posted", source: noaa-sbir-history}
     status: between-rounds
+    effort: {steps: "Full application in Grants.gov", pages: 15, note: "Project Narrative limit, cover page, abstract and references included (FY2025)", source: noaa-p1-fy25}
     feeds: [massventures-start]
     sources: [noaa-p1-fy25, noaa-sbir-history, sba-fy22, sbir-awards]
 
@@ -606,6 +648,7 @@ programs:
     success: {rate: 0.16, year: FY2022, basis: SBIR Phase I proposals selected (Phase II 36%), source: sba-fy22}
     deadlines: {cadence: Annual (2026 Phase I open Sep 24 - Nov 8; awards start Feb-Mar 2027), source: epa-sbir}
     status: between-rounds
+    effort: {steps: "One proposal per company, as a single PDF in FedConnect", pages: 36, note: "Limit for the whole proposal, appendices and attachments included", source: epa-p1-fy26}
     feeds: [massventures-start]
     sources: [epa-sbir, epa-p1-fy26, epa-p2-2026, sba-fy22, sbir-awards]
 
@@ -614,7 +657,8 @@ programs:
     name: MassCEC Catalyst
     funder: Massachusetts Clean Energy Center
     office: Run with MassVentures
-    jurisdiction: massachusetts
+    jurisdiction: state
+    state: MA
     vehicle: grant
     stage: entry
     entity: either
@@ -626,13 +670,15 @@ programs:
     prerequisites: Massachusetts-based climatetech company with 4 or fewer FTEs and under $2.5M raised (all sources) in 5 years; or a Massachusetts research PI (Academic Activator)
     deadlines: {cadence: Twice a year; Spring 2027 round opens winter 2027, source: masscec-catalyst}
     status: between-rounds
+    effort: {steps: "Online application form plus TRL calculator and ARL assessment; finalists submit a pitch deck and pitch to judges", pages: 11, note: "Limit for the application form; attachments do not count", source: masscec-catalyst-rfp}
     feeds: [masscec-innovatemass, nsf-sbir-1, doe-sbir-1]
     sources: [masscec-catalyst, masscec-catalyst-rfp]
 
   - id: masscec-innovatemass
     name: MassCEC InnovateMass
     funder: Massachusetts Clean Energy Center
-    jurisdiction: massachusetts
+    jurisdiction: state
+    state: MA
     vehicle: grant
     stage: scale
     entity: small-business
@@ -645,12 +691,14 @@ programs:
     prerequisites: Massachusetts climatetech lead applicant plus a Demonstration Partner letter; best fit $1M-$10M raised and 5-30 FTEs
     deadlines: {cadence: Next round early 2027, source: masscec-innovatemass}
     status: between-rounds
+    effort: {steps: "Online application, workplan and budget template, Demonstration Partner letter; finalists pitch to a judging panel", pages: 10, note: "Application limit", source: masscec-innovatemass-rfp}
     sources: [masscec-innovatemass]
 
   - id: masscec-amplifymass
     name: MassCEC AmplifyMass
     funder: Massachusetts Clean Energy Center
-    jurisdiction: massachusetts
+    jurisdiction: state
+    state: MA
     vehicle: grant
     stage: cost-share
     entity: either
@@ -661,13 +709,15 @@ programs:
     prerequisites: Apply before the prime award is contracted; significant Massachusetts presence
     deadlines: {cadence: "Rolling, subject to funds; closed for FY2027", source: masscec-amplifymass}
     status: closed
+    effort: {steps: "Rolling online application tied to the prime award (closed for FY2027); notification 3-6 months after submission", pages: null, note: "No page limit on the program page", source: masscec-amplifymass}
     requires: {any: [nsf-sbir-1, nsf-sbir-2, doe-sbir-1, doe-sbir-2, arpa-e-open]}
     sources: [masscec-amplifymass]
 
   - id: massventures-start
     name: MassVentures START
     funder: MassVentures
-    jurisdiction: massachusetts
+    jurisdiction: state
+    state: MA
     vehicle: grant
     stage: follow-on
     entity: small-business
@@ -677,13 +727,15 @@ programs:
     prerequisites: Massachusetts company holding a federal SBIR or STTR Phase II award
     deadlines: {cadence: Annual window opening Feb 1, next: [2027-02-01], source: massventures-start}
     status: upcoming
+    effort: {steps: "Online application to MassVentures; the window reopens February 1, 2027", pages: null, note: "Application format not published on the program page", source: massventures-start}
     requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
     sources: [massventures-start]
 
   - id: mlsc-access
     name: MLSC Access and Accelerate
     funder: Massachusetts Life Sciences Center
-    jurisdiction: massachusetts
+    jurisdiction: state
+    state: MA
     vehicle: grant
     stage: entry
     entity: small-business
@@ -694,12 +746,14 @@ programs:
     prerequisites: Massachusetts early-stage life science company with a defined commercialization milestone; priority to SBIR/STTR awardees and first-time founders. Each quarter has a focus area
     deadlines: {cadence: Quarterly; Q1 2027 applications in January, source: mlsc-access}
     status: upcoming
+    effort: {steps: "Online application form with word-limited answers (75-400 words each)", pages: null, note: "Form, not pages", source: mlsc-access-sample}
     sources: [mlsc-access]
 
   - id: mlsc-impact
     name: MLSC Impact Catalyst
     funder: Massachusetts Life Sciences Center
-    jurisdiction: massachusetts
+    jurisdiction: state
+    state: MA
     vehicle: grant
     stage: scale
     entity: small-business
@@ -709,4 +763,5 @@ programs:
     prerequisites: Massachusetts life science startup raising a seed round with committed investors (letters of intent); more than half of employees in Massachusetts
     deadlines: {cadence: Two cycles a year (Cycle 1 2026 closed Jun 12), source: mlsc-impact}
     status: between-rounds
+    effort: {steps: "Online application form with word-limited answers (75-400 words each), plus investor letters of intent", pages: null, note: "Form, not pages", source: mlsc-impact-sample}
     sources: [mlsc-impact]

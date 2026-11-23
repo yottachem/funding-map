@@ -30,7 +30,6 @@ import yaml
 
 from tracker import registry
 
-STATE_OF = {"massachusetts": "MA"}
 WINDOW_MONTHS = 18
 MAX_DEPTH = 3
 ROLLING = re.compile(r"\brolling\b|\banytime\b", re.I)
@@ -147,7 +146,7 @@ def deadlines(p: dict, opps: dict, lo: dt.date, hi: dt.date) -> list[dt.date]:
 
 def ineligible(p: dict, prof: Profile) -> list[str]:
     out = []
-    state = STATE_OF.get(p["jurisdiction"])
+    state = p.get("state")
     if state and prof.state != state:
         out.append(f"{state} companies only")
     if p["entity"] != "either" and p["entity"] != prof.entity:
@@ -275,11 +274,20 @@ class Picker:
     def summarize(self, options: list[Step]) -> dict:
         firsts = [o for o in options if o.apply and o.cash and o.cash[1] <= self.end]
         ev = sum(o.ev for o in firsts if o.ev is not None)
+        miss = 1.0
+        for o in firsts:
+            if o.odds is not None:
+                miss *= 1 - o.odds
+        counted = [o.program for o in firsts if o.odds is not None]
         return {"applications_dated": sum(1 for o in options if o.apply),
                 "applications_undated": sum(1 for o in options if not o.apply),
                 "expected_first_awards": ev,
                 "expected_basis": "sum of size x published odds over first applications whose cash lands inside the window",
                 "without_odds": [o.program for o in firsts if o.ev is None],
+                "any_award": 1 - miss if counted else None,
+                "any_award_basis": "1 minus the product of (1 - published odds) over first applications whose cash lands "
+                                   "inside the window; assumes each outcome is independent of the others",
+                "any_award_counted": counted,
                 "cash_need": self.prof.cash_need,
                 "coverage": round(ev / self.prof.cash_need, 2) if self.prof.cash_need else None}
 
@@ -381,13 +389,14 @@ def site_data(progs=None, stats=None, recent=None, opps=None) -> dict:
     stats = registry.sbir_stats() if stats is None else stats
     recent = registry.recent_stats() if recent is None else recent
     opps = read_opps() if opps is None else opps
+    srcs = registry.sources()
     out = []
     for p in progs:
         size, size_basis = typical_size(p, stats, recent)
         days, cash_basis = cash_days(p, stats)
         rate = p["success"].get("rate")
         out.append({
-            "id": p["id"], "name": p["name"], "funder": p["funder"], "state": STATE_OF.get(p["jurisdiction"], ""),
+            "id": p["id"], "name": p["name"], "funder": p["funder"], "state": p.get("state", ""),
             "entity": p["entity"], "domains": p["domains"], "trl": p.get("trl"), "status": p["status"],
             "requires": p.get("requires") or {}, "cadence": str(p["deadlines"].get("cadence") or ""),
             "dates": [d.isoformat() for d in deadlines(p, opps, dt.date.min, dt.date.max)],
@@ -395,7 +404,10 @@ def site_data(progs=None, stats=None, recent=None, opps=None) -> dict:
             "size": size, "size_basis": size_basis, "rate": rate,
             "odds_basis": f"{rate:.0%} ({p['success']['year']})" if rate is not None else "not published",
             "term_max": (p["award"].get("duration_months") or [None, None])[1],
-            "cost_share": p.get("cost_share") or "", "prerequisites": str(p.get("prerequisites") or "")})
+            "cost_share": p.get("cost_share") or "", "prerequisites": str(p.get("prerequisites") or ""),
+            "odds_note": "" if rate is not None else str(p["success"].get("note") or ""),
+            "watch_url": (srcs.get(p["deadlines"].get("source")) or {}).get("url", ""),
+            "effort": p.get("effort") or {}})
     return {"verified": str(registry.data().get("verified_default")), "window_months": WINDOW_MONTHS,
             "max_depth": MAX_DEPTH, "programs": out,
             "examples": [asdict(pr) for pr in load_profiles()]}

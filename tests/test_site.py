@@ -45,7 +45,7 @@ def py(profile: Profile, start: date) -> dict:
 def test_browser_picker_matches_python(prof, start):
     data = picker.site_data()
     a, b = py(prof, start), js(prof, start, data)
-    a["summary"].pop("expected_basis")
+    a["summary"].pop("expected_basis"); a["summary"].pop("any_award_basis")
     a["summary"]["coverage"] = b["summary"]["coverage"] = None     # display only; rounding differs by design
     assert b == a
 

@@ -123,10 +123,14 @@
 
     const firsts = options.filter(o => o.apply !== null && o.cash !== null && o._cash[1] <= end);
     const ev = firsts.reduce((t, o) => t + (o.ev === null ? 0 : o.ev), 0);
+    let miss = 1.0;
+    for (const o of firsts) if (o.odds !== null) miss *= 1 - o.odds;
+    const counted = firsts.filter(o => o.odds !== null).map(o => o.program);
     const summary = {
       applications_dated: options.filter(o => o.apply !== null).length,
       applications_undated: options.filter(o => o.apply === null).length,
       expected_first_awards: ev, without_odds: firsts.filter(o => o.ev === null).map(o => o.program),
+      any_award: counted.length ? 1 - miss : null, any_award_counted: counted,
       cash_need: prof.cash_need == null ? null : prof.cash_need,
       coverage: prof.cash_need ? ev / prof.cash_need : null,
     };
