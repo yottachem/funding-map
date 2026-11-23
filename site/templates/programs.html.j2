@@ -4,7 +4,7 @@
 {% block description %}{{ n_programs }} non-dilutive programs for deep tech companies with typical award, published success rate, time to cash and status, each sourced.{% endblock %}
 {% block body %}
 <h1>Programs</h1>
-<p class="lede">{{ n_programs }} programs ({{ n_federal }} federal, {{ n_state }} state-run in {{ n_states }} state{{ 's' if n_states != 1 }}), each with its typical award, published odds, time to cash and next date.</p>
+<p class="lede">{{ n_programs }} programs ({{ n_federal }} federal, {{ n_state }} state-run in {{ n_states }} state{{ 's' if n_states != 1 }}{% for t in n_territories %} and {{ t }}{% endfor %}), each with its typical award, published odds, time to cash and next date.</p>
 <p class="sub">Typical award is the median of actual recent awards where the data exist, else the funder's cap. Time to cash runs from the application date to the award (or to the notice, where that is all the funder states). Status as of {{ verified }}, checked weekly against Grants.gov and the DoD portal.</p>
 <div class="filters" role="group" aria-label="Filter programs">
   <label>Technology <select name="domains"><option value="">All</option>{% for k, v in DOMAIN.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></label>

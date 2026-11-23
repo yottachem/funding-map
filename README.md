@@ -1,6 +1,6 @@
 # Non-Dilutive Funding Map
 
-Grant and contract programs for deep tech companies (instruments, diagnostics, materials, energy and climate, hardware), graded on sourced award size, success rate, and time to award. Federal programs plus Massachusetts.
+Grant and contract programs for deep tech companies (instruments, diagnostics, materials, energy and climate, hardware), graded on sourced award size, success rate, and time to award. Federal programs plus state programs in 24 states and Puerto Rico: Massachusetts in depth; elsewhere SBIR/STTR match, Phase 0 and major deep tech grants.
 
 Every figure links its source. Success rates come only from the funder or the SBA; where none is published the map says so rather than estimating.
 

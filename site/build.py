@@ -263,7 +263,8 @@ def main(preview=False, today=None):
                   "paused": paused, "examples": examples, "verified": registry.data().get("verified_default"),
                   "n_programs": len(recs), "n_federal": sum(not r["p"].get("state") for r in recs.values()),
                   "n_state": sum(bool(r["p"].get("state")) for r in recs.values()),
-                  "n_states": len({r["p"]["state"] for r in recs.values() if r["p"].get("state")}), "held_choices": [r for r in recs.values() if r["leads_to"]]}
+                  "n_states": len({r["p"]["state"] for r in recs.values() if r["p"].get("state")} - {"DC", "PR"}),
+                  "n_territories": sorted({STATE_NAMES[r["p"]["state"]] for r in recs.values() if r["p"].get("state") in ("DC", "PR")}), "held_choices": [r for r in recs.values() if r["leads_to"]]}
     if DIST.exists():
         shutil.rmtree(DIST)
     (DIST / "program").mkdir(parents=True)

@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock %}
 {% block body %}
 <h1>Non-Dilutive Funding Map</h1>
-<p class="lede">Which grant and contract programs fit a deep tech company now, how much each pays, how likely it is, how long until the money lands, and in what order to apply. {{ n_programs }} programs ({{ n_federal }} federal, {{ n_state }} state-run in {{ n_states }} state{{ 's' if n_states != 1 }}) for instruments, diagnostics, materials, energy and climate, and hardware.</p>
+<p class="lede">Which grant and contract programs fit a deep tech company now, how much each pays, how likely it is, how long until the money lands, and in what order to apply. {{ n_programs }} programs ({{ n_federal }} federal, {{ n_state }} state-run in {{ n_states }} state{{ 's' if n_states != 1 }}{% for t in n_territories %} and {{ t }}{% endfor %}) for instruments, diagnostics, materials, energy and climate, and hardware.</p>
 <p class="sub">Every figure links its source. Success rates come only from the funder or the SBA; {{ n_programs - n_rated }} of {{ n_programs }} programs publish none, and the map says so instead of guessing.</p>
 
 <h2>Build a funding roadmap</h2>

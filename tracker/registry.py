@@ -31,7 +31,7 @@ STATUSES = ("open", "between-rounds", "upcoming", "paused", "closed", "unknown")
 REQUIRED = ("id", "name", "funder", "jurisdiction", "vehicle", "stage", "entity", "domains", "award", "success",
             "deadlines", "status", "sources")
 KEYS = set(REQUIRED) | {"office", "award_data", "award_recent", "timing", "prerequisites", "cost_share", "trl", "verify", "feeds",
-                        "requires", "lead", "state", "effort"}
+                        "requires", "lead", "state", "effort", "verified"}
 GATED_STAGES = ("follow-on", "cost-share")
 
 
@@ -155,6 +155,8 @@ def problems(progs: list[dict] | None = None, srcs: dict | None = None, stats: d
         for nxt in _get(p, "deadlines.next") or []:
             if not isinstance(nxt, dt.date):
                 out.append(f"{pid}: deadlines.next {nxt!r} is not a date")
+        if "verified" in p and not isinstance(p["verified"], dt.date):
+            out.append(f"{pid}: verified {p['verified']!r} is not a date")
         trl = p.get("trl")
         if trl is not None and not (len(trl) == 2 and 1 <= trl[0] <= trl[1] <= 9):
             out.append(f"{pid}: trl must be [low, high] within 1-9")

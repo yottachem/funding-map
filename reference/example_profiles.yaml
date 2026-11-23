@@ -21,7 +21,7 @@ profiles:
     label: "Fictional B: battery materials company outside Massachusetts"
     fictional: true
     entity: small-business
-    state: OH
+    state: NY
     domains: [materials, energy-climate]
     trl: 3
     held: []

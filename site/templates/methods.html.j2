@@ -8,7 +8,7 @@
 
 <h2 id="unit">What a program is</h2>
 <div class="prose">
-<p>The unit is the program (NSF SBIR Phase I, ARPA-E OPEN, MassCEC Catalyst), not the single solicitation. Open solicitations hang off their program. {{ n_programs }} programs are tracked: federal SBIR/STTR at the agencies that fund instruments, diagnostics, materials, energy and climate, and hardware; non-SBIR federal programs (ARPA-E, ARPA-H, NSF, BARDA's accelerator network); and Massachusetts (MassCEC, Mass Life Sciences Center, MassVentures).</p>
+<p>The unit is the program (NSF SBIR Phase I, ARPA-E OPEN, MassCEC Catalyst), not the single solicitation. Open solicitations hang off their program. {{ n_programs }} programs are tracked: federal SBIR/STTR at the agencies that fund instruments, diagnostics, materials, energy and climate, and hardware; non-SBIR federal programs (ARPA-E, ARPA-H, NSF, BARDA's accelerator network); Massachusetts (MassCEC, Mass Life Sciences Center, MassVentures); and state SBIR/STTR match, Phase 0 and major deep tech grant programs elsewhere (see <a href="#states">State programs</a>).</p>
 <p>Every program record lives in <a href="{{ repo }}/blob/main/reference/programs.yaml">programs.yaml</a>, and every figure in it carries a source key. Records change only by hand, after review.</p>
 </div>
 
@@ -85,10 +85,16 @@
 <p>Weekly: Grants.gov and DoD topics. Quarterly: award history. Anything a feed finds that would change a program record waits for review; see <a href="status.html">Status</a>.</p>
 </div>
 
+<h2 id="states">State programs</h2>
+<div class="prose">
+<p>Two kinds: every state SBIR/STTR match and Phase 0 (proposal-cost) grant whose terms the state's own page or guidelines state, and the main deep tech grant programs in the largest deep tech states. A match appears in a roadmap only for a company in that state, as a step after the federal award it matches. Where a state page gives no application timing, the program sits in the Watch list with "not stated".</p>
+<p>Not yet included: Colorado, Michigan, Arizona and Minnesota, whose program pages refuse automated reads (they will be checked by hand); state programs whose current terms are not posted (Delaware, Georgia, Maine, Utah's microgrant, Virginia); South Dakota's Phase 0, which can convert to a loan or equity; Utah's Phase I support, a nonrecourse loan; and Texas CPRIT product development awards, which require a revenue share by royalty or equity.</p>
+</div>
+
 <h2 id="limits">What the map does not cover</h2>
 <div class="prose">
 <ul>
-<li>Foundations, prizes, corporate programs, and state programs that invest equity or lend (only grants and contracts are tracked).</li>
+<li>Foundations, prizes, corporate programs, and state programs that invest equity, lend or take a revenue share (only grants and contracts are tracked).</li>
 <li>Intellectual property and data-rights terms. Effort to apply covers the steps and the main narrative's page limit from the funder's document, not budgets, letters or registrations.</li>
 <li>Who won: award records are used for sizes only.</li>
 <li>Whether a company qualifies. The map reads the funder's rules; the funder decides.</li>

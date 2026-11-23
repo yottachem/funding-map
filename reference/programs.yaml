@@ -142,6 +142,86 @@ sources:
                        note: "MLSC Access and Accelerate sample application: online form, answers limited to 75-400 words"}
   mlsc-impact-sample: {url: "https://www.masslifesciences.com/wp-content/uploads/Sample-Application-Impact-Catalyst.pdf", tier: 1,
                        note: "MLSC Impact Catalyst sample application: online form, answers limited to 75-400 words"}
+  # State SBIR/STTR match and Phase 0 programs, read on each funder's own page or document 2026-11-23
+  al-supplemental: {url: "https://innovatealabama.org/programs/supplemental-grant-program/", tier: 1,
+                    note: "Phase I holders: 50% of the SBIR/STTR award up to $100K; Phase II: 50% up to $250K. 'Stay tuned for details on upcoming rounds'"}
+  ar-match: {url: "https://www.arkansasedc.com/science-technology/division/commercialization/sbir-matching-grant", tier: 1,
+             note: "Up to 50% of federal Phase I and II SBIR awards, not to exceed $50,000 (Phase I) and $100,000 (Phase II); reimbursable"}
+  hi-hsbir: {url: "https://www.htdc.org/funding/hsbir-grants/", tier: 1,
+             note: "FY27 Phase 0 and Phase I applications open Oct 23, 2026 and close Dec 11, 2026. Phase I: 50% match up to $75,000. 2026: 23 applications received, 19 companies funded, $1.5M granted"}
+  hi-hsbir-program: {url: "https://www.htdc.org/programs/hawaii-small-business-innovation-research-program/", tier: 1,
+                     note: "Phase 0: up to $3,000 reimbursement for grant writing on the first federal application. Phase I: up to 50% or $75,000, whichever is less"}
+  ia-seed-fund: {url: "https://opportunityiowa.gov/business/small-business-entrepreneurs/small-business-resources/americas-seed-fund-iowa-program", tier: 1,
+                 note: "America's Seed Fund: Iowa: idea review, 100% of third-party proposal assistance, $75,000 total: Phase I $50,000 grant on top of the federal award; Phase II $25,000 on submission"}
+  il-match: {url: "https://dceo.illinois.gov/whyillinois/sbir-sttr-phase1.html", tier: 1,
+             note: "Up to $75,000 for Phase I recipients and $250,000 for Phase II; not competitive, first come first served; 1 grant per state fiscal year"}
+  in-match: {url: "https://iedc.in.gov/sbir", tier: 1,
+             note: "Phase I: $0.50 per federal dollar up to $50K per award, max 3; Phase II: up to $75K, max 2; lifetime $150K"}
+  ks-match: {url: "https://www.kansascommerce.gov/kansas-sbir-sttr-matching-program/", tier: 1,
+             note: "Phase 0: up to $3,000 (50% match), rolling until funds run out; Phase I: up to $25,000, two rounds a year (2025-26: Nov 7, 2025 and May 8, 2026)"}
+  ky-match: {url: "https://newkentuckyhome.ky.gov/Entrepreneurship/SBIR_STTR", tier: 1,
+             note: "Non-dilutive reimbursable grant, competitive: up to $100,000 Phase I, $150,000 Phase II"}
+  md-tedco-rfa: {url: "https://www.tedcomd.com/sites/default/files/2025-12/UPDATED%208Dec2025%20SBIR%20Matching%20Funds%20RFA%20Version%203.0.pdf", tier: 1,
+                 note: "TEDCO RFA v3.0 (2025-12-08): lesser of 25% or $25,000 (Phase I), 25% or $75,000 (Phase II); cycles close Mar 30, Jun 30, Sep 30, Dec 31; 4-6 Phase I and 2-3 Phase II awards per quarter anticipated"}
+  mt-match: {url: "https://commerce.mt.gov/Business/Business-Assistance/Montana-SBIR-STTR-Matching-Funds-Program", tier: 1,
+             note: "Grants of up to $30,000 per phase, yearly; applications any time"}
+  mt-guidelines: {url: "https://commerce.mt.gov/_shared/business/MSMFP/docs/Guidelines.pdf", tier: 1,
+                  note: "Rev. 07/19: Stage 1 and Stage 2 applications; rolling first come first served until each fiscal year's funds run out; one application per company per fiscal year"}
+  nc-oncsbp: {url: "https://www.commerce.nc.gov/grants-incentives/technology-funds/one-north-carolina-small-business-program", tier: 1,
+              note: "FY 2027 Incentive solicitation released Sep 14, 2026; FY 2027 Matching solicitation released Dec 14, 2026. FY 2026: 32 matching awards ($2.37M), 18 incentive awards"}
+  nc-incentive-fy27: {url: "https://www.commerce.nc.gov/oncsbp-incentive-solicitation-fy-2027/download?attachment", tier: 1,
+                      note: "NCBSTI-FY2627I: reimburses part of the cost of a Phase I proposal; maximum $12,000; $210,000 available; Jul 1, 2026 to Jun 30, 2027 or until funds run out"}
+  nc-match-fy26: {url: "https://www.commerce.nc.gov/oncsbpmatchingsolicitationfy2026final/open", tier: 1,
+                  note: "NCBSTI-FY2526M: 50% of the federal Phase I award, not to exceed $75,000 (+$25,000 in Helene-impacted counties); closed Jun 30, 2026; $1,876,560 available"}
+  ne-sbir: {url: "https://opportunity.nebraska.gov/programs/business/sbir-sttr/", tier: 1,
+            note: "Phase 0 up to $5,000; Phase 1 up to $150,000 or 65%; Phase 2 up to $300,000 or 65%; all three open Jul 7, 2026 to Jun 30, 2027 or until funds run out"}
+  ne-guidelines: {url: "https://opportunity.nebraska.gov/wp-content/uploads/2026/07/NEDED-SBIR-STTR-Program-Guidelines-Updated-July-2026.pdf", tier: 1,
+                  note: "Revised July 2026: Phase 0 applications at least 30 days before the federal deadline; NSF applicants need the invitation to submit"}
+  nj-csit-nofa: {url: "https://www.njeda.gov/wp-content/uploads/2026/01/CSIT_SBIR-Round-5-NOFA_2026.pdf", tier: 1,
+                 note: "Round 5 (effective 2026-01-15): $25,000 Direct grants for active Phase I, Fast Track or Direct to Phase II awards; $50,000 Bridge grants for submitted Phase II applications; rolling while funds last; $1,050,000 for about 22 Direct and 10 Bridge awards"}
+  nm-tio: {url: "https://edd.newmexico.gov/grants/tio-grants/", tier: 1,
+           note: "SBIR/STTR Matching Grant: non-dilutive $50,000 to $100,000 for business development expenses of New Mexico SBIR/STTR recipients"}
+  ny-img: {url: "https://esd.ny.gov/innovation-matching-grants-program", tier: 1,
+           note: "Matches Phase I up to $100,000 and Phase II up to $200,000; rounds open the 2nd Wednesday in October and April for one week"}
+  or-sbir: {url: "https://www.oregon.gov/biz/programs/SBIR-STTR/Pages/default.aspx", tier: 1,
+            note: "Matching grants up to $50,000 (Phase I) and $100,000 (Phase II or Fast-Track); last RFGA closed Oct 17, 2025. Application support (Phase 0/00) up to $5,000"}
+  or-appsupport: {url: "https://www.oregon.gov/biz/Publications/SBIRSTTR/25-27/AppSupport/PgmGdlns_SBIRSTTR_Nov2026.pdf", tier: 1,
+                  note: "Phase 0/00 guidelines (Nov 2026): up to $5,000 per application, one per fiscal year; apply year-round at least 4 weeks before the federal deadline"}
+  pr-trust: {url: "https://prsciencetrust.org/sbir-sttr/", tier: 1,
+             note: "Dollar-to-dollar match up to $100,000 (Phase I) and $200,000 (Phase II)"}
+  pr-phase1-2025: {url: "https://prsciencetrust.org/wp-content/uploads/2025/02/Approved-Phase-I-Matching-Funds-Guidelines-2025.pdf", tier: 1,
+                   note: "2025 Phase I guidelines: three installments; site visit for first-time applicants; expenses in Puerto Rico"}
+  pr-phase2-2025: {url: "https://prsciencetrust.org/wp-content/uploads/2025/02/Approved-Phase-II-Matching-Funds-Guidelines-2025.pdf", tier: 1,
+                   note: "2025 Phase II guidelines: up to $100,000 in year one and $100,000 in year two (year two needs $10,000 private match); apply at least 15 days before the federal Phase II deadline"}
+  ri-phase1: {url: "https://stac.ri.gov/funding_opp/sbirsttr-phase-matching-grants/", tier: 1,
+              note: "Up to $75,000; rounds twice a year; current round Sep 1-23, 2026; next Apr 6-27, 2027"}
+  ri-phase2: {url: "https://stac.ri.gov/funding_opp/sbirsttr-phase-ii-matching-grants/", tier: 1,
+              note: "Up to $150,000; same rounds as Phase I (next Apr 6-27, 2027)"}
+  ri-guidelines: {url: "https://stac.ri.gov/wp-content/uploads/2019/03/sbir_phase-i-ii-guidelines-FY26.pdf", tier: 1,
+                  note: "Approved 2025-04-21: Phase I 50% up to $75,000 (75% on approval, 25% later); Phase II 15% up to $150,000"}
+  ri-phase0: {url: "https://stac.ri.gov/wp-content/uploads/2017/05/innovate_ri_fund_phase_0_guidelines_2025.pdf", tier: 1,
+              note: "Reimburses up to 50% of eligible direct costs, max $3,000, of a Phase I proposal; one grant per calendar year; rolling until funds run out"}
+  sc-scra: {url: "https://www.scra.org/wp-content/uploads/2025/08/Federal-Matching-Grant-Eligibility-and-Criteria_Aug25.pdf", tier: 1,
+            note: "Aug 2025: up to 50% of a qualifying federal award, not to exceed $50,000; two per company lifetime; rolling review; decision about a week after the meeting, funded within 30 days"}
+  tn-launchtn: {url: "https://launchtn.org/entrepreneur-programs/sbir-sttr-matching-fund/", tier: 1,
+                note: "Up to 50% of the federal award: Phase I up to $100,000, Phase II up to $300,000, in two tranches. FY27 window Oct 5-16 (Notices of Award Jul 1, 2025 to Sep 30, 2026); next window not stated"}
+  wi-sbir-advance: {url: "https://wisconsinctc.org/programs/sbir-and-sttr-guidance/sbiradvance/", tier: 1,
+                    note: "Phase I: 50% match, $50,000 to $75,000, paid on milestones; Phase II: up to $100,000 per year for up to 2 years"}
+  wy-match: {url: "https://wyomingbusiness.org/business/financing/grants/sbir/", tier: 1,
+             note: "Year-round, rolling; Phase I up to $100,000, Phase II up to $200,000; max 4 matches; virtual pitch, notice within two weeks"}
+  wy-wssi: {url: "https://www.uwyo.edu/sbir/index.html", tier: 1,
+            note: "Wyoming Phase 0/00: up to $5,000 for proposal preparation; packet after the first WSSI advising meeting"}
+  # Major state grant programs in top deep tech states
+  calseed: {url: "https://calseed.fund/", tier: 1,
+            note: "Early-stage grants of up to $700K (California Energy Commission EPIC, administered by New Energy Nexus)"}
+  calseed-faq: {url: "https://calseed.fund/faq/", tier: 1,
+                note: "One call for Concept Award applications a year; Concept winners compete in an annual Business Plan Competition for a Prototype Award. FAQ still lists $150,000 + $450,000; the homepage states up to $700K"}
+  wa-rdd: {url: "https://www.commerce.wa.gov/epic/rdd/", tier: 1,
+           note: "Clean Energy Fund RD&D: 2025-2027 RFA opened Jun 30, 2026, due Sep 3, 2026; about $10M; notifications Oct 23, 2026"}
+  wa-rdd-fundhub: {url: "https://fundhub.wa.gov/funding/research-development-and-demonstration-program-grants/", tier: 1,
+                   note: "FundHubWA (state portal): award range $150,000 to $2,000,000; cost share yes; pre-application yes; closed"}
+  md-mips: {url: "https://mips.umd.edu/", tier: 1,
+            note: "MIPS contributes up to $100,000 per phase ($90,000 for start-ups) to the university side, matched by the company; next proposal deadline Oct 15, 2026; decisions within 60 days"}
 
 programs:
 
@@ -765,3 +845,899 @@ programs:
     status: between-rounds
     effort: {steps: "Online application form with word-limited answers (75-400 words each), plus investor letters of intent", pages: null, note: "Form, not pages", source: mlsc-impact-sample}
     sources: [mlsc-impact]
+
+  - id: al-match-1
+    name: "Innovate Alabama Supplemental Grant (Phase I)"
+    funder: "Innovate Alabama"
+    jurisdiction: state
+    state: AL
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: al-supplemental, note: "50% of the federal Phase I award, up to $100K"}
+    success: {published: false, source: al-supplemental}
+    prerequisites: "Alabama small business holding a federal SBIR/STTR Phase I award"
+    deadlines: {cadence: "Rounds; next round not announced", source: al-supplemental}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Application to Innovate Alabama when a round opens, with the federal award", pages: null, note: "Application format not published on the program page", source: al-supplemental}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [al-supplemental]
+
+  - id: al-match-2
+    name: "Innovate Alabama Supplemental Grant (Phase II)"
+    funder: "Innovate Alabama"
+    jurisdiction: state
+    state: AL
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 250000, source: al-supplemental, note: "50% of the federal Phase II award, up to $250K"}
+    success: {published: false, source: al-supplemental}
+    prerequisites: "Alabama small business holding a federal SBIR/STTR Phase II award"
+    deadlines: {cadence: "Rounds; next round not announced", source: al-supplemental}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Application to Innovate Alabama when a round opens, with the federal award", pages: null, note: "Application format not published on the program page", source: al-supplemental}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [al-supplemental]
+
+  - id: ar-match-1
+    name: "Arkansas SBIR Matching Grant (Phase I)"
+    funder: "Arkansas Economic Development Commission"
+    jurisdiction: state
+    state: AR
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 50000, source: ar-match, note: "Up to 50% of the federal Phase I SBIR award; paid as reimbursement against invoices"}
+    success: {published: false, source: ar-match}
+    prerequisites: "Arkansas business holding a federal SBIR Phase I award"
+    deadlines: {cadence: "Application timing not stated on the funder's page", source: ar-match}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Application to AEDC with the federal award; disbursed against invoices", pages: null, note: "Application format not published on the program page", source: ar-match}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [ar-match]
+
+  - id: ar-match-2
+    name: "Arkansas SBIR Matching Grant (Phase II)"
+    funder: "Arkansas Economic Development Commission"
+    jurisdiction: state
+    state: AR
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: ar-match, note: "Up to 50% of the federal Phase II SBIR award; paid as reimbursement against invoices"}
+    success: {published: false, source: ar-match}
+    prerequisites: "Arkansas business holding a federal SBIR Phase II award"
+    deadlines: {cadence: "Application timing not stated on the funder's page", source: ar-match}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Application to AEDC with the federal award; disbursed against invoices", pages: null, note: "Application format not published on the program page", source: ar-match}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [ar-match]
+
+  - id: hi-hsbir-0
+    name: "Hawaii HSBIR Phase 0"
+    funder: "Hawaii Technology Development Corporation"
+    jurisdiction: state
+    state: HI
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 3000, source: hi-hsbir-program, note: "Reimburses grant writing on the first federal application"}
+    success: {published: false, source: hi-hsbir-program}
+    prerequisites: "Hawaii-registered small business preparing its first federal SBIR/STTR application"
+    deadlines: {cadence: "Annual window; FY27 open Oct 23 to Dec 11, 2026", next: [2026-12-11], source: hi-hsbir}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online form (tfaforms) in the annual window", pages: null, note: "Form; no page limit stated", source: hi-hsbir}
+    feeds: [nsf-sbir-1, nih-sbir-1, doe-sbir-1, dod-sbir-1]
+    sources: [hi-hsbir, hi-hsbir-program]
+
+  - id: hi-match-1
+    name: "Hawaii HSBIR Phase I Match"
+    funder: "Hawaii Technology Development Corporation"
+    jurisdiction: state
+    state: HI
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 75000, source: hi-hsbir, note: "Up to 50% of the federal Phase I award or $75K, whichever is less"}
+    success: {published: false, note: "2026: 23 applications received, 19 companies funded (Phase 0 and Phase I together)", source: hi-hsbir}
+    prerequisites: "Hawaii-registered company compliant in Hawaii Compliance Express, holding a federal Phase I award"
+    deadlines: {cadence: "Annual window; FY27 open Oct 23 to Dec 11, 2026", next: [2026-12-11], source: hi-hsbir}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online form (tfaforms) in the annual window, with the federal Phase I award", pages: null, note: "Form; no page limit stated", source: hi-hsbir}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [hi-hsbir, hi-hsbir-program]
+
+  - id: ia-seed-fund
+    name: "America's Seed Fund: Iowa"
+    funder: "Iowa Economic Development Authority"
+    jurisdiction: state
+    state: IA
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 50000, source: ia-seed-fund, note: "Phase I: $50K on top of the federal award; Phase II: $25K when the federal Phase II proposal is submitted; idea review and 100% of third-party proposal help ($75K total)"}
+    success: {published: false, source: ia-seed-fund}
+    prerequisites: "Iowa small business; IEDA reviews the idea before the federal proposal"
+    deadlines: {cadence: "Application timing not stated on the funder's page", source: ia-seed-fund}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Idea review and proposal assistance through IEDA, then the match on the federal Phase I award", pages: null, note: "Application format not published on the program page", source: ia-seed-fund}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [ia-seed-fund]
+
+  - id: il-match-1
+    name: "Illinois SBIR/STTR Matching Program (Phase I)"
+    funder: "Illinois Department of Commerce and Economic Opportunity"
+    jurisdiction: state
+    state: IL
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 75000, source: il-match, note: "75% on approval, 25% after the Phase I report and Phase II submission"}
+    success: {published: false, note: "Not competitive: eligible applications funded first come, first served", source: il-match}
+    prerequisites: "Illinois-based business with a federal Phase I award made within 12 months and still active, before its Phase II proposal is submitted"
+    deadlines: {cadence: "Rolling, first come first served; 1 grant per state fiscal year", source: il-match}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Application to DCEO with certifications (51% of Phase II research in Illinois, no duplicate funding)", pages: null, note: "Application format not published on the program page", source: il-match}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [il-match]
+
+  - id: il-match-2
+    name: "Illinois SBIR/STTR Matching Program (Phase II)"
+    funder: "Illinois Department of Commerce and Economic Opportunity"
+    jurisdiction: state
+    state: IL
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 250000, source: il-match, note: "50% on approval, 50% after the final Phase II report"}
+    success: {published: false, note: "Not competitive: eligible applications funded first come, first served", source: il-match}
+    prerequisites: "Illinois-based business with an active federal Phase II award"
+    deadlines: {cadence: "Rolling, first come first served; up to 2 Phase II grants per business", source: il-match}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Application to DCEO with certifications (no duplicate funding, stays Illinois-based)", pages: null, note: "Application format not published on the program page", source: il-match}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [il-match]
+
+  - id: in-match-1
+    name: "Indiana SBIR/STTR Matching Grant (Phase I)"
+    funder: "Indiana Economic Development Corporation"
+    jurisdiction: state
+    state: IN
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 50000, source: in-match, note: "$0.50 per federal dollar, up to $50K per award; max 3; $150K lifetime"}
+    success: {published: false, source: in-match}
+    prerequisites: "Company headquartered in Indiana holding a federal Phase I award"
+    deadlines: {cadence: "Application timing not stated on the funder's page", source: in-match}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Application to IEDC with the federal award", pages: null, note: "Application format not published on the program page", source: in-match}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [in-match]
+
+  - id: in-match-2
+    name: "Indiana SBIR/STTR Matching Funds (Phase II)"
+    funder: "Indiana Economic Development Corporation"
+    jurisdiction: state
+    state: IN
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 75000, source: in-match, note: "$0.50 per federal dollar, up to $75K per award; max 2; $150K lifetime"}
+    success: {published: false, source: in-match}
+    prerequisites: "Company headquartered in Indiana holding a federal Phase II award"
+    deadlines: {cadence: "Application timing not stated on the funder's page", source: in-match}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Application to IEDC with the federal award", pages: null, note: "Application format not published on the program page", source: in-match}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [in-match]
+
+  - id: ks-sbir-0
+    name: "Kansas SBIR/STTR Phase 0 Support"
+    funder: "Kansas Department of Commerce"
+    jurisdiction: state
+    state: KS
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 3000, source: ks-match, note: "50% match on proposal development costs, plus coaching and technical review"}
+    success: {published: false, source: ks-match}
+    prerequisites: "Kansas-headquartered small business vetted by the FAST program or a support center, or working with an SBIR grant writer"
+    deadlines: {cadence: "Rolling until funds run out", source: ks-match}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Application form, Kansas registration, federal eligibility confirmation, consultant contract and scope of work with budget", pages: null, note: "Form; no page limit stated", source: ks-match}
+    feeds: [nsf-sbir-1, nih-sbir-1, doe-sbir-1, dod-sbir-1]
+    sources: [ks-match]
+
+  - id: ks-match-1
+    name: "Kansas SBIR/STTR Phase I Match"
+    funder: "Kansas Department of Commerce"
+    jurisdiction: state
+    state: KS
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 25000, source: ks-match, note: "Paid as reimbursement unless otherwise approved"}
+    success: {published: false, source: ks-match}
+    prerequisites: "Kansas-headquartered small business with official notice of a federal Phase I award; 51% of Phase I work in Kansas"
+    deadlines: {cadence: "Two rounds a year (2025-26 closed Nov 7, 2025 and May 8, 2026); 2026-27 dates not posted", source: ks-match}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Application form, Kansas registration, federal Phase I award notice, and the federal submission package with scope and budget", pages: null, note: "Form; no page limit stated", source: ks-match}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [ks-match]
+
+  - id: ky-match-1
+    name: "Kentucky SBIR/STTR Matching Funds (Phase I)"
+    funder: "Kentucky Cabinet for Economic Development (KY Innovation)"
+    jurisdiction: state
+    state: KY
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: ky-match, note: "Reimbursable; competitive"}
+    success: {published: false, source: ky-match}
+    prerequisites: "For-profit company holding a federal SBIR/STTR award, based in or relocating to Kentucky"
+    deadlines: {cadence: "Application timing not stated on the funder's page", source: ky-match}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Competitive application to KY Innovation with the federal award", pages: null, note: "Application format not published on the program page", source: ky-match}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [ky-match]
+
+  - id: ky-match-2
+    name: "Kentucky SBIR/STTR Matching Funds (Phase II)"
+    funder: "Kentucky Cabinet for Economic Development (KY Innovation)"
+    jurisdiction: state
+    state: KY
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 150000, source: ky-match, note: "Reimbursable; competitive"}
+    success: {published: false, source: ky-match}
+    prerequisites: "For-profit company holding a federal Phase II award, based in or relocating to Kentucky"
+    deadlines: {cadence: "Application timing not stated on the funder's page", source: ky-match}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Competitive application to KY Innovation with the federal award", pages: null, note: "Application format not published on the program page", source: ky-match}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [ky-match]
+
+  - id: md-match-1
+    name: "TEDCO SBIR/STTR Matching Funds (Phase I)"
+    funder: "Maryland Technology Development Corporation (TEDCO)"
+    jurisdiction: state
+    state: MD
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 25000, source: md-tedco-rfa, note: "Lesser of 25% of the Phase I award or $25K"}
+    success: {published: false, note: "TEDCO anticipates 4-6 Phase I matching awards per quarter", source: md-tedco-rfa}
+    prerequisites: "Maryland small business with a federal Phase I award made within six months of the cycle; uses the award mainly for Maryland operations"
+    deadlines: {cadence: "Quarterly cycles closing Mar 30, Jun 30, Sep 30 and Dec 31", next: [2026-12-31, 2027-03-30, 2027-06-30, 2027-09-30], source: md-tedco-rfa}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application in a quarterly cycle per the RFA, with the federal award", pages: null, note: "Application format set in the RFA; no page limit stated", source: md-tedco-rfa}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [md-tedco-rfa]
+
+  - id: md-match-2
+    name: "TEDCO SBIR/STTR Matching Funds (Phase II)"
+    funder: "Maryland Technology Development Corporation (TEDCO)"
+    jurisdiction: state
+    state: MD
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 75000, source: md-tedco-rfa, note: "Lesser of 25% of the Phase II award or $75K"}
+    success: {published: false, note: "TEDCO anticipates 2-3 Phase II matching awards per quarter", source: md-tedco-rfa}
+    prerequisites: "Maryland small business with a federal Phase II award made within six months of the cycle"
+    deadlines: {cadence: "Quarterly cycles closing Mar 30, Jun 30, Sep 30 and Dec 31", next: [2026-12-31, 2027-03-30, 2027-06-30, 2027-09-30], source: md-tedco-rfa}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application in a quarterly cycle per the RFA, with the federal award", pages: null, note: "Application format set in the RFA; no page limit stated", source: md-tedco-rfa}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [md-tedco-rfa]
+
+  - id: mt-match
+    name: "Montana SBIR/STTR Matching Funds"
+    funder: "Montana Department of Commerce"
+    jurisdiction: state
+    state: MT
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 30000, source: mt-match, note: "Per phase; the 2019 guidelines pay in two stages"}
+    success: {published: false, source: mt-match}
+    prerequisites: "Technology-based Montana company holding a federal SBIR/STTR award (Phase II requires a prior Phase I)"
+    deadlines: {cadence: "Rolling (applications any time), first come first served until each fiscal year's funds run out", source: mt-match}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Stage 1 application on funding.mt.gov, then a Stage 2 application and final report", pages: null, note: "No page limit stated in the guidelines", source: mt-guidelines}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1, nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [mt-match, mt-guidelines]
+
+  - id: nc-sbir-0
+    name: "One NC SBIR/STTR Phase I Incentive Funds"
+    funder: "North Carolina Department of Commerce"
+    jurisdiction: state
+    state: NC
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 12000, source: nc-incentive-fy27, note: "Reimburses part of the cost of preparing and submitting a Phase I proposal; $210K available in FY2027"}
+    success: {published: false, note: "FY 2026: 18 incentive awards", source: nc-oncsbp}
+    prerequisites: "North Carolina small business that has submitted a federal Phase I SBIR/STTR proposal in the solicitation period"
+    deadlines: {cadence: "Rolling, Jul 1, 2026 to Jun 30, 2027 or until funds run out", source: nc-incentive-fy27}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "CyberGrants application after the federal Phase I proposal is submitted", pages: null, note: "Application requirements set in the solicitation; no page limit stated", source: nc-incentive-fy27}
+    feeds: [nsf-sbir-1, nih-sbir-1, doe-sbir-1, dod-sbir-1]
+    sources: [nc-oncsbp, nc-incentive-fy27]
+
+  - id: nc-match-1
+    name: "One NC SBIR/STTR Phase I Matching Funds"
+    funder: "North Carolina Department of Commerce"
+    jurisdiction: state
+    state: NC
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 75000, source: nc-match-fy26, note: "50% of the federal Phase I award, up to $75K; +$25K in Helene-impacted counties (FY2026 terms)"}
+    success: {published: false, note: "FY 2026: 32 matching awards, $2.37M", source: nc-oncsbp}
+    prerequisites: "North Carolina small business notified of a federal Phase I award during the solicitation period"
+    deadlines: {cadence: "Annual solicitation, rolling until Jun 30 or funds run out; FY 2027 solicitation released Dec 14, 2026", source: nc-oncsbp}
+    status: upcoming
+    verified: 2026-11-23
+    effort: {steps: "CyberGrants application after the federal Phase I award notice", pages: null, note: "Application requirements set in the solicitation; no page limit stated", source: nc-match-fy26}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [nc-oncsbp, nc-match-fy26]
+
+  - id: ne-sbir-0
+    name: "Nebraska SBIR/STTR Phase 0"
+    funder: "Nebraska Department of Economic Development"
+    jurisdiction: state
+    state: NE
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 5000, source: ne-sbir, note: "Reimburses costs of preparing a federal Phase I proposal"}
+    success: {published: false, source: ne-sbir}
+    prerequisites: "For-profit small business with its principal place of business in Nebraska; names its service providers; NSF and DOE applicants need the invitation to submit"
+    deadlines: {cadence: "Rolling, Jul 7, 2026 to Jun 30, 2027 or until funds run out; apply at least 30 days before the federal deadline", source: ne-sbir}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application at least 30 days before the federal deadline, naming the service providers", pages: null, note: "Form; no page limit stated in the guidelines", source: ne-guidelines}
+    feeds: [nsf-sbir-1, nih-sbir-1, doe-sbir-1, dod-sbir-1]
+    sources: [ne-sbir, ne-guidelines]
+
+  - id: ne-match-1
+    name: "Nebraska SBIR/STTR Phase 1 Match"
+    funder: "Nebraska Department of Economic Development"
+    jurisdiction: state
+    state: NE
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 150000, source: ne-sbir, note: "Lesser of $150K or 65% of the federal award"}
+    success: {published: false, source: ne-sbir}
+    prerequisites: "Nebraska small business with a federal Phase I award conducting at least 51% of the work in Nebraska"
+    deadlines: {cadence: "Rolling, Jul 7, 2026 to Jun 30, 2027 or until funds run out", source: ne-sbir}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application in the fiscal-year window with the federal award", pages: null, note: "Form; no page limit stated in the guidelines", source: ne-guidelines}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [ne-sbir, ne-guidelines]
+
+  - id: ne-match-2
+    name: "Nebraska SBIR/STTR Phase 2 Match"
+    funder: "Nebraska Department of Economic Development"
+    jurisdiction: state
+    state: NE
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 300000, source: ne-sbir, note: "Lesser of $300K or 65% of the federal award"}
+    success: {published: false, source: ne-sbir}
+    prerequisites: "Nebraska small business with a federal Phase II award conducting at least 51% of the work in Nebraska"
+    deadlines: {cadence: "Rolling, Jul 7, 2026 to Jun 30, 2027 or until funds run out", source: ne-sbir}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application in the fiscal-year window with the federal award", pages: null, note: "Form; no page limit stated in the guidelines", source: ne-guidelines}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [ne-sbir, ne-guidelines]
+
+  - id: nj-direct-1
+    name: "NJ CSIT SBIR/STTR Direct Funding Grant"
+    funder: "New Jersey Commission on Science, Innovation and Technology"
+    jurisdiction: state
+    state: NJ
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 25000, source: nj-csit-nofa, note: "Flat $25K; Round 5 budget funds about 22 Direct awards"}
+    success: {published: false, source: nj-csit-nofa}
+    prerequisites: "NJ small business with an active Phase I, Fast Track or Direct to Phase II award; at most 5 lifetime federal SBIR/STTR awards; 50% of work hours in NJ"
+    deadlines: {cadence: "Rolling while Round 5 funds last", source: nj-csit-nofa}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application on njcsit.gov with the active federal award", pages: null, note: "No page limit stated in the NOFA", source: nj-csit-nofa}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [nj-csit-nofa]
+
+  - id: nj-bridge
+    name: "NJ CSIT SBIR/STTR Bridge Funding Grant"
+    funder: "New Jersey Commission on Science, Innovation and Technology"
+    jurisdiction: state
+    state: NJ
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 50000, source: nj-csit-nofa, note: "Flat $50K for the gap between a submitted Phase II proposal and the award; about 10 awards in Round 5"}
+    success: {published: false, source: nj-csit-nofa}
+    prerequisites: "NJ small business that completed Phase I and submitted a federal Phase II proposal not yet awarded; at most 5 federal awards and 4 Phase II"
+    deadlines: {cadence: "Rolling while Round 5 funds last", source: nj-csit-nofa}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application on njcsit.gov with the submitted Phase II proposal", pages: null, note: "No page limit stated in the NOFA", source: nj-csit-nofa}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [nj-csit-nofa]
+
+  - id: nm-match
+    name: "New Mexico SBIR/STTR Matching Grant"
+    funder: "New Mexico Economic Development Department (Technology and Innovation Office)"
+    jurisdiction: state
+    state: NM
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: nm-tio, note: "$50K to $100K for business development expenses that federal SBIR funds cannot cover"}
+    success: {published: false, source: nm-tio}
+    prerequisites: "New Mexico recipient of a federal SBIR or STTR award"
+    deadlines: {cadence: "Application timing not stated on the funder's page", source: nm-tio}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Application to the EDD Technology and Innovation Office", pages: null, note: "Application format not published on the program page", source: nm-tio}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1, nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [nm-tio]
+
+  - id: ny-img-1
+    name: "New York Innovation Matching Grant (Phase I)"
+    funder: "Empire State Development"
+    jurisdiction: state
+    state: NY
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: ny-img, note: "Matches the federal Phase I award up to $100K"}
+    success: {published: false, source: ny-img}
+    prerequisites: "New York small business holding a federal SBIR/STTR Phase I award not already matched"
+    deadlines: {cadence: "Two one-week rounds a year, opening the 2nd Wednesday in October and April", next: [2027-04-20, 2027-10-19], source: ny-img}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Digital application during the one-week round, then a Grant Disbursement Agreement", pages: null, note: "Application format not published on the program page", source: ny-img}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [ny-img]
+
+  - id: ny-img-2
+    name: "New York Innovation Matching Grant (Phase II)"
+    funder: "Empire State Development"
+    jurisdiction: state
+    state: NY
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 200000, source: ny-img, note: "Matches the federal Phase II award up to $200K, plus technical assistance"}
+    success: {published: false, source: ny-img}
+    prerequisites: "New York small business holding a federal SBIR/STTR Phase II award not already matched"
+    deadlines: {cadence: "Two one-week rounds a year, opening the 2nd Wednesday in October and April", next: [2027-04-20, 2027-10-19], source: ny-img}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Digital application during the one-week round, then a Grant Disbursement Agreement", pages: null, note: "Application format not published on the program page", source: ny-img}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [ny-img]
+
+  - id: or-sbir-0
+    name: "Business Oregon SBIR/STTR Application Support (Phase 0/00)"
+    funder: "Business Oregon"
+    jurisdiction: state
+    state: OR
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 5000, source: or-appsupport, note: "Per application, for proposal preparation services; Phase 0 for Phase I proposals, Phase 00 for Phase II or Fast-Track"}
+    success: {published: false, source: or-appsupport}
+    prerequisites: "Oregon-based for-profit small business targeting an open federal solicitation; one award per fiscal year; NSF and DOE applicants need the Project Pitch done"
+    deadlines: {cadence: "Rolling, year-round; apply at least 4 weeks before the federal deadline", source: or-appsupport}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Email the application form with scope of work, line-item budget, contractor resumes and evidence of the open solicitation", pages: null, note: "Form and attachments; no page limit stated", source: or-appsupport}
+    feeds: [nsf-sbir-1, nih-sbir-1, doe-sbir-1, dod-sbir-1]
+    sources: [or-sbir, or-appsupport]
+
+  - id: or-match-1
+    name: "Business Oregon SBIR/STTR Matching Grant (Phase I)"
+    funder: "Business Oregon"
+    jurisdiction: state
+    state: OR
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 50000, source: or-sbir}
+    success: {published: false, source: or-sbir}
+    prerequisites: "Oregon-based for-profit small business holding a federal Phase I award"
+    deadlines: {cadence: "Competitive RFGA rounds; last closed Oct 17, 2025; next not announced", source: or-sbir}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "RFGA application: form, budget plan, sample contract, disclosure affidavit and narrative (Attachments A-E)", pages: null, note: "No page limit stated on the program page", source: or-sbir}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [or-sbir]
+
+  - id: or-match-2
+    name: "Business Oregon SBIR/STTR Matching Grant (Phase II)"
+    funder: "Business Oregon"
+    jurisdiction: state
+    state: OR
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: or-sbir, note: "Phase II or Fast-Track recipients"}
+    success: {published: false, source: or-sbir}
+    prerequisites: "Oregon-based for-profit small business holding a federal Phase II or Fast-Track award"
+    deadlines: {cadence: "Competitive RFGA rounds; last closed Oct 17, 2025; next not announced", source: or-sbir}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "RFGA application: form, budget plan, sample contract, disclosure affidavit and narrative (Attachments A-E)", pages: null, note: "No page limit stated on the program page", source: or-sbir}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [or-sbir]
+
+  - id: pr-match-1
+    name: "Puerto Rico Science Trust SBIR/STTR Matching Grant (Phase I)"
+    funder: "Puerto Rico Science, Technology and Research Trust"
+    jurisdiction: state
+    state: PR
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: pr-trust, note: "Dollar for dollar; three installments; expenses in Puerto Rico"}
+    success: {published: false, source: pr-trust}
+    prerequisites: "Company in or authorized to do business in Puerto Rico holding a federal Phase I award"
+    deadlines: {cadence: "Application timing not stated in the guidelines", source: pr-phase1-2025}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Application per the Trust's guidelines; first-time applicants get a site visit", pages: null, note: "No page limit stated in the guidelines", source: pr-phase1-2025}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [pr-trust, pr-phase1-2025]
+
+  - id: pr-match-2
+    name: "Puerto Rico Science Trust SBIR/STTR Matching Grant (Phase II)"
+    funder: "Puerto Rico Science, Technology and Research Trust"
+    jurisdiction: state
+    state: PR
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 200000, source: pr-trust, note: "Up to $100K in year one and $100K in year two (year two needs a $10K private match)"}
+    success: {published: false, source: pr-trust}
+    prerequisites: "Company in or authorized to do business in Puerto Rico pursuing or holding a federal Phase II award"
+    deadlines: {cadence: "Apply at least 15 days before the federal Phase II deadline", source: pr-phase2-2025}
+    status: unknown
+    verified: 2026-11-23
+    effort: {steps: "Application per the Trust's Phase II guidelines, at least 15 days before the federal deadline", pages: null, note: "No page limit stated in the guidelines", source: pr-phase2-2025}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [pr-trust, pr-phase2-2025]
+
+  - id: ri-sbir-0
+    name: "Innovate RI Phase 0 Grant"
+    funder: "Rhode Island Science and Technology Advisory Council"
+    jurisdiction: state
+    state: RI
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 3000, source: ri-phase0, note: "Reimburses up to 50% of eligible direct costs of a Phase I proposal"}
+    success: {published: false, source: ri-phase0}
+    prerequisites: "Rhode Island small business submitting a Phase I SBIR/STTR proposal; one grant per calendar year"
+    deadlines: {cadence: "Rolling until funds run out", source: ri-phase0}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Application form with the Phase 0 checklist on the STAC site", pages: null, note: "Checklist; no page limit stated", source: ri-phase0}
+    feeds: [nsf-sbir-1, nih-sbir-1, doe-sbir-1, dod-sbir-1]
+    sources: [ri-phase0]
+
+  - id: ri-match-1
+    name: "Innovate RI SBIR/STTR Phase I Matching Grant"
+    funder: "Rhode Island Science and Technology Advisory Council"
+    jurisdiction: state
+    state: RI
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 75000, source: ri-guidelines, note: "50% of the federal Phase I award, up to $75K; 75% on approval, 25% after conditions"}
+    success: {published: false, source: ri-guidelines}
+    prerequisites: "Rhode Island business holding a federal Phase I award; 51% of the research in Rhode Island"
+    deadlines: {cadence: "Two rounds a year; next Apr 6 to Apr 27, 2027", next: [2027-04-27], source: ri-phase1}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Online application in the round with the federal award", pages: null, note: "No page limit stated in the guidelines", source: ri-guidelines}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [ri-phase1, ri-guidelines]
+
+  - id: ri-match-2
+    name: "Innovate RI SBIR/STTR Phase II Matching Grant"
+    funder: "Rhode Island Science and Technology Advisory Council"
+    jurisdiction: state
+    state: RI
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 150000, source: ri-guidelines, note: "15% of the federal Phase II award, up to $150K"}
+    success: {published: false, source: ri-guidelines}
+    prerequisites: "Rhode Island business holding a federal Phase II award; 51% of the research in Rhode Island"
+    deadlines: {cadence: "Two rounds a year; next Apr 6 to Apr 27, 2027", next: [2027-04-27], source: ri-phase2}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Online application in the round with the federal award", pages: null, note: "No page limit stated in the guidelines", source: ri-guidelines}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [ri-phase2, ri-guidelines]
+
+  - id: sc-match
+    name: "SCRA Federal Matching Grant"
+    funder: "South Carolina Research Authority"
+    jurisdiction: state
+    state: SC
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 50000, source: sc-scra, note: "Up to 50% of a qualifying federal award; two per company lifetime; repaid if the company leaves South Carolina within 12 months"}
+    success: {published: false, source: sc-scra}
+    timing: {award_days: [30, 30], basis: "Funded within 30 days of notice; notice about a week after the review meeting", source: sc-scra}
+    prerequisites: "South Carolina company holding a federal SBIR/STTR award, aimed at Phase I awardees pursuing Phase II"
+    deadlines: {cadence: "Rolling review", source: sc-scra}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Application, then a review meeting with SCRA", pages: null, note: "No page limit stated", source: sc-scra}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1, nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [sc-scra]
+
+  - id: tn-match-1
+    name: "LaunchTN SBIR/STTR Matching Fund (Phase I)"
+    funder: "Launch Tennessee"
+    jurisdiction: state
+    state: TN
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: tn-launchtn, note: "Up to 50% of the federal award; two tranches"}
+    success: {published: false, source: tn-launchtn}
+    prerequisites: "Pre-IPO Tennessee small business under 500 employees with a Notice of Award in the eligibility window; stays headquartered in Tennessee 24 months"
+    deadlines: {cadence: "One window a year (FY27 Oct 5-16, 2026); next window not stated", source: tn-launchtn}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Airtable form with the Notice of Award, the winning federal application, a use-of-funds document and articles of incorporation", pages: null, note: "No page limit stated", source: tn-launchtn}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [tn-launchtn]
+
+  - id: tn-match-2
+    name: "LaunchTN SBIR/STTR Matching Fund (Phase II)"
+    funder: "Launch Tennessee"
+    jurisdiction: state
+    state: TN
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 300000, source: tn-launchtn, note: "Up to 50% of the federal award; two tranches"}
+    success: {published: false, source: tn-launchtn}
+    prerequisites: "Pre-IPO Tennessee small business under 500 employees with a Phase II Notice of Award in the eligibility window"
+    deadlines: {cadence: "One window a year (FY27 Oct 5-16, 2026); next window not stated", source: tn-launchtn}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Airtable form with the Notice of Award, the winning federal application, a use-of-funds document and articles of incorporation", pages: null, note: "No page limit stated", source: tn-launchtn}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [tn-launchtn]
+
+  - id: wi-advance-1
+    name: "Wisconsin SBIR Advance (Phase I Match)"
+    funder: "Center for Technology Commercialization with WEDC"
+    jurisdiction: state
+    state: WI
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 75000, source: wi-sbir-advance, note: "50% of the federal Phase I award, $50K to $75K, paid on milestones including Lean Startup training and a draft Phase II proposal"}
+    success: {published: false, source: wi-sbir-advance}
+    prerequisites: "Company with a significant presence in Wisconsin holding a federal Phase I award"
+    deadlines: {cadence: "Solicitation rounds; next not announced on the program page", source: wi-sbir-advance}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Application per the Phase I guidelines; milestones include Lean Startup training and a Phase II draft", pages: null, note: "No page limit stated on the program page", source: wi-sbir-advance}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [wi-sbir-advance]
+
+  - id: wi-advance-2
+    name: "Wisconsin SBIR Advance (Phase II Match)"
+    funder: "Center for Technology Commercialization with WEDC"
+    jurisdiction: state
+    state: WI
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: wi-sbir-advance, note: "Up to $100K per year for up to 2 years, on milestones; apply each year"}
+    success: {published: false, source: wi-sbir-advance}
+    prerequisites: "Wisconsin company with a current or recently ended Phase II award and no more than three Phase II projects in five years"
+    deadlines: {cadence: "Solicitation rounds; next not announced on the program page", source: wi-sbir-advance}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Application per the Phase II guidelines with company-defined milestones", pages: null, note: "No page limit stated on the program page", source: wi-sbir-advance}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [wi-sbir-advance]
+
+  - id: wy-sbir-0
+    name: "Wyoming Phase 0/00"
+    funder: "Wyoming SBIR/STTR Initiative (University of Wyoming, Wyoming SBDC Network)"
+    jurisdiction: state
+    state: WY
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 5000, source: wy-wssi, note: "Proposal reviews, travel to program officers, market research and other pre-proposal costs"}
+    success: {published: false, source: wy-wssi}
+    prerequisites: "Wyoming owned and operated small business headquartered in Wyoming, registered as a WSSI client"
+    deadlines: {cadence: "Packet after the first WSSI advising meeting; no deadline stated", source: wy-wssi}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Register with WSSI, hold the first advising meeting, then complete the Phase 0/00 packet", pages: null, note: "No page limit stated", source: wy-wssi}
+    feeds: [nsf-sbir-1, nih-sbir-1, doe-sbir-1, dod-sbir-1]
+    sources: [wy-wssi]
+
+  - id: wy-match-1
+    name: "Wyoming SBIR/STTR Match Grant (Phase I)"
+    funder: "Wyoming Business Council"
+    jurisdiction: state
+    state: WY
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: wy-match, note: "Max 4 matches per business"}
+    success: {published: false, source: wy-match}
+    prerequisites: "Wyoming business with an active federal award and at least 50% of employees in Wyoming"
+    deadlines: {cadence: "Rolling, year-round", source: wy-match}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application with documents, then a virtual pitch to the WBC team; notice within two weeks", pages: null, note: "No page limit stated", source: wy-match}
+    requires: {any: [nsf-sbir-1, nsf-sbir-instr, nih-sbir-1, nih-sb-transition, arpa-h-sbir, doe-sbir-1, dod-sbir-1, nasa-sbir-1, usda-sbir-1, noaa-sbir-1, epa-sbir-1]}
+    sources: [wy-match]
+
+  - id: wy-match-2
+    name: "Wyoming SBIR/STTR Match Grant (Phase II)"
+    funder: "Wyoming Business Council"
+    jurisdiction: state
+    state: WY
+    vehicle: grant
+    stage: follow-on
+    entity: small-business
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 200000, source: wy-match, note: "Max 4 matches per business"}
+    success: {published: false, source: wy-match}
+    prerequisites: "Wyoming business with an active federal Phase II award and at least 50% of employees in Wyoming"
+    deadlines: {cadence: "Rolling, year-round", source: wy-match}
+    status: open
+    verified: 2026-11-23
+    effort: {steps: "Online application with documents, then a virtual pitch to the WBC team; notice within two weeks", pages: null, note: "No page limit stated", source: wy-match}
+    requires: {any: [nsf-sbir-2, nih-sbir-2, nci-sbir-bridge, doe-sbir-2, dod-sbir-2, nasa-sbir-2]}
+    sources: [wy-match]
+
+  - id: calseed
+    name: "CalSEED Concept and Prototype Awards"
+    funder: "California Energy Commission (EPIC), administered by New Energy Nexus"
+    jurisdiction: state
+    state: CA
+    vehicle: grant
+    stage: entry
+    entity: small-business
+    domains: [energy-climate, materials, hardware]
+    award: {max: 700000, source: calseed, note: "Concept Award, then for Concept winners a Prototype Award by competition; the FAQ's split ($150K + $450K) predates the current $700K total"}
+    success: {published: false, note: "20-25 Concept Awards a year (FAQ)", source: calseed-faq}
+    prerequisites: "Early-stage California clean energy company with under $1M in private funding (SBIR funding does not count)"
+    deadlines: {cadence: "One Concept Award call a year; next call not announced", source: calseed-faq}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Initial screen, then by invitation a full Concept Award application; Concept winners enter the Business Plan Competition for the Prototype Award", pages: null, note: "No page limit stated", source: calseed-faq}
+    feeds: [doe-sbir-1, nsf-sbir-1]
+    sources: [calseed, calseed-faq]
+
+  - id: wa-cef-rdd
+    name: "Washington Clean Energy Fund RD&D Grants"
+    funder: "Washington State Department of Commerce"
+    jurisdiction: state
+    state: WA
+    vehicle: grant
+    stage: scale
+    entity: either
+    domains: [energy-climate, materials, hardware]
+    trl: [4, 7]
+    award: {max: 2000000, source: wa-rdd-fundhub, note: "Award range $150K to $2M; about $10M in the 2025-2027 round"}
+    success: {published: false, source: wa-rdd-fundhub}
+    cost_share: Required (amount set in the RFA)
+    prerequisites: "Business, university, nonprofit or other organization with a significant presence in Washington; lab component validation up to full-scale prototype demonstration"
+    deadlines: {cadence: "Biennial RFA; 2025-2027 round closed Sep 3, 2026", source: wa-rdd}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Pre-application, then the full application per the RFA", pages: null, note: "RFA documents are in a Box folder; page limit not stated on the program page", source: wa-rdd-fundhub}
+    sources: [wa-rdd, wa-rdd-fundhub]
+
+  - id: md-mips
+    name: "Maryland Industrial Partnerships (MIPS)"
+    funder: "University of Maryland (Maryland Technology Enterprise Institute)"
+    jurisdiction: state
+    state: MD
+    vehicle: grant
+    stage: entry
+    entity: either
+    domains: [life-science-tools, diagnostics, materials, energy-climate, hardware]
+    award: {max: 100000, source: md-mips, note: "Per phase, paid to the university partner; $90K for start-ups; the company matches"}
+    success: {published: false, source: md-mips}
+    timing: {award_days: [60, 60], basis: "Award decisions within 60 days of the proposal deadline", source: md-mips}
+    cost_share: Company matches the MIPS share
+    prerequisites: "Maryland company paired with a faculty member at a University System of Maryland school, Morgan State or St. Mary's"
+    deadlines: {cadence: "Proposal deadlines; last on the program page Oct 15, 2026, next not posted", source: md-mips}
+    status: between-rounds
+    verified: 2026-11-23
+    effort: {steps: "Company and faculty Statements of Interest, a call with MIPS staff, then a joint proposal", pages: null, note: "No page limit stated on the program page", source: md-mips}
+    sources: [md-mips]

@@ -50,6 +50,53 @@ manual:
   massventures-start: https://www.mass-ventures.com/start-program-info
   mlsc-access: https://www.masslifesciences.com/programs/access-and-accelerate-grant/
   mlsc-impact: https://www.masslifesciences.com/programs/impact-catalyst/
+  al-match-1: https://innovatealabama.org/programs/supplemental-grant-program/
+  al-match-2: https://innovatealabama.org/programs/supplemental-grant-program/
+  ar-match-1: https://www.arkansasedc.com/science-technology/division/commercialization/sbir-matching-grant
+  ar-match-2: https://www.arkansasedc.com/science-technology/division/commercialization/sbir-matching-grant
+  hi-hsbir-0: https://www.htdc.org/funding/hsbir-grants/
+  hi-match-1: https://www.htdc.org/funding/hsbir-grants/
+  ia-seed-fund: https://opportunityiowa.gov/business/small-business-entrepreneurs/small-business-resources/americas-seed-fund-iowa-program
+  il-match-1: https://dceo.illinois.gov/whyillinois/sbir-sttr-phase1.html
+  il-match-2: https://dceo.illinois.gov/whyillinois/sbir-sttr-phase1.html
+  in-match-1: https://iedc.in.gov/sbir
+  in-match-2: https://iedc.in.gov/sbir
+  ks-sbir-0: https://www.kansascommerce.gov/kansas-sbir-sttr-matching-program/
+  ks-match-1: https://www.kansascommerce.gov/kansas-sbir-sttr-matching-program/
+  ky-match-1: https://newkentuckyhome.ky.gov/Entrepreneurship/SBIR_STTR
+  ky-match-2: https://newkentuckyhome.ky.gov/Entrepreneurship/SBIR_STTR
+  md-match-1: https://www.tedcomd.com/sites/default/files/2025-12/UPDATED%208Dec2025%20SBIR%20Matching%20Funds%20RFA%20Version%203.0.pdf
+  md-match-2: https://www.tedcomd.com/sites/default/files/2025-12/UPDATED%208Dec2025%20SBIR%20Matching%20Funds%20RFA%20Version%203.0.pdf
+  mt-match: https://commerce.mt.gov/Business/Business-Assistance/Montana-SBIR-STTR-Matching-Funds-Program
+  nc-sbir-0: https://www.commerce.nc.gov/oncsbp-incentive-solicitation-fy-2027/download?attachment
+  nc-match-1: https://www.commerce.nc.gov/grants-incentives/technology-funds/one-north-carolina-small-business-program
+  ne-sbir-0: https://opportunity.nebraska.gov/programs/business/sbir-sttr/
+  ne-match-1: https://opportunity.nebraska.gov/programs/business/sbir-sttr/
+  ne-match-2: https://opportunity.nebraska.gov/programs/business/sbir-sttr/
+  nj-direct-1: https://www.njeda.gov/wp-content/uploads/2026/01/CSIT_SBIR-Round-5-NOFA_2026.pdf
+  nj-bridge: https://www.njeda.gov/wp-content/uploads/2026/01/CSIT_SBIR-Round-5-NOFA_2026.pdf
+  nm-match: https://edd.newmexico.gov/grants/tio-grants/
+  ny-img-1: https://esd.ny.gov/innovation-matching-grants-program
+  ny-img-2: https://esd.ny.gov/innovation-matching-grants-program
+  or-sbir-0: https://www.oregon.gov/biz/Publications/SBIRSTTR/25-27/AppSupport/PgmGdlns_SBIRSTTR_Nov2026.pdf
+  or-match-1: https://www.oregon.gov/biz/programs/SBIR-STTR/Pages/default.aspx
+  or-match-2: https://www.oregon.gov/biz/programs/SBIR-STTR/Pages/default.aspx
+  pr-match-1: https://prsciencetrust.org/wp-content/uploads/2025/02/Approved-Phase-I-Matching-Funds-Guidelines-2025.pdf
+  pr-match-2: https://prsciencetrust.org/wp-content/uploads/2025/02/Approved-Phase-II-Matching-Funds-Guidelines-2025.pdf
+  ri-sbir-0: https://stac.ri.gov/wp-content/uploads/2017/05/innovate_ri_fund_phase_0_guidelines_2025.pdf
+  ri-match-1: https://stac.ri.gov/funding_opp/sbirsttr-phase-matching-grants/
+  ri-match-2: https://stac.ri.gov/funding_opp/sbirsttr-phase-ii-matching-grants/
+  sc-match: https://www.scra.org/wp-content/uploads/2025/08/Federal-Matching-Grant-Eligibility-and-Criteria_Aug25.pdf
+  tn-match-1: https://launchtn.org/entrepreneur-programs/sbir-sttr-matching-fund/
+  tn-match-2: https://launchtn.org/entrepreneur-programs/sbir-sttr-matching-fund/
+  wi-advance-1: https://wisconsinctc.org/programs/sbir-and-sttr-guidance/sbiradvance/
+  wi-advance-2: https://wisconsinctc.org/programs/sbir-and-sttr-guidance/sbiradvance/
+  wy-sbir-0: https://www.uwyo.edu/sbir/index.html
+  wy-match-1: https://wyomingbusiness.org/business/financing/grants/sbir/
+  wy-match-2: https://wyomingbusiness.org/business/financing/grants/sbir/
+  calseed: https://calseed.fund/faq/
+  wa-cef-rdd: https://www.commerce.wa.gov/epic/rdd/
+  md-mips: https://mips.umd.edu/
 
 discovery:
   keywords: ["SBIR", "STTR", "small business innovation", "commercialization", "technology transfer", "prototype",
